@@ -1,0 +1,84 @@
+[   0.20s] -- status WAITING waiting for a new deal (start the tool before the cards are dealt)
+[   3.10s] new_round     round 1: trump 7♦, my hand A♦ 10♣ 7♥ K♥ 6♠
+[   3.10s] -- status OK 
+[  10.40s] lead          opponent leads 9♣
+[  10.40s] >> RESPOND: BEAT 10♣ on 9♣   (win 72% · lose 26% · 2016 samples)
+             + RAISE (დავი) — win chance 72% ≥ 70%
+[  12.00s] response      I answer face up 10♣ (beats)
+[  12.60s] trick         I take the trick (+10 pts) — score me 10 / opp 0
+[  13.40s] >> CLAIM: CONTINUE — press გაგრძელება   (you have 10 pts; need 61; P(enough)=0%)
+[  14.60s] draw          I draw A♣; opponent draws 1; deck 24
+[  14.60s] >> LEAD: LEAD 6♠   (win 77% · lose 22% · 1824 samples)
+[  18.70s] lead          I lead 7♥ K♥
+[  21.10s] response      opponent answers 6♦ 6♣
+[  21.40s] trick         I take the trick (+4 pts) — score me 14 / opp 0
+[  23.30s] draw          I draw A♥ 8♠; opponent draws 2; deck 20
+[  23.30s] >> LEAD: LEAD 8♠   (win 82% · lose 16% · 2368 samples · close call: the next option is about as good)
+[  26.50s] lead          I lead 6♠ 8♠
+[  28.60s] response      opponent answers 7♣ Q♥
+[  29.00s] trick         I take the trick (+3 pts) — score me 17 / opp 0
+[  31.20s] draw          I draw Q♣ 8♥; opponent draws 2; deck 16
+[  31.20s] >> LEAD: LEAD Q♣   (win 79% · lose 19% · 2624 samples · close call: the next option is about as good)
+[  34.30s] lead          I lead 8♥ A♥
+[  36.50s] response      opponent beats with 10♦ K♦
+[  36.90s] trick         opponent takes the trick (+25 pts) — score me 17 / opp 25
+[  43.20s] draw          I draw J♦ 8♣; opponent draws 2; deck 12
+[  45.50s] lead          opponent leads J♣
+[  45.50s] >> RESPOND: BEAT A♣ on J♣   (win 84% · lose 14% · 3472 samples)
+             + RAISE (დავი) — win chance 84% ≥ 70%
+[  47.60s] response      I answer A♣ (beats)
+[  48.40s] trick         I take the trick (+13 pts) — score me 30 / opp 25
+[  50.00s] draw          I draw 10♥; opponent draws 1; deck 10
+[  50.00s] >> LEAD: LEAD 8♣ Q♣   (win 86% · lose 12% · 3440 samples)
+[  53.20s] stake         I raised: stake now დავი (2)
+[  55.20s] >> LEAD: LEAD 8♣ Q♣   (win 86% · lose 12% · 4144 samples)
+[  56.00s] lead          I lead 8♣ Q♣
+[  58.20s] response      opponent answers 9♥ 7♠
+[  58.60s] trick         I take the trick (+3 pts) — score me 33 / opp 25
+[  59.30s] >> CLAIM: CONTINUE — press გაგრძელება   (you have 33 pts; need 61; P(enough)=0%)
+[  60.70s] draw          I draw K♣ A♠; opponent draws 2; deck 6
+[  60.70s] >> LEAD: LEAD K♣   (win 95% · lose 5% · 4400 samples)
+[  61.70s] lead          I lead K♣
+[  62.90s] response      opponent gives 1 card(s) face down
+[  63.40s] reveal        opponent's face-down cards: 9♠
+[  63.70s] trick         I take the trick (+4 pts) — score me 37 / opp 25
+[  65.20s] draw          I draw J♠; opponent draws 1; deck 4
+[  65.20s] >> LEAD: LEAD J♠ A♠   (win 91% · lose 2% · 4512 samples)
+[  67.80s] lead          I lead J♠ A♠
+[  70.60s] response      opponent beats with Q♦ 10♠
+[  71.00s] trick         opponent takes the trick (+26 pts) — score me 37 / opp 51
+[  77.80s] draw          I draw 7♦ 6♥; opponent draws 2 (I got the trump card); deck 0
+[  83.90s] raise_offer   opponent offers to raise to სე (3)
+[  83.90s] >> RAISE_OFFER: DECLINE (არ მსურს)   (win 0% · lose 100% · accept EV -3.00 vs decline -2.00 (break-even win chance 17% with no draws))
+[  92.00s] stake         I counter-raised: stake now ჩარი (4)
+[  93.90s] lead          opponent leads K♠
+[  93.90s] >> RESPOND: BEAT 7♦ on K♠   (win 0% · lose 100% · exact)
+[  97.70s] response      I answer face up 7♦ (beats)
+[  98.00s] trick         I take the trick (+4 pts) — score me 41 / opp 51
+[ 102.80s] >> LEAD: LEAD J♦   (win 0% · lose 100% · exact)
+[ 103.60s] lead          I lead 6♥ 10♥
+[ 105.50s] raise_offer   opponent offers to raise to ფანჯი (5)
+[ 107.70s] stake         opponent's raise accepted: stake now ფანჯი (5)
+[ 110.20s] response      opponent beats with 8♦ J♥
+[ 110.70s] trick         opponent takes the trick (+12 pts) — score me 41 / opp 63
+[ 112.80s] lead          opponent leads Q♠
+[ 112.80s] >> RESPOND: BEAT J♦ on Q♠   (win 0% · lose 100% · exact)
+[ 113.80s] response      I answer J♦ (beats)
+[ 114.60s] trick         I take the trick (+5 pts) — score me 46 / opp 63
+[ 116.00s] >> CLAIM: CONTINUE — press გაგრძელება   (you have 46 pts; need 61; P(enough)=0%)
+[ 116.90s] >> LEAD: LEAD A♦   (win 0% · lose 100% · exact)
+[ 117.60s] lead          I lead A♦
+[ 118.50s] response      opponent answers 9♦
+[ 119.40s] trick         I take the trick (+11 pts) — score me 57 / opp 63
+[ 119.40s] round_end     table cleared — round over (me 57 / opp 63)
+[ 119.40s] -- status WAITING round over — waiting for the next deal
+[ 119.40s] -- phase round_over
+[ 122.30s] -- status WAITING waiting for a new deal (start the tool before the cards are dealt)
+[ 124.50s] new_round     round 2: trump J♦, my hand 6♦ 10♣ J♣ A♣ 10♥
+[ 124.50s] -- status OK 
+[ 125.90s] -- status UNCERTAIN cards appeared in the middle but no hand lost them
+[ 126.30s] lead          opponent leads 8♥
+[ 126.30s] -- status OK 
+[ 126.30s] >> RESPOND: BEAT 10♥ on 8♥   (win 65% · lose 32% · 2016 samples)
+
+processed 7619 frames, 101 stable observations in 72.5s

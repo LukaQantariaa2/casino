@@ -1,0 +1,137 @@
+{
+  "name": "Bura - 3 cards",
+  "description": "3-card variant: same deck, 31 points to win.",
+  "deck": {
+    "suits": [
+      "D",
+      "C",
+      "H",
+      "S"
+    ],
+    "ranks": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "J",
+      "Q",
+      "K",
+      "A"
+    ]
+  },
+  "rank_order_low_to_high": [
+    "6",
+    "7",
+    "8",
+    "9",
+    "J",
+    "Q",
+    "K",
+    "10",
+    "A"
+  ],
+  "card_points": {
+    "6": 0,
+    "7": 0,
+    "8": 0,
+    "9": 0,
+    "10": 10,
+    "J": 2,
+    "Q": 3,
+    "K": 4,
+    "A": 11
+  },
+  "hand_size": 3,
+  "trump": {
+    "trump_card_is_last_card_of_deck": true,
+    "trump_beats_any_non_trump": true
+  },
+  "lead": {
+    "min_cards": 1,
+    "max_cards": 3,
+    "same_suit_required": true,
+    "allow_mixed_suits_if_all_trumps": false
+  },
+  "response": {
+    "must_play_same_number_of_cards": true,
+    "beating_is_optional": true,
+    "responder_wins_only_if_all_cards_beaten": true,
+    "discarded_cards_are_revealed": true
+  },
+  "draw": {
+    "trick_winner_draws_first": true,
+    "mode": "alternate_one_by_one",
+    "trick_winner_leads_next": true
+  },
+  "scoring": {
+    "win_points": 31,
+    "total_points_in_deck_hint": 120,
+    "claim_enabled": true,
+    "claim_only_after_winning_trick": true,
+    "false_claim_result": "lose_round",
+    "when_cards_run_out": "higher_points_wins",
+    "tie_result": "draw",
+    "loser_with_zero_tricks_multiplier": 1
+  },
+  "stakes": {
+    "levels": [
+      {
+        "value": 1,
+        "name": "1"
+      },
+      {
+        "value": 2,
+        "name": "დავი"
+      },
+      {
+        "value": 3,
+        "name": "სე"
+      },
+      {
+        "value": 4,
+        "name": "ჩარი"
+      },
+      {
+        "value": 5,
+        "name": "ფანჯი"
+      },
+      {
+        "value": 6,
+        "name": "შაში"
+      }
+    ],
+    "raise_allowed_only_on_own_turn": true,
+    "same_player_cannot_raise_twice_in_a_row": true,
+    "declining_a_raise_loses": "current_stake",
+    "fold_loses": "current_stake"
+  },
+  "specials": [
+    {
+      "name": "Bura (3 trumps)",
+      "enabled": false,
+      "condition": {
+        "type": "trumps_in_hand",
+        "count": 3
+      },
+      "check": "after_every_draw",
+      "effect": "win_round"
+    },
+    {
+      "name": "Three aces",
+      "enabled": false,
+      "condition": {
+        "type": "same_rank_in_hand",
+        "rank": "A",
+        "count": 3
+      },
+      "check": "after_every_draw",
+      "effect": "win_round"
+    }
+  ],
+  "assistant": {
+    "claim_min_probability": 0.999,
+    "raise_min_win_probability": 0.7,
+    "counter_raise_min_win_probability": 0.8
+  }
+}

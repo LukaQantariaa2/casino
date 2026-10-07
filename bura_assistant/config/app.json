@@ -1,0 +1,44 @@
+{
+  "paths": {
+    "cards_dir": "../cards",
+    "rules": "config/rules/bura5_adjarabet.json",
+    "layout": "config/layout/adjarabet_1920x1080.json",
+    "logs_dir": "logs"
+  },
+  "capture": {
+    "window_title_hint": "",
+    "monitor_index": 1,
+    "fixed_region": null,
+    "fps": 10,
+    "still_frames": 1,
+    "diff_threshold": 2.5
+  },
+  "engine": {
+    "time_budget_s": 5,
+    "max_samples": 50000,
+    "opponent_model": "heuristic"
+  },
+  "tracker": {
+    "uncertain_to_pause": 4,
+    "lowconf_to_pause": 6
+  },
+  "overlay": {
+    "x": 290,
+    "y": 255,
+    "width": 450,
+    "opacity": 0.92,
+    "font_size": 14,
+    "click_through": false,
+    "show_unseen_cards": true,
+    "exclude_from_capture": true
+  },
+  "hotkeys": {
+    "pause_resume": "F8",
+    "correction": "F9",
+    "reset_round": "F10",
+    "toggle_click_through": "F7"
+  },
+  "ocr": {
+    "enabled": true
+  }
+}

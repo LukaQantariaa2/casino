@@ -1,0 +1,1086 @@
+{"t": 1791384212.9669938, "kind": "match", "text": "match score me None / opp None, target 5, bet 2.0"}
+{"t": 1791384214.1516385, "kind": "new_round", "text": "round 1: trump J♠, my hand 9♦ Q♦ 10♣ Q♣ 9♠", "round": 1}
+{"t": 1791384216.285337, "kind": "lead", "text": "opponent leads 10♦ K♦", "round": 1}
+{"t": 1791384229.257388, "kind": "response", "text": "I answer face down 9♦ 9♠", "round": 1}
+{"t": 1791384229.5511446, "kind": "trick", "text": "opponent takes the trick (+14 pts) — score me 0 / opp 14", "round": 1}
+{"t": 1791384232.1337705, "kind": "draw", "text": "I draw J♣ 7♠; opponent draws 2; deck 22", "round": 1}
+{"t": 1791384233.6835544, "kind": "lead", "text": "opponent leads 6♣ 8♣", "round": 1}
+{"t": 1791384241.7062316, "kind": "response", "text": "I answer face up 10♣ Q♣ (beats)", "round": 1}
+{"t": 1791384242.2505145, "kind": "trick", "text": "I take the trick (+13 pts) — score me 13 / opp 14", "round": 1}
+{"t": 1791384244.0330698, "kind": "draw", "text": "I draw 6♦ J♥; opponent draws 2; deck 18", "round": 1}
+{"t": 1791384251.308015, "kind": "lead", "text": "I lead J♣", "round": 1}
+{"t": 1791384256.318208, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 1}
+{"t": 1791384256.812191, "kind": "reveal", "text": "opponent's face-down cards: A♣", "round": 1}
+{"t": 1791384257.1070178, "kind": "trick", "text": "opponent takes the trick (+13 pts) — score me 13 / opp 27", "round": 1}
+{"t": 1791384258.500858, "kind": "draw", "text": "I draw A♥; opponent draws 1; deck 16", "round": 1}
+{"t": 1791384260.7391655, "kind": "lead", "text": "opponent leads 7♦", "round": 1}
+{"t": 1791384267.4147108, "kind": "response", "text": "I answer face down 6♦", "round": 1}
+{"t": 1791384268.0985448, "kind": "trick", "text": "opponent takes the trick (+0 pts) — score me 13 / opp 27", "round": 1}
+{"t": 1791384270.4012716, "kind": "draw", "text": "I draw J♦; opponent draws 1; deck 14", "round": 1}
+{"t": 1791384272.266861, "kind": "raise_offer", "text": "opponent offers to raise to დავი (2)", "round": 1}
+{"t": 1791384277.9677894, "kind": "round_end", "text": "table cleared — round over (me 13 / opp 27)", "round": 1}
+{"t": 1791384280.070965, "kind": "new_round", "text": "round 2: trump A♥, my hand 9♣ A♣ 7♠ 8♠ K♠", "round": 2}
+{"t": 1791384283.9196925, "kind": "raise_offer", "text": "opponent offers to raise to დავი (2)", "round": 2}
+{"t": 1791384295.9166968, "kind": "round_end", "text": "table cleared — round over (me 0 / opp 0)", "round": 2}
+{"t": 1791384298.100071, "kind": "new_round", "text": "round 3: trump 10♠, my hand 6♦ 8♦ 8♣ 7♠ J♠", "round": 3}
+{"t": 1791384303.9896493, "kind": "lead", "text": "opponent leads J♦ Q♦", "round": 3}
+{"t": 1791384311.5249405, "kind": "response", "text": "I answer face up 7♠ J♠ (beats)", "round": 3}
+{"t": 1791384311.8040087, "kind": "trick", "text": "I take the trick (+7 pts) — score me 7 / opp 0", "round": 3}
+{"t": 1791384313.402521, "kind": "draw", "text": "I draw 10♣ 6♠; opponent draws 2; deck 22", "round": 3}
+{"t": 1791384320.5194964, "kind": "lead", "text": "I lead 6♦ 8♦", "round": 3}
+{"t": 1791384324.707204, "kind": "response", "text": "opponent beats with 10♦ Q♠", "round": 3}
+{"t": 1791384325.1005921, "kind": "trick", "text": "opponent takes the trick (+13 pts) — score me 7 / opp 13", "round": 3}
+{"t": 1791384326.5214882, "kind": "draw", "text": "I draw 7♦ J♥; opponent draws 2; deck 18", "round": 3}
+{"t": 1791384329.0516918, "kind": "lead", "text": "opponent leads 7♣", "round": 3}
+{"t": 1791384335.5669208, "kind": "response", "text": "I answer face up 10♣ (beats)", "round": 3}
+{"t": 1791384336.1564348, "kind": "trick", "text": "I take the trick (+10 pts) — score me 17 / opp 13", "round": 3}
+{"t": 1791384338.051947, "kind": "draw", "text": "I draw 9♦; opponent draws 1; deck 16", "round": 3}
+{"t": 1791384347.4698067, "kind": "lead", "text": "I lead 7♦ 9♦", "round": 3}
+{"t": 1791384351.2832258, "kind": "response", "text": "opponent beats with A♦ 8♠", "round": 3}
+{"t": 1791384351.6730208, "kind": "trick", "text": "opponent takes the trick (+11 pts) — score me 17 / opp 24", "round": 3}
+{"t": 1791384353.469149, "kind": "draw", "text": "I draw A♥ A♠; opponent draws 2; deck 12", "round": 3}
+{"t": 1791384355.2000532, "kind": "lead", "text": "opponent leads Q♣ K♣", "round": 3}
+{"t": 1791384365.7724233, "kind": "response", "text": "I answer face up 6♠ A♠ (beats)", "round": 3}
+{"t": 1791384366.2558663, "kind": "trick", "text": "I take the trick (+18 pts) — score me 35 / opp 24", "round": 3}
+{"t": 1791384367.8544958, "kind": "draw", "text": "I draw A♣ 6♥; opponent draws 2; deck 8", "round": 3}
+{"t": 1791384375.5650673, "kind": "lead", "text": "I lead 8♣ A♣", "round": 3}
+{"t": 1791384380.1603928, "kind": "response", "text": "opponent answers 6♣ 8♥", "round": 3}
+{"t": 1791384380.554865, "kind": "trick", "text": "I take the trick (+11 pts) — score me 46 / opp 24", "round": 3}
+{"t": 1791384382.049337, "kind": "draw", "text": "I draw 9♥ K♠; opponent draws 2; deck 4", "round": 3}
+{"t": 1791384390.1789172, "kind": "round_end", "text": "table cleared — round over (me 46 / opp 24)", "round": 3}
+{"t": 1791384392.2820146, "kind": "new_round", "text": "round 4: trump 7♠, my hand 9♣ 10♣ 8♥ 9♥ 10♥", "round": 4}
+{"t": 1791384399.9371192, "kind": "lead", "text": "I lead 8♥ 9♥ 10♥", "round": 4}
+{"t": 1791384404.47471, "kind": "raise_offer", "text": "opponent offers to raise to დავი (2)", "round": 4}
+{"t": 1791384406.5636942, "kind": "round_end", "text": "table cleared — round over (me 0 / opp 0)", "round": 4}
+{"t": 1791384408.6521695, "kind": "new_round", "text": "round 5: trump 8♣, my hand 7♦ 10♦ 10♣ A♣ 9♠", "round": 5}
+{"t": 1791384412.0823145, "kind": "lead", "text": "opponent leads 6♥", "round": 5}
+{"t": 1791384419.3794725, "kind": "response", "text": "I answer face down 7♦", "round": 5}
+{"t": 1791384420.1520398, "kind": "trick", "text": "opponent takes the trick (+0 pts) — score me 0 / opp 0", "round": 5}
+{"t": 1791384421.7677062, "kind": "draw", "text": "I draw A♥; opponent draws 1; deck 24", "round": 5}
+{"t": 1791384423.29822, "kind": "lead", "text": "opponent leads 9♦ J♦", "round": 5}
+{"t": 1791384432.3914468, "kind": "stake", "text": "I raised: stake now დავი (2)", "round": 5}
+{"t": 1791384441.1725233, "kind": "response", "text": "I answer face up 10♦ A♣ (beats)", "round": 5}
+{"t": 1791384441.5782108, "kind": "trick", "text": "I take the trick (+23 pts) — score me 23 / opp 0", "round": 5}
+{"t": 1791384443.3507376, "kind": "draw", "text": "I draw 6♣ Q♠; opponent draws 2; deck 20", "round": 5}
+{"t": 1791384452.3004434, "kind": "lead", "text": "I lead 9♠", "round": 5}
+{"t": 1791384455.394565, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 5}
+{"t": 1791384455.88843, "kind": "reveal", "text": "opponent's face-down cards: J♠", "round": 5}
+{"t": 1791384456.1852906, "kind": "trick", "text": "opponent takes the trick (+2 pts) — score me 23 / opp 2", "round": 5}
+{"t": 1791384457.7813733, "kind": "draw", "text": "I draw K♣; opponent draws 1; deck 18", "round": 5}
+{"t": 1791384458.7164667, "kind": "lead", "text": "opponent leads 6♦", "round": 5}
+{"t": 1791384467.1367152, "kind": "response", "text": "I answer face down Q♠", "round": 5}
+{"t": 1791384467.922186, "kind": "trick", "text": "opponent takes the trick (+3 pts) — score me 23 / opp 5", "round": 5}
+{"t": 1791384469.7333467, "kind": "draw", "text": "I draw K♠; opponent draws 1; deck 16", "round": 5}
+{"t": 1791384471.8674035, "kind": "lead", "text": "opponent leads 7♣ 9♣ J♣", "round": 5}
+{"t": 1791384483.22881, "kind": "response", "text": "I answer face down 6♣ K♣ K♠", "round": 5}
+{"t": 1791384483.7015443, "kind": "trick", "text": "opponent takes the trick (+10 pts) — score me 23 / opp 15", "round": 5}
+{"t": 1791384487.5168445, "kind": "draw", "text": "I draw 8♦ 9♥ 7♠; opponent draws 3; deck 10", "round": 5}
+{"t": 1791384489.9539487, "kind": "lead", "text": "opponent leads 7♥ 8♥ J♥ Q♥", "round": 5}
+{"t": 1791384501.8954978, "kind": "response", "text": "I answer face down 8♦ 9♥ A♥ 7♠", "round": 5}
+{"t": 1791384502.5042226, "kind": "trick", "text": "opponent takes the trick (+16 pts) — score me 23 / opp 31", "round": 5}
+{"t": 1791384505.6921432, "kind": "draw", "text": "I draw Q♦ A♦ 10♥ 8♠; opponent draws 4; deck 2", "round": 5}
+{"t": 1791384508.6368687, "kind": "lead", "text": "opponent leads 6♠ 10♠ A♠", "round": 5}
+{"t": 1791384514.358345, "kind": "response", "text": "I answer face down A♦ 10♣ 10♥", "round": 5}
+{"t": 1791384514.8374932, "kind": "trick", "text": "opponent takes the trick (+52 pts) — score me 23 / opp 83", "round": 5}
+{"t": 1791384516.3940864, "kind": "round_end", "text": "round over (panel shows 15 cards / ≥25 pts)", "round": 5, "panel": ["6♥", "7♦", "J♠", "6♦", "7♣", "J♣", "9♣", "K♣", "K♠", "8♥", "7♥", "J♥", "9♥", "8♦", "A♦"]}
+{"t": 1791384518.94841, "kind": "match", "text": "match score me None / opp None, target None, bet None"}
+{"t": 1791384524.186511, "kind": "match", "text": "match score me None / opp None, target 5, bet 2.0"}
+{"t": 1791384525.499653, "kind": "new_round", "text": "round 6: trump A♥, my hand 10♦ 9♣ Q♣ 7♥ 7♠", "round": 6}
+{"t": 1791384533.253905, "kind": "lead", "text": "I lead 9♣ Q♣", "round": 6}
+{"t": 1791384535.1436915, "kind": "response", "text": "opponent beats with 10♣ J♣", "round": 6}
+{"t": 1791384535.5346622, "kind": "trick", "text": "opponent takes the trick (+15 pts) — score me 0 / opp 15", "round": 6}
+{"t": 1791384538.1306353, "kind": "draw", "text": "I draw 9♥ J♠; opponent draws 2; deck 22", "round": 6}
+{"t": 1791384539.3853295, "kind": "lead", "text": "opponent leads 6♣", "round": 6}
+{"t": 1791384547.9646487, "kind": "response", "text": "I answer 7♠", "round": 6}
+{"t": 1791384548.7709572, "kind": "trick", "text": "opponent takes the trick (+0 pts) — score me 0 / opp 15", "round": 6}
+{"t": 1791384550.1820457, "kind": "draw", "text": "I draw A♣; opponent draws 1; deck 20", "round": 6}
+{"t": 1791384552.215409, "kind": "lead", "text": "opponent leads 6♠ K♠", "round": 6}
+{"t": 1791384561.5854053, "kind": "response", "text": "I answer face up 9♥ J♠ (beats)", "round": 6}
+{"t": 1791384561.9705913, "kind": "trick", "text": "I take the trick (+6 pts) — score me 6 / opp 15", "round": 6}
+{"t": 1791384563.4930878, "kind": "draw", "text": "I draw 7♣ A♠; opponent draws 2; deck 16", "round": 6}
+{"t": 1791384570.7168975, "kind": "lead", "text": "I lead 7♣ A♣", "round": 6}
+{"t": 1791384581.6191156, "kind": "response", "text": "opponent answers (2 card(s), not seen)", "round": 6}
+{"t": 1791384581.619218, "kind": "trick", "text": "I take the trick (+11 pts, 2 unseen) — score me 17 / opp 15", "round": 6}
+{"t": 1791384583.9344156, "kind": "draw", "text": "I draw J♦ 6♥; opponent draws 2; deck 12", "round": 6}
+{"t": 1791384593.4443324, "kind": "lead", "text": "I lead J♦", "round": 6}
+{"t": 1791384595.936632, "kind": "response", "text": "opponent beats with A♦", "round": 6}
+{"t": 1791384596.2323143, "kind": "trick", "text": "opponent takes the trick (+13 pts) — score me 17 / opp 28", "round": 6}
+{"t": 1791384597.826085, "kind": "draw", "text": "I draw Q♠; opponent draws 1; deck 10", "round": 6}
+{"t": 1791384599.2706077, "kind": "lead", "text": "opponent leads 8♣ K♣", "round": 6}
+{"t": 1791384606.7860763, "kind": "response", "text": "I answer face up 6♥ 7♥ (beats)", "round": 6}
+{"t": 1791384607.391084, "kind": "trick", "text": "I take the trick (+4 pts) — score me 21 / opp 28", "round": 6}
+{"t": 1791384608.8643954, "kind": "draw", "text": "I draw 8♥ 10♥; opponent draws 2; deck 6", "round": 6}
+{"t": 1791384618.928771, "kind": "lead", "text": "I lead Q♠ A♠", "round": 6}
+{"t": 1791384622.830101, "kind": "response", "text": "opponent answers 8♦ 8♠", "round": 6}
+{"t": 1791384623.1197166, "kind": "trick", "text": "I take the trick (+14 pts) — score me 35 / opp 28", "round": 6}
+{"t": 1791384624.814157, "kind": "draw", "text": "I draw 6♦ K♦; opponent draws 2; deck 2", "round": 6}
+{"t": 1791384637.0826857, "kind": "round_end", "text": "table cleared — round over (me 35 / opp 28, some cards unseen)", "round": 6}
+{"t": 1791384639.2630725, "kind": "new_round", "text": "round 7: trump J♥, my hand K♦ K♣ 8♥ A♥ J♠", "round": 7}
+{"t": 1791384646.5801005, "kind": "lead", "text": "I lead J♠", "round": 7}
+{"t": 1791384653.8690042, "kind": "response", "text": "opponent answers (1 card(s), not seen)", "round": 7}
+{"t": 1791384653.8691823, "kind": "trick", "text": "I take the trick (+2 pts, 1 unseen) — score me 2 / opp 0", "round": 7}
+{"t": 1791384655.7805362, "kind": "draw", "text": "I draw A♦; opponent draws 1; deck 24", "round": 7}
+{"t": 1791384658.3180816, "kind": "lead", "text": "opponent leads 7♣ 9♣ J♣", "round": 7}
+{"t": 1791384669.2384796, "kind": "response", "text": "I answer face up K♣ 8♥ A♥ (beats)", "round": 7}
+{"t": 1791384669.7213938, "kind": "trick", "text": "I take the trick (+17 pts) — score me 19 / opp 0", "round": 7}
+{"t": 1791384671.6167638, "kind": "draw", "text": "I draw 6♣ 7♠ A♠; opponent draws 3; deck 18", "round": 7}
+{"t": 1791384680.6456363, "kind": "lead", "text": "I lead 7♠", "round": 7}
+{"t": 1791384681.5232031, "kind": "response", "text": "opponent answers (1 card(s), not seen)", "round": 7}
+{"t": 1791384682.0220141, "kind": "reveal", "text": "opponent's face-down cards: 10♠", "round": 7}
+{"t": 1791384682.3244834, "kind": "trick", "text": "opponent takes the trick (+10 pts) — score me 19 / opp 10", "round": 7}
+{"t": 1791384684.4317405, "kind": "draw", "text": "I draw Q♥; opponent draws 1; deck 16", "round": 7}
+{"t": 1791384685.869271, "kind": "lead", "text": "opponent leads 6♠ 8♠", "round": 7}
+{"t": 1791384697.285382, "kind": "response", "text": "I answer face up Q♥ A♠ (beats)", "round": 7}
+{"t": 1791384697.6741085, "kind": "trick", "text": "I take the trick (+14 pts) — score me 33 / opp 10", "round": 7}
+{"t": 1791384699.3645976, "kind": "draw", "text": "I draw 6♦ 8♦; opponent draws 2; deck 12", "round": 7}
+{"t": 1791384710.6202626, "kind": "stake", "text": "I raised: stake now დავი (2)", "round": 7}
+{"t": 1791384716.0311308, "kind": "lead", "text": "I lead 6♦ 8♦ K♦ A♦", "round": 7}
+{"t": 1791384723.866884, "kind": "response", "text": "opponent beats with 7♦ Q♦ 6♥ 9♥", "round": 7}
+{"t": 1791384724.5451958, "kind": "trick", "text": "opponent takes the trick (+18 pts) — score me 33 / opp 28", "round": 7}
+{"t": 1791384725.8503127, "kind": "draw", "text": "I draw 10♣ Q♣ A♣ 7♥; opponent draws 4; deck 4", "round": 7}
+{"t": 1791384733.3276608, "kind": "raise_offer", "text": "opponent offers to raise to სე (3)", "round": 7}
+{"t": 1791384735.5656273, "kind": "round_end", "text": "table cleared — round over (me 33 / opp 28, some cards unseen)", "round": 7}
+{"t": 1791384737.662974, "kind": "new_round", "text": "round 8: trump J♣, my hand 7♣ 8♣ 7♥ J♠ K♠", "round": 8}
+{"t": 1791384739.214303, "kind": "lead", "text": "opponent leads 7♠ 8♠", "round": 8}
+{"t": 1791384746.740903, "kind": "response", "text": "I answer face up J♠ K♠ (beats)", "round": 8}
+{"t": 1791384747.1294656, "kind": "trick", "text": "I take the trick (+6 pts) — score me 6 / opp 0", "round": 8}
+{"t": 1791384748.6134152, "kind": "draw", "text": "I draw 6♣ J♥; opponent draws 2; deck 22", "round": 8}
+{"t": 1791384756.442741, "kind": "lead", "text": "I lead 7♥", "round": 8}
+{"t": 1791384757.3324194, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 8}
+{"t": 1791384757.8282807, "kind": "reveal", "text": "opponent's face-down cards: A♥", "round": 8}
+{"t": 1791384758.1309974, "kind": "trick", "text": "opponent takes the trick (+11 pts) — score me 6 / opp 11", "round": 8}
+{"t": 1791384760.0307298, "kind": "draw", "text": "I draw K♣; opponent draws 1; deck 20", "round": 8}
+{"t": 1791384761.372857, "kind": "lead", "text": "opponent leads 6♠", "round": 8}
+{"t": 1791384767.8421235, "kind": "response", "text": "I answer face down J♥", "round": 8}
+{"t": 1791384768.4247968, "kind": "trick", "text": "opponent takes the trick (+2 pts) — score me 6 / opp 13", "round": 8}
+{"t": 1791384771.930804, "kind": "draw", "text": "I draw 6♦; opponent draws 1; deck 18", "round": 8}
+{"t": 1791384773.4783595, "kind": "lead", "text": "opponent leads 6♥ 9♥", "round": 8}
+{"t": 1791384780.4054384, "kind": "response", "text": "I answer face down 6♦ 6♣", "round": 8}
+{"t": 1791384780.8979523, "kind": "trick", "text": "opponent takes the trick (+0 pts) — score me 6 / opp 13", "round": 8}
+{"t": 1791384782.2802746, "kind": "draw", "text": "I draw 10♦ 8♥; opponent draws 2; deck 14", "round": 8}
+{"t": 1791384785.342942, "kind": "lead", "text": "opponent leads 10♥", "round": 8}
+{"t": 1791384791.5735528, "kind": "response", "text": "I answer face up K♣ (beats)", "round": 8}
+{"t": 1791384792.1599348, "kind": "trick", "text": "I take the trick (+14 pts) — score me 20 / opp 13", "round": 8}
+{"t": 1791384793.6471405, "kind": "draw", "text": "I draw Q♥; opponent draws 1; deck 12", "round": 8}
+{"t": 1791384801.9764574, "kind": "lead", "text": "I lead Q♥", "round": 8}
+{"t": 1791384803.0692875, "kind": "response", "text": "opponent answers (1 card(s), not seen)", "round": 8}
+{"t": 1791384803.5661798, "kind": "reveal", "text": "opponent's face-down cards: K♥", "round": 8}
+{"t": 1791384803.8665013, "kind": "trick", "text": "opponent takes the trick (+7 pts) — score me 20 / opp 20", "round": 8}
+{"t": 1791384805.5658045, "kind": "draw", "text": "I draw A♣; opponent draws 1; deck 10", "round": 8}
+{"t": 1791384808.4089272, "kind": "lead", "text": "opponent leads 10♣ Q♣", "round": 8}
+{"t": 1791384816.5495007, "kind": "response", "text": "I answer face down 7♣ 8♥", "round": 8}
+{"t": 1791384817.0254037, "kind": "trick", "text": "opponent takes the trick (+13 pts) — score me 20 / opp 33", "round": 8}
+{"t": 1791384818.9302409, "kind": "draw", "text": "I draw Q♦ A♠; opponent draws 2; deck 6", "round": 8}
+{"t": 1791384822.1756735, "kind": "lead", "text": "opponent leads 10♠ Q♠", "round": 8}
+{"t": 1791384830.9437618, "kind": "stake", "text": "I raised: stake now დავი (2)", "round": 8}
+{"t": 1791384837.3867095, "kind": "response", "text": "I answer face up A♣ A♠ (beats)", "round": 8}
+{"t": 1791384837.7658715, "kind": "trick", "text": "I take the trick (+35 pts) — score me 55 / opp 33", "round": 8}
+{"t": 1791384839.56322, "kind": "draw", "text": "I draw 8♦ 9♠; opponent draws 2; deck 2", "round": 8}
+{"t": 1791384844.566424, "kind": "lead", "text": "I lead 8♦", "round": 8}
+{"t": 1791384865.326794, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 8}
+{"t": 1791384865.510783, "kind": "reveal", "text": "opponent's face-down cards: 9♣", "round": 8}
+{"t": 1791384866.1169887, "kind": "trick", "text": "opponent takes the trick (+0 pts) — score me 55 / opp 33", "round": 8}
+{"t": 1791384867.632786, "kind": "draw", "text": "I draw J♣; opponent draws 1 (I got the trump card); deck 0", "round": 8}
+{"t": 1791384887.5160065, "kind": "lead", "text": "opponent leads 7♦ 9♦ J♦ K♦ A♦", "round": 8}
+{"t": 1791384892.7576635, "kind": "response", "text": "I answer face down 10♦ Q♦ 8♣ J♣ 9♠", "round": 8}
+{"t": 1791384893.84453, "kind": "trick", "text": "opponent takes the trick (+32 pts) — score me 55 / opp 65", "round": 8}
+{"t": 1791384893.8445876, "kind": "round_end", "text": "table cleared — round over (me 55 / opp 65)", "round": 8}
+{"t": 1791384898.7021036, "kind": "new_round", "text": "round 9: trump 10♣, my hand 8♦ 6♣ 7♣ 8♥ Q♠", "round": 9}
+{"t": 1791384900.7680779, "kind": "lead", "text": "opponent leads 7♠ 9♠ J♠", "round": 9}
+{"t": 1791384908.235232, "kind": "response", "text": "I answer face up 6♣ 7♣ Q♠ (beats)", "round": 9}
+{"t": 1791384908.7293074, "kind": "trick", "text": "I take the trick (+5 pts) — score me 5 / opp 0", "round": 9}
+{"t": 1791384910.1143188, "kind": "draw", "text": "I draw A♦ 9♥ Q♥; opponent draws 3; deck 20", "round": 9}
+{"t": 1791384917.5359752, "kind": "lead", "text": "I lead 8♥ 9♥ Q♥", "round": 9}
+{"t": 1791384927.365606, "kind": "response", "text": "opponent answers 6♦ 7♥ 6♠", "round": 9}
+{"t": 1791384927.83487, "kind": "trick", "text": "I take the trick (+3 pts) — score me 8 / opp 0", "round": 9}
+{"t": 1791384929.2368078, "kind": "draw", "text": "I draw 7♦ 9♦ K♥; opponent draws 3; deck 14", "round": 9}
+{"t": 1791384936.456211, "kind": "lead", "text": "I lead 7♦ 8♦ 9♦ A♦", "round": 9}
+{"t": 1791384946.1811047, "kind": "response", "text": "opponent answers K♦ 9♣ 10♥ K♠", "round": 9}
+{"t": 1791384946.8767257, "kind": "trick", "text": "I take the trick (+29 pts) — score me 37 / opp 0", "round": 9}
+{"t": 1791384948.6617262, "kind": "draw", "text": "I draw 10♦ Q♦ 6♥ 10♠; opponent draws 4; deck 6", "round": 9}
+{"t": 1791384956.4204717, "kind": "lead", "text": "I lead 10♦ Q♦", "round": 9}
+{"t": 1791384960.140589, "kind": "response", "text": "opponent beats with Q♣ K♣", "round": 9}
+{"t": 1791384960.5338652, "kind": "trick", "text": "opponent takes the trick (+20 pts) — score me 37 / opp 20", "round": 9}
+{"t": 1791384963.110898, "kind": "draw", "text": "I draw J♦ A♠; opponent draws 2; deck 2", "round": 9}
+{"t": 1791384977.1141696, "kind": "lead", "text": "opponent leads 8♣ J♣", "round": 9}
+{"t": 1791384986.9598525, "kind": "response", "text": "I answer face down J♦ 6♥", "round": 9}
+{"t": 1791384987.348813, "kind": "trick", "text": "opponent takes the trick (+4 pts) — score me 37 / opp 24", "round": 9}
+{"t": 1791384989.5794933, "kind": "draw", "text": "I draw 10♣; opponent draws 1 (I got the trump card); deck 0", "round": 9}
+{"t": 1791384996.0194056, "kind": "lead", "text": "opponent leads A♣", "round": 9}
+{"t": 1791385001.1557605, "kind": "response", "text": "I answer face down 10♠", "round": 9}
+{"t": 1791385001.6645732, "kind": "trick", "text": "opponent takes the trick (+21 pts) — score me 37 / opp 45", "round": 9}
+{"t": 1791385006.2885833, "kind": "lead", "text": "opponent leads 8♠", "round": 9}
+{"t": 1791385007.801924, "kind": "response", "text": "I answer face up A♠ (beats)", "round": 9}
+{"t": 1791385008.3934948, "kind": "trick", "text": "I take the trick (+11 pts) — score me 48 / opp 45", "round": 9}
+{"t": 1791385012.778337, "kind": "match", "text": "match score me None / opp None, target None, bet None"}
+{"t": 1791385017.09901, "kind": "match", "text": "match score me None / opp None, target 5, bet 2.0"}
+{"t": 1791385017.431152, "kind": "lead", "text": "I lead 10♣", "round": 9}
+{"t": 1791385019.24686, "kind": "response", "text": "opponent answers J♥", "round": 9}
+{"t": 1791385019.8228674, "kind": "trick", "text": "I take the trick (+12 pts) — score me 60 / opp 45", "round": 9}
+{"t": 1791385022.7597206, "kind": "lead", "text": "I lead K♥", "round": 9}
+{"t": 1791385023.2436116, "kind": "response", "text": "opponent beats with A♥", "round": 9}
+{"t": 1791385024.2650228, "kind": "trick", "text": "opponent takes the trick (+15 pts) — score me 60 / opp 60", "round": 9}
+{"t": 1791385024.2650816, "kind": "round_end", "text": "table cleared — round over (me 60 / opp 60)", "round": 9}
+{"t": 1791385029.2888606, "kind": "new_round", "text": "round 10: trump 8♥, my hand K♦ 9♣ A♣ A♥ 9♠", "round": 10}
+{"t": 1791385031.0240645, "kind": "lead", "text": "opponent leads 6♣", "round": 10}
+{"t": 1791385041.1771917, "kind": "response", "text": "I answer face up A♣ (beats)", "round": 10}
+{"t": 1791385041.7635016, "kind": "trick", "text": "I take the trick (+11 pts) — score me 11 / opp 0", "round": 10}
+{"t": 1791385045.4618022, "kind": "draw", "text": "I draw A♠; opponent draws 1; deck 24", "round": 10}
+{"t": 1791385053.6415615, "kind": "lead", "text": "I lead 9♠", "round": 10}
+{"t": 1791385057.2433982, "kind": "response", "text": "opponent beats with Q♠", "round": 10}
+{"t": 1791385057.5455668, "kind": "trick", "text": "opponent takes the trick (+3 pts) — score me 11 / opp 3", "round": 10}
+{"t": 1791385059.3308177, "kind": "draw", "text": "I draw 7♦; opponent draws 1; deck 22", "round": 10}
+{"t": 1791385061.1760037, "kind": "lead", "text": "opponent leads J♠", "round": 10}
+{"t": 1791385067.077934, "kind": "response", "text": "I answer face up A♠ (beats)", "round": 10}
+{"t": 1791385067.3581421, "kind": "trick", "text": "I take the trick (+13 pts) — score me 24 / opp 3", "round": 10}
+{"t": 1791385068.9599402, "kind": "draw", "text": "I draw Q♥; opponent draws 1; deck 20", "round": 10}
+{"t": 1791385075.5120666, "kind": "lead", "text": "I lead 9♣", "round": 10}
+{"t": 1791385077.714382, "kind": "response", "text": "opponent answers (1 card(s), not seen)", "round": 10}
+{"t": 1791385078.212888, "kind": "reveal", "text": "opponent's face-down cards: 7♣", "round": 10}
+{"t": 1791385078.5098717, "kind": "trick", "text": "I take the trick (+0 pts) — score me 24 / opp 3", "round": 10}
+{"t": 1791385080.2935843, "kind": "draw", "text": "I draw 7♠; opponent draws 1; deck 18", "round": 10}
+{"t": 1791385088.0582778, "kind": "lead", "text": "I lead 7♦", "round": 10}
+{"t": 1791385095.3771653, "kind": "response", "text": "opponent answers (1 card(s), not seen)", "round": 10}
+{"t": 1791385095.3772688, "kind": "trick", "text": "I take the trick (+0 pts, 1 unseen) — score me 24 / opp 3", "round": 10}
+{"t": 1791385096.8601923, "kind": "draw", "text": "I draw 6♥; opponent draws 1; deck 16", "round": 10}
+{"t": 1791385100.3193455, "kind": "lead", "text": "opponent leads J♣", "round": 10}
+{"t": 1791385107.1280046, "kind": "response", "text": "I answer face down 7♠", "round": 10}
+{"t": 1791385107.3232098, "kind": "trick", "text": "opponent takes the trick (+2 pts) — score me 24 / opp 5", "round": 10}
+{"t": 1791385110.8083594, "kind": "draw", "text": "I draw 6♠; opponent draws 1; deck 14", "round": 10}
+{"t": 1791385113.3745584, "kind": "lead", "text": "opponent leads 9♥ 10♥ K♥", "round": 10}
+{"t": 1791385121.3675165, "kind": "response", "text": "I answer face down K♦ 6♥ 6♠", "round": 10}
+{"t": 1791385121.9878132, "kind": "trick", "text": "opponent takes the trick (+18 pts) — score me 24 / opp 23", "round": 10}
+{"t": 1791385124.8653975, "kind": "draw", "text": "I draw 6♦ 10♣ 8♠; opponent draws 3; deck 8", "round": 10}
+{"t": 1791385127.6230888, "kind": "lead", "text": "opponent leads 8♦ 9♦ Q♦", "round": 10}
+{"t": 1791385134.8851395, "kind": "response", "text": "I answer face down 6♦ 10♣ 8♠", "round": 10}
+{"t": 1791385135.3749912, "kind": "trick", "text": "opponent takes the trick (+13 pts) — score me 24 / opp 36", "round": 10}
+{"t": 1791385138.9737751, "kind": "draw", "text": "I draw A♦ K♣ 10♠; opponent draws 3; deck 2", "round": 10}
+{"t": 1791385142.0124846, "kind": "lead", "text": "opponent leads 8♣ Q♣", "round": 10}
+{"t": 1791385166.5391562, "kind": "response", "text": "I answer face down Q♥ 10♠", "round": 10}
+{"t": 1791385166.9182522, "kind": "trick", "text": "opponent takes the trick (+16 pts) — score me 24 / opp 52", "round": 10}
+{"t": 1791385169.1414921, "kind": "draw", "text": "I draw 8♥; opponent draws 1 (I got the trump card); deck 0", "round": 10}
+{"t": 1791385170.57487, "kind": "lead", "text": "opponent leads K♠", "round": 10}
+{"t": 1791385174.435763, "kind": "response", "text": "I answer face up 8♥ (beats)", "round": 10}
+{"t": 1791385174.8479779, "kind": "trick", "text": "I take the trick (+4 pts) — score me 28 / opp 52", "round": 10}
+{"t": 1791385181.4841213, "kind": "lead", "text": "I lead K♣", "round": 10}
+{"t": 1791385182.7757018, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 10}
+{"t": 1791385182.975928, "kind": "reveal", "text": "opponent's face-down cards: J♦", "round": 10}
+{"t": 1791385183.5721998, "kind": "trick", "text": "I take the trick (+6 pts) — score me 34 / opp 52", "round": 10}
+{"t": 1791385187.0924416, "kind": "lead", "text": "I lead A♦", "round": 10}
+{"t": 1791385188.5753837, "kind": "response", "text": "opponent beats with J♥", "round": 10}
+{"t": 1791385189.1772597, "kind": "trick", "text": "opponent takes the trick (+13 pts) — score me 34 / opp 65", "round": 10}
+{"t": 1791385190.745488, "kind": "round_end", "text": "round over (panel shows 22 cards / ≥62 pts)", "round": 10, "panel": ["9♠", "7♦", "10♦", "J♣", "7♠", "9♥", "K♥", "10♥", "K♦", "6♥", "6♠", "8♦", "9♦", "Q♦", "6♦", "8♠", "8♣", "Q♣", "Q♥", "10♠", "A♦", "J♥"]}
+{"t": 1791385194.459523, "kind": "match", "text": "match score me None / opp None, target None, bet None"}
+{"t": 1791385362.7932746, "kind": "match", "text": "match score me None / opp None, target 3, bet 1.0"}
+{"t": 1791385376.7587807, "kind": "raise_offer", "text": "opponent offers to raise to დავი (2)", "round": 10}
+{"t": 1791385407.6444683, "kind": "match", "text": "match score me None / opp None, target None, bet None"}
+{"t": 1791385413.7245426, "kind": "match", "text": "match score me None / opp None, target 3, bet None"}
+{"t": 1791385415.850711, "kind": "match", "text": "match score me None / opp None, target 3, bet 0.4"}
+{"t": 1791385416.425802, "kind": "new_round", "text": "round 11: trump 6♠, my hand 10♦ 7♠ 9♠ J♠ Q♠", "round": 11}
+{"t": 1791385426.1466625, "kind": "lead", "text": "I lead 7♠ 9♠ J♠ Q♠", "round": 11}
+{"t": 1791385428.4546409, "kind": "response", "text": "opponent answers 7♦ Q♦ 8♥ Q♥", "round": 11}
+{"t": 1791385429.1283796, "kind": "trick", "text": "I take the trick (+11 pts) — score me 11 / opp 0", "round": 11}
+{"t": 1791385431.3429694, "kind": "draw", "text": "I draw 9♦ 7♣ 9♥ A♥; opponent draws 4; deck 18", "round": 11}
+{"t": 1791385439.5553956, "kind": "lead", "text": "I lead 9♦", "round": 11}
+{"t": 1791385441.367089, "kind": "response", "text": "opponent answers (1 card(s), not seen)", "round": 11}
+{"t": 1791385441.3671944, "kind": "trick", "text": "I take the trick (+0 pts, 1 unseen) — score me 11 / opp 0", "round": 11}
+{"t": 1791385443.4424746, "kind": "draw", "text": "I draw 10♥; opponent draws 1; deck 16", "round": 11}
+{"t": 1791385450.6571577, "kind": "lead", "text": "I lead 9♥ 10♥ A♥", "round": 11}
+{"t": 1791385453.061021, "kind": "response", "text": "opponent answers 8♣ J♣ K♥", "round": 11}
+{"t": 1791385453.5469768, "kind": "trick", "text": "I take the trick (+27 pts) — score me 38 / opp 0", "round": 11}
+{"t": 1791385455.13919, "kind": "draw", "text": "I draw K♦ 7♥ K♠; opponent draws 3; deck 10", "round": 11}
+{"t": 1791385460.869364, "kind": "lead", "text": "I lead 7♥", "round": 11}
+{"t": 1791385462.5516596, "kind": "response", "text": "opponent beats with A♠", "round": 11}
+{"t": 1791385462.8474681, "kind": "trick", "text": "opponent takes the trick (+11 pts) — score me 38 / opp 11", "round": 11}
+{"t": 1791385464.6387002, "kind": "draw", "text": "I draw A♣; opponent draws 1; deck 8", "round": 11}
+{"t": 1791385466.7973502, "kind": "lead", "text": "opponent leads 9♣ 10♣ Q♣ K♣", "round": 11}
+{"t": 1791385480.220324, "kind": "response", "text": "I answer face down 10♦ K♦ 7♣ A♣", "round": 11}
+{"t": 1791385480.894202, "kind": "trick", "text": "opponent takes the trick (+42 pts) — score me 38 / opp 53", "round": 11}
+{"t": 1791385485.4369287, "kind": "draw", "text": "I draw 8♦ J♦ 6♠ 8♠; opponent draws 4 (I got the trump card); deck 0", "round": 11}
+{"t": 1791385489.20168, "kind": "raise_offer", "text": "opponent offers to raise to დავი (2)", "round": 11}
+{"t": 1791385489.213435, "kind": "match", "text": "match score me None / opp None, target 3, bet None"}
+{"t": 1791385492.7122416, "kind": "match", "text": "match score me None / opp None, target 3, bet 0.4"}
+{"t": 1791385493.213095, "kind": "round_end", "text": "table cleared — round over (me 38 / opp 53, some cards unseen)", "round": 11}
+{"t": 1791385495.3252277, "kind": "new_round", "text": "round 12: trump 8♦, my hand A♦ 7♣ 9♣ 7♥ Q♥", "round": 12}
+{"t": 1791385496.8566275, "kind": "lead", "text": "opponent leads 6♣", "round": 12}
+{"t": 1791385502.9878187, "kind": "response", "text": "I answer face up 9♣ (beats)", "round": 12}
+{"t": 1791385503.563363, "kind": "trick", "text": "I take the trick (+0 pts) — score me 0 / opp 0", "round": 12}
+{"t": 1791385504.8765771, "kind": "draw", "text": "I draw 8♥; opponent draws 1; deck 24", "round": 12}
+{"t": 1791385512.4064355, "kind": "lead", "text": "I lead 7♥ 8♥ Q♥", "round": 12}
+{"t": 1791385517.3967876, "kind": "response", "text": "opponent beats with 10♦ K♦ J♥", "round": 12}
+{"t": 1791385517.8916237, "kind": "trick", "text": "opponent takes the trick (+19 pts) — score me 0 / opp 19", "round": 12}
+{"t": 1791385519.6823456, "kind": "draw", "text": "I draw 7♦ 9♥ A♥; opponent draws 3; deck 18", "round": 12}
+{"t": 1791385522.2433176, "kind": "lead", "text": "opponent leads 10♥", "round": 12}
+{"t": 1791385532.1112611, "kind": "stake", "text": "I raised: stake now დავი (2)", "round": 12}
+{"t": 1791385541.2714047, "kind": "response", "text": "I answer face up A♥ (beats)", "round": 12}
+{"t": 1791385541.545435, "kind": "trick", "text": "I take the trick (+21 pts) — score me 21 / opp 19", "round": 12}
+{"t": 1791385543.0410898, "kind": "draw", "text": "I draw J♣; opponent draws 1; deck 16", "round": 12}
+{"t": 1791385551.0532713, "kind": "lead", "text": "I lead 9♥", "round": 12}
+{"t": 1791385554.0502532, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 12}
+{"t": 1791385554.5466506, "kind": "reveal", "text": "opponent's face-down cards: 6♦", "round": 12}
+{"t": 1791385554.8479962, "kind": "trick", "text": "opponent takes the trick (+0 pts) — score me 21 / opp 19", "round": 12}
+{"t": 1791385556.4417803, "kind": "draw", "text": "I draw Q♠; opponent draws 1; deck 14", "round": 12}
+{"t": 1791385557.8895867, "kind": "lead", "text": "opponent leads K♥", "round": 12}
+{"t": 1791385565.8016093, "kind": "response", "text": "I answer face down 7♣", "round": 12}
+{"t": 1791385566.0816479, "kind": "trick", "text": "opponent takes the trick (+4 pts) — score me 21 / opp 23", "round": 12}
+{"t": 1791385567.5701234, "kind": "draw", "text": "I draw Q♣; opponent draws 1; deck 12", "round": 12}
+{"t": 1791385570.3208673, "kind": "lead", "text": "opponent leads 10♣", "round": 12}
+{"t": 1791385576.1190507, "kind": "response", "text": "I answer A♦ (beats)", "round": 12}
+{"t": 1791385576.9312205, "kind": "trick", "text": "I take the trick (+21 pts) — score me 42 / opp 23", "round": 12}
+{"t": 1791385578.7364037, "kind": "draw", "text": "I draw 8♠; opponent draws 1; deck 10", "round": 12}
+{"t": 1791385586.868263, "kind": "lead", "text": "I lead J♣ Q♣", "round": 12}
+{"t": 1791385591.7664826, "kind": "response", "text": "opponent beats with Q♦ A♣", "round": 12}
+{"t": 1791385592.1614652, "kind": "trick", "text": "opponent takes the trick (+19 pts) — score me 42 / opp 42", "round": 12}
+{"t": 1791385593.861593, "kind": "draw", "text": "I draw 6♠ 7♠; opponent draws 2; deck 6", "round": 12}
+{"t": 1791385597.6091526, "kind": "lead", "text": "opponent leads K♣", "round": 12}
+{"t": 1791385602.2402017, "kind": "response", "text": "I answer 7♦ (beats)", "round": 12}
+{"t": 1791385603.0856266, "kind": "trick", "text": "I take the trick (+4 pts) — score me 46 / opp 42", "round": 12}
+{"t": 1791385604.5562654, "kind": "draw", "text": "I draw 10♠; opponent draws 1; deck 4", "round": 12}
+{"t": 1791385607.45655, "kind": "lead", "text": "I lead 6♠ 7♠ 8♠ 10♠ Q♠", "round": 12}
+{"t": 1791385609.8558698, "kind": "response", "text": "opponent answers 9♦ J♦ 6♥ J♠ A♠", "round": 12}
+{"t": 1791385610.5446975, "kind": "trick", "text": "I take the trick (+28 pts) — score me 74 / opp 42", "round": 12}
+{"t": 1791385610.544754, "kind": "round_end", "text": "table cleared — round over (me 74 / opp 42)", "round": 12}
+{"t": 1791385617.466335, "kind": "new_round", "text": "round 13: trump 7♠, my hand A♦ 9♣ 6♥ 8♥ A♠", "round": 13}
+{"t": 1791385625.1885645, "kind": "lead", "text": "I lead 6♥", "round": 13}
+{"t": 1791385626.1586049, "kind": "response", "text": "opponent beats with 10♥", "round": 13}
+{"t": 1791385626.4627004, "kind": "trick", "text": "opponent takes the trick (+10 pts) — score me 0 / opp 10", "round": 13}
+{"t": 1791385628.2751803, "kind": "draw", "text": "I draw 6♠; opponent draws 1; deck 24", "round": 13}
+{"t": 1791385629.4090412, "kind": "lead", "text": "opponent leads 9♥", "round": 13}
+{"t": 1791385636.1384485, "kind": "response", "text": "I answer face down 9♣", "round": 13}
+{"t": 1791385636.9312418, "kind": "trick", "text": "opponent takes the trick (+0 pts) — score me 0 / opp 10", "round": 13}
+{"t": 1791385638.4238572, "kind": "draw", "text": "I draw A♥; opponent draws 1; deck 22", "round": 13}
+{"t": 1791385639.7671893, "kind": "lead", "text": "opponent leads K♥", "round": 13}
+{"t": 1791385646.2107341, "kind": "response", "text": "I answer face up A♥ (beats)", "round": 13}
+{"t": 1791385646.4946916, "kind": "trick", "text": "I take the trick (+15 pts) — score me 15 / opp 10", "round": 13}
+{"t": 1791385647.9931622, "kind": "draw", "text": "I draw 10♠; opponent draws 1; deck 20", "round": 13}
+{"t": 1791385654.3073347, "kind": "lead", "text": "I lead 8♥", "round": 13}
+{"t": 1791385655.898959, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 13}
+{"t": 1791385656.4046795, "kind": "reveal", "text": "opponent's face-down cards: 8♣", "round": 13}
+{"t": 1791385656.691344, "kind": "trick", "text": "I take the trick (+0 pts) — score me 15 / opp 10", "round": 13}
+{"t": 1791385658.291, "kind": "draw", "text": "I draw K♠; opponent draws 1; deck 18", "round": 13}
+{"t": 1791385672.1242158, "kind": "lead", "text": "I lead 6♠ 10♠ K♠ A♠", "round": 13}
+{"t": 1791385677.1318352, "kind": "response", "text": "opponent answers 7♦ 8♦ J♥ Q♠", "round": 13}
+{"t": 1791385677.820706, "kind": "trick", "text": "I take the trick (+30 pts) — score me 45 / opp 10", "round": 13}
+{"t": 1791385679.5192173, "kind": "draw", "text": "I draw 6♦ 7♣ 8♠ 9♠; opponent draws 4; deck 10", "round": 13}
+{"t": 1791385685.5410235, "kind": "lead", "text": "I lead 7♣", "round": 13}
+{"t": 1791385686.3098202, "kind": "response", "text": "opponent answers (1 card(s), not seen)", "round": 13}
+{"t": 1791385686.831708, "kind": "reveal", "text": "opponent's face-down cards: 6♣", "round": 13}
+{"t": 1791385687.1293578, "kind": "trick", "text": "I take the trick (+0 pts) — score me 45 / opp 10", "round": 13}
+{"t": 1791385688.8233907, "kind": "draw", "text": "I draw 7♥; opponent draws 1; deck 8", "round": 13}
+{"t": 1791385695.3081903, "kind": "lead", "text": "I lead A♦", "round": 13}
+{"t": 1791385696.9012759, "kind": "response", "text": "opponent answers (1 card(s), not seen)", "round": 13}
+{"t": 1791385697.396271, "kind": "reveal", "text": "opponent's face-down cards: Q♥", "round": 13}
+{"t": 1791385697.8252594, "kind": "trick", "text": "I take the trick (+14 pts) — score me 59 / opp 10", "round": 13}
+{"t": 1791385699.5152676, "kind": "draw", "text": "I draw 10♣; opponent draws 1; deck 6", "round": 13}
+{"t": 1791385704.2285964, "kind": "lead", "text": "I lead 8♠ 9♠", "round": 13}
+{"t": 1791385712.3535092, "kind": "response", "text": "opponent answers 10♦ A♣", "round": 13}
+{"t": 1791385712.6467822, "kind": "trick", "text": "I take the trick (+21 pts) — score me 80 / opp 10", "round": 13}
+{"t": 1791385715.0899673, "kind": "round_end", "text": "round over (panel shows 20 cards / ≥80 pts)", "round": 13, "panel": ["K♥", "A♥", "8♥", "8♣", "A♠", "6♠", "10♠", "K♠", "7♦", "8♦", "Q♠", "J♥", "7♣", "6♣", "A♦", "Q♥", "9♠", "8♠", "10♦", "A♣"]}
+{"t": 1791385717.6254559, "kind": "match", "text": "match score me None / opp None, target None, bet None"}
+{"t": 1791385723.0646098, "kind": "match", "text": "match score me None / opp None, target 3, bet 0.4"}
+{"t": 1791385723.6502717, "kind": "new_round", "text": "round 14: trump 8♣, my hand 7♦ K♦ 7♣ A♣ 6♥", "round": 14}
+{"t": 1791385728.1943712, "kind": "lead", "text": "opponent leads K♠", "round": 14}
+{"t": 1791385735.4862657, "kind": "response", "text": "I answer 7♣ (beats)", "round": 14}
+{"t": 1791385736.3228414, "kind": "trick", "text": "I take the trick (+4 pts) — score me 4 / opp 0", "round": 14}
+{"t": 1791385737.8264868, "kind": "draw", "text": "I draw 8♥; opponent draws 1; deck 24", "round": 14}
+{"t": 1791385744.6456075, "kind": "lead", "text": "I lead 6♥ 8♥", "round": 14}
+{"t": 1791385748.2586288, "kind": "response", "text": "opponent answers 9♦ K♥", "round": 14}
+{"t": 1791385748.6380281, "kind": "trick", "text": "I take the trick (+4 pts) — score me 8 / opp 0", "round": 14}
+{"t": 1791385750.3395953, "kind": "draw", "text": "I draw J♣ A♥; opponent draws 2; deck 20", "round": 14}
+{"t": 1791385759.0990672, "kind": "lead", "text": "I lead 7♦", "round": 14}
+{"t": 1791385760.1971166, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 14}
+{"t": 1791385760.6901464, "kind": "reveal", "text": "opponent's face-down cards: A♦", "round": 14}
+{"t": 1791385760.9892347, "kind": "trick", "text": "opponent takes the trick (+11 pts) — score me 8 / opp 11", "round": 14}
+{"t": 1791385762.6809247, "kind": "draw", "text": "I draw J♥; opponent draws 1; deck 18", "round": 14}
+{"t": 1791385765.034552, "kind": "lead", "text": "opponent leads 9♥", "round": 14}
+{"t": 1791385774.1622844, "kind": "response", "text": "I answer face up A♥ (beats)", "round": 14}
+{"t": 1791385774.754568, "kind": "trick", "text": "I take the trick (+11 pts) — score me 19 / opp 11", "round": 14}
+{"t": 1791385776.4384797, "kind": "draw", "text": "I draw 7♠; opponent draws 1; deck 16", "round": 14}
+{"t": 1791385784.0669858, "kind": "lead", "text": "I lead 7♠", "round": 14}
+{"t": 1791385786.9740794, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 14}
+{"t": 1791385787.476535, "kind": "reveal", "text": "opponent's face-down cards: 10♠", "round": 14}
+{"t": 1791385787.771317, "kind": "trick", "text": "opponent takes the trick (+10 pts) — score me 19 / opp 21", "round": 14}
+{"t": 1791385789.2554345, "kind": "draw", "text": "I draw Q♥; opponent draws 1; deck 14", "round": 14}
+{"t": 1791385791.3138244, "kind": "lead", "text": "opponent leads J♠", "round": 14}
+{"t": 1791385798.859746, "kind": "response", "text": "I answer face down J♥", "round": 14}
+{"t": 1791385799.5676827, "kind": "trick", "text": "opponent takes the trick (+4 pts) — score me 19 / opp 25", "round": 14}
+{"t": 1791385801.1563113, "kind": "draw", "text": "I draw 9♣; opponent draws 1; deck 12", "round": 14}
+{"t": 1791385802.5967245, "kind": "lead", "text": "opponent leads Q♠", "round": 14}
+{"t": 1791385810.410506, "kind": "response", "text": "I answer face up J♣ (beats)", "round": 14}
+{"t": 1791385811.002433, "kind": "trick", "text": "I take the trick (+5 pts) — score me 24 / opp 25", "round": 14}
+{"t": 1791385812.5933611, "kind": "draw", "text": "I draw Q♦; opponent draws 1; deck 10", "round": 14}
+{"t": 1791385820.8677049, "kind": "lead", "text": "I lead Q♦", "round": 14}
+{"t": 1791385821.6554475, "kind": "response", "text": "opponent answers (1 card(s), not seen)", "round": 14}
+{"t": 1791385822.1580956, "kind": "reveal", "text": "opponent's face-down cards: 10♦", "round": 14}
+{"t": 1791385822.4514117, "kind": "trick", "text": "opponent takes the trick (+13 pts) — score me 24 / opp 38", "round": 14}
+{"t": 1791385824.061669, "kind": "draw", "text": "I draw 8♠; opponent draws 1; deck 8", "round": 14}
+{"t": 1791385825.80313, "kind": "lead", "text": "opponent leads 6♦ 8♦", "round": 14}
+{"t": 1791385837.6476395, "kind": "response", "text": "I answer face down Q♥ 8♠", "round": 14}
+{"t": 1791385838.0365272, "kind": "trick", "text": "opponent takes the trick (+3 pts) — score me 24 / opp 41", "round": 14}
+{"t": 1791385839.724219, "kind": "draw", "text": "I draw 6♠ 9♠; opponent draws 2; deck 4", "round": 14}
+{"t": 1791385841.8862674, "kind": "lead", "text": "opponent leads 7♥ 10♥", "round": 14}
+{"t": 1791385847.9971986, "kind": "response", "text": "I answer face up 9♣ A♣ (beats)", "round": 14}
+{"t": 1791385848.3862324, "kind": "trick", "text": "I take the trick (+21 pts) — score me 45 / opp 41", "round": 14}
+{"t": 1791385850.007826, "kind": "draw", "text": "I draw J♦ A♠; opponent draws 2 (opponent took the trump card 8♣); deck 0", "round": 14}
+{"t": 1791385854.3332856, "kind": "lead", "text": "I lead J♦", "round": 14}
+{"t": 1791385855.578832, "kind": "raise_offer", "text": "opponent offers to raise to დავი (2)", "round": 14}
+{"t": 1791385855.5910256, "kind": "match", "text": "match score me None / opp None, target 3, bet None"}
+{"t": 1791385857.300139, "kind": "round_end", "text": "table cleared — round over (me 45 / opp 41)", "round": 14}
+{"t": 1791385857.3229766, "kind": "match", "text": "match score me None / opp None, target 3, bet 0.4"}
+{"t": 1791385859.313136, "kind": "new_round", "text": "round 15: trump 10♥, my hand 8♦ 9♣ 10♣ J♣ A♠", "round": 15}
+{"t": 1791385861.1676397, "kind": "lead", "text": "opponent leads 7♠ 9♠", "round": 15}
+{"t": 1791385869.1835172, "kind": "response", "text": "I answer face down 8♦ 9♣", "round": 15}
+{"t": 1791385869.6675005, "kind": "trick", "text": "opponent takes the trick (+0 pts) — score me 0 / opp 0", "round": 15}
+{"t": 1791385871.1548154, "kind": "draw", "text": "I draw J♦ 8♥; opponent draws 2; deck 22", "round": 15}
+{"t": 1791385872.902404, "kind": "lead", "text": "opponent leads 8♣ K♣", "round": 15}
+{"t": 1791385880.359051, "kind": "response", "text": "I answer face up 10♣ J♣ (beats)", "round": 15}
+{"t": 1791385880.7372174, "kind": "trick", "text": "I take the trick (+16 pts) — score me 16 / opp 0", "round": 15}
+{"t": 1791385882.7467606, "kind": "draw", "text": "I draw A♣ 8♠; opponent draws 2; deck 18", "round": 15}
+{"t": 1791385889.3814285, "kind": "lead", "text": "I lead J♦", "round": 15}
+{"t": 1791385890.5700586, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 15}
+{"t": 1791385890.9772925, "kind": "reveal", "text": "opponent's face-down cards: A♦", "round": 15}
+{"t": 1791385891.2677877, "kind": "trick", "text": "opponent takes the trick (+13 pts) — score me 16 / opp 13", "round": 15}
+{"t": 1791385892.7735434, "kind": "draw", "text": "I draw Q♠; opponent draws 1; deck 16", "round": 15}
+{"t": 1791385897.6165507, "kind": "lead", "text": "opponent leads 6♠", "round": 15}
+{"t": 1791385904.848445, "kind": "response", "text": "I answer face up A♠ (beats)", "round": 15}
+{"t": 1791385905.1365695, "kind": "trick", "text": "I take the trick (+11 pts) — score me 27 / opp 13", "round": 15}
+{"t": 1791385906.739352, "kind": "draw", "text": "I draw 6♣; opponent draws 1; deck 14", "round": 15}
+{"t": 1791385914.271401, "kind": "lead", "text": "I lead 6♣", "round": 15}
+{"t": 1791385916.3276458, "kind": "raise_offer", "text": "opponent offers to raise to დავი (2)", "round": 15}
+{"t": 1791385916.3396492, "kind": "match", "text": "match score me None / opp None, target 3, bet None"}
+{"t": 1791385921.5242798, "kind": "match", "text": "match score me None / opp None, target 3, bet 0.4"}
+{"t": 1791385922.0534022, "kind": "round_end", "text": "table cleared — round over (me 27 / opp 13)", "round": 15}
+{"t": 1791385924.102541, "kind": "new_round", "text": "round 16: trump 6♦, my hand 10♣ K♣ J♥ Q♥ A♠", "round": 16}
+{"t": 1791385927.0414221, "kind": "lead", "text": "opponent leads 6♠ 8♠", "round": 16}
+{"t": 1791385934.3765357, "kind": "response", "text": "I answer face down J♥ Q♥", "round": 16}
+{"t": 1791385934.767917, "kind": "trick", "text": "opponent takes the trick (+5 pts) — score me 0 / opp 5", "round": 16}
+{"t": 1791385936.1571605, "kind": "draw", "text": "I draw 10♦ 9♥; opponent draws 2; deck 22", "round": 16}
+{"t": 1791385939.8126602, "kind": "lead", "text": "opponent leads Q♠", "round": 16}
+{"t": 1791385946.2049491, "kind": "response", "text": "I answer A♠ (beats)", "round": 16}
+{"t": 1791385947.0377812, "kind": "trick", "text": "I take the trick (+14 pts) — score me 14 / opp 5", "round": 16}
+{"t": 1791385948.5198877, "kind": "draw", "text": "I draw J♠; opponent draws 1; deck 20", "round": 16}
+{"t": 1791385962.167995, "kind": "lead", "text": "I lead J♠", "round": 16}
+{"t": 1791385963.262354, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 16}
+{"t": 1791385963.7547262, "kind": "reveal", "text": "opponent's face-down cards: 7♣", "round": 16}
+{"t": 1791385964.0698853, "kind": "trick", "text": "I take the trick (+2 pts) — score me 16 / opp 5", "round": 16}
+{"t": 1791385965.8550422, "kind": "draw", "text": "I draw 7♠; opponent draws 1; deck 18", "round": 16}
+{"t": 1791385973.5754797, "kind": "lead", "text": "I lead K♣", "round": 16}
+{"t": 1791385974.48647, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 16}
+{"t": 1791385974.970138, "kind": "reveal", "text": "opponent's face-down cards: A♣", "round": 16}
+{"t": 1791385975.268694, "kind": "trick", "text": "opponent takes the trick (+15 pts) — score me 16 / opp 20", "round": 16}
+{"t": 1791385976.7731323, "kind": "draw", "text": "I draw Q♦; opponent draws 1; deck 16", "round": 16}
+{"t": 1791385978.9204712, "kind": "lead", "text": "opponent leads Q♣", "round": 16}
+{"t": 1791385985.648679, "kind": "response", "text": "I answer face up 10♣ (beats)", "round": 16}
+{"t": 1791385985.932869, "kind": "trick", "text": "I take the trick (+13 pts) — score me 29 / opp 20", "round": 16}
+{"t": 1791385987.92039, "kind": "draw", "text": "I draw A♥; opponent draws 1; deck 14", "round": 16}
+{"t": 1791385994.6518056, "kind": "lead", "text": "I lead 9♥", "round": 16}
+{"t": 1791385995.9382827, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 16}
+{"t": 1791385996.7329748, "kind": "trick", "text": "I take the trick (+0 pts, 1 unseen) — score me 29 / opp 20", "round": 16}
+{"t": 1791385998.1526594, "kind": "draw", "text": "I draw 6♥; opponent draws 1; deck 12", "round": 16}
+{"t": 1791386006.3819182, "kind": "lead", "text": "I lead 6♥", "round": 16}
+{"t": 1791386007.5697124, "kind": "response", "text": "opponent answers (1 card(s), not seen)", "round": 16}
+{"t": 1791386008.1062593, "kind": "reveal", "text": "opponent's face-down cards: 8♥", "round": 16}
+{"t": 1791386008.381547, "kind": "trick", "text": "opponent takes the trick (+0 pts) — score me 29 / opp 20", "round": 16}
+{"t": 1791386010.0803115, "kind": "draw", "text": "I draw 10♥; opponent draws 1; deck 10", "round": 16}
+{"t": 1791386011.6240299, "kind": "lead", "text": "opponent leads 6♣ 8♣", "round": 16}
+{"t": 1791386021.7644892, "kind": "response", "text": "I answer face up 10♦ Q♦ (beats)", "round": 16}
+{"t": 1791386022.155491, "kind": "trick", "text": "I take the trick (+13 pts) — score me 42 / opp 20", "round": 16}
+{"t": 1791386023.6386437, "kind": "draw", "text": "I draw K♥ 10♠; opponent draws 2; deck 6", "round": 16}
+{"t": 1791386030.1275775, "kind": "lead", "text": "I lead 10♥ K♥ A♥", "round": 16}
+{"t": 1791386033.5296252, "kind": "response", "text": "opponent beats with 7♦ 8♦ J♦", "round": 16}
+{"t": 1791386033.9193594, "kind": "trick", "text": "opponent takes the trick (+27 pts) — score me 42 / opp 47", "round": 16}
+{"t": 1791386035.535453, "kind": "draw", "text": "I draw 6♦ K♦ K♠; opponent draws 3 (I got the trump card); deck 0", "round": 16}
+{"t": 1791386037.5649786, "kind": "lead", "text": "opponent leads 9♣ J♣", "round": 16}
+{"t": 1791386042.5681741, "kind": "response", "text": "I answer face up 6♦ K♦ (beats)", "round": 16}
+{"t": 1791386042.951978, "kind": "trick", "text": "I take the trick (+6 pts) — score me 48 / opp 47", "round": 16}
+{"t": 1791386047.5429456, "kind": "lead", "text": "I lead 7♠ 10♠ K♠", "round": 16}
+{"t": 1791386048.744405, "kind": "response", "text": "opponent beats with 9♦ A♦ 9♠", "round": 16}
+{"t": 1791386049.7386389, "kind": "trick", "text": "opponent takes the trick (+25 pts) — score me 48 / opp 72", "round": 16}
+{"t": 1791386049.7386978, "kind": "round_end", "text": "table cleared — round over (me 48 / opp 72, some cards unseen)", "round": 16}
+{"t": 1791386053.158749, "kind": "match", "text": "match score me None / opp None, target None, bet None"}
+{"t": 1791386058.6088183, "kind": "match", "text": "match score me None / opp None, target 3, bet 0.4"}
+{"t": 1791386059.1973906, "kind": "new_round", "text": "round 17: trump J♦, my hand Q♦ K♦ A♦ 10♣ 10♥", "round": 17}
+{"t": 1791386070.1611004, "kind": "round_end", "text": "table cleared — round over (me 0 / opp 0)", "round": 17}
+{"t": 1791386072.24809, "kind": "new_round", "text": "round 18: trump 8♣, my hand 10♦ K♣ J♥ Q♠ A♠", "round": 18}
+{"t": 1791386082.3713353, "kind": "lead", "text": "I lead Q♠ A♠", "round": 18}
+{"t": 1791386086.2652874, "kind": "response", "text": "opponent answers 6♠ 7♠", "round": 18}
+{"t": 1791386086.6580143, "kind": "trick", "text": "I take the trick (+14 pts) — score me 14 / opp 0", "round": 18}
+{"t": 1791386088.450996, "kind": "draw", "text": "I draw 8♦ 10♠; opponent draws 2; deck 22", "round": 18}
+{"t": 1791386097.9734883, "kind": "lead", "text": "I lead J♥", "round": 18}
+{"t": 1791386099.864252, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 18}
+{"t": 1791386100.3634195, "kind": "reveal", "text": "opponent's face-down cards: A♥", "round": 18}
+{"t": 1791386100.6597073, "kind": "trick", "text": "opponent takes the trick (+13 pts) — score me 14 / opp 13", "round": 18}
+{"t": 1791386102.1527781, "kind": "draw", "text": "I draw 9♣; opponent draws 1; deck 20", "round": 18}
+{"t": 1791386103.687203, "kind": "lead", "text": "opponent leads 8♠", "round": 18}
+{"t": 1791386111.1044958, "kind": "response", "text": "I answer face up 10♠ (beats)", "round": 18}
+{"t": 1791386111.3739011, "kind": "trick", "text": "I take the trick (+10 pts) — score me 24 / opp 13", "round": 18}
+{"t": 1791386113.084654, "kind": "draw", "text": "I draw 7♥; opponent draws 1; deck 18", "round": 18}
+{"t": 1791386122.9985933, "kind": "lead", "text": "I lead 8♦", "round": 18}
+{"t": 1791386124.5055346, "kind": "response", "text": "opponent answers (1 card(s), not seen)", "round": 18}
+{"t": 1791386124.9974916, "kind": "reveal", "text": "opponent's face-down cards: 6♥", "round": 18}
+{"t": 1791386125.2921355, "kind": "trick", "text": "I take the trick (+0 pts) — score me 24 / opp 13", "round": 18}
+{"t": 1791386128.3841436, "kind": "draw", "text": "I draw 10♣; opponent draws 1; deck 16", "round": 18}
+{"t": 1791386137.6189172, "kind": "lead", "text": "I lead K♣", "round": 18}
+{"t": 1791386139.293971, "kind": "response", "text": "opponent answers (1 card(s), not seen)", "round": 18}
+{"t": 1791386139.7923915, "kind": "reveal", "text": "opponent's face-down cards: A♣", "round": 18}
+{"t": 1791386140.1048965, "kind": "trick", "text": "opponent takes the trick (+15 pts) — score me 24 / opp 28", "round": 18}
+{"t": 1791386141.9019346, "kind": "draw", "text": "I draw J♠; opponent draws 1; deck 14", "round": 18}
+{"t": 1791386149.1489396, "kind": "lead", "text": "opponent leads 10♥", "round": 18}
+{"t": 1791386162.5088727, "kind": "round_end", "text": "table cleared — round over (me 24 / opp 28)", "round": 18}
+{"t": 1791386164.5858898, "kind": "new_round", "text": "round 19: trump 8♦, my hand 6♣ 8♣ A♣ 9♥ 7♠", "round": 19}
+{"t": 1791386174.410382, "kind": "lead", "text": "I lead 6♣ 8♣ A♣", "round": 19}
+{"t": 1791386178.1182876, "kind": "response", "text": "opponent answers 6♥ 6♠ 8♠", "round": 19}
+{"t": 1791386178.507585, "kind": "trick", "text": "I take the trick (+11 pts) — score me 11 / opp 0", "round": 19}
+{"t": 1791386180.2023025, "kind": "draw", "text": "I draw 7♦ J♦ J♠; opponent draws 3; deck 20", "round": 19}
+{"t": 1791386187.2542045, "kind": "lead", "text": "I lead 7♠ J♠", "round": 19}
+{"t": 1791386190.6521318, "kind": "response", "text": "opponent beats with Q♦ A♠", "round": 19}
+{"t": 1791386191.0400932, "kind": "trick", "text": "opponent takes the trick (+16 pts) — score me 11 / opp 16", "round": 19}
+{"t": 1791386192.5342882, "kind": "draw", "text": "I draw 10♦ K♣; opponent draws 2; deck 16", "round": 19}
+{"t": 1791386193.8181806, "kind": "lead", "text": "opponent leads Q♣", "round": 19}
+{"t": 1791386200.889988, "kind": "response", "text": "I answer face up K♣ (beats)", "round": 19}
+{"t": 1791386201.0743127, "kind": "trick", "text": "I take the trick (+7 pts) — score me 18 / opp 16", "round": 19}
+{"t": 1791386202.5693345, "kind": "draw", "text": "I draw 7♣; opponent draws 1; deck 14", "round": 19}
+{"t": 1791386209.2164557, "kind": "lead", "text": "I lead 7♣", "round": 19}
+{"t": 1791386211.6937544, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 19}
+{"t": 1791386212.2102988, "kind": "reveal", "text": "opponent's face-down cards: 7♥", "round": 19}
+{"t": 1791386212.5209851, "kind": "trick", "text": "I take the trick (+0 pts) — score me 18 / opp 16", "round": 19}
+{"t": 1791386214.5019984, "kind": "draw", "text": "I draw 10♠; opponent draws 1; deck 12", "round": 19}
+{"t": 1791386230.0505626, "kind": "lead", "text": "I lead 7♦ 10♦ J♦", "round": 19}
+{"t": 1791386233.2530613, "kind": "response", "text": "opponent answers J♥ Q♠ K♠", "round": 19}
+{"t": 1791386233.7612052, "kind": "trick", "text": "I take the trick (+21 pts) — score me 39 / opp 16", "round": 19}
+{"t": 1791386235.9362333, "kind": "draw", "text": "I draw 9♦ J♣ 9♠; opponent draws 3; deck 6", "round": 19}
+{"t": 1791386242.5608594, "kind": "lead", "text": "I lead 9♠ 10♠", "round": 19}
+{"t": 1791386247.1719787, "kind": "response", "text": "opponent beats with 6♦ A♦", "round": 19}
+{"t": 1791386247.5645654, "kind": "trick", "text": "opponent takes the trick (+21 pts) — score me 39 / opp 37", "round": 19}
+{"t": 1791386249.1648018, "kind": "draw", "text": "I draw K♦ 10♥; opponent draws 2; deck 2", "round": 19}
+{"t": 1791386262.2252758, "kind": "lead", "text": "opponent leads 10♣", "round": 19}
+{"t": 1791386270.6377788, "kind": "response", "text": "I answer face down 9♥", "round": 19}
+{"t": 1791386271.3738825, "kind": "trick", "text": "opponent takes the trick (+10 pts) — score me 39 / opp 47", "round": 19}
+{"t": 1791386273.676033, "kind": "draw", "text": "I draw 8♦; opponent draws 1 (I got the trump card); deck 0", "round": 19}
+{"t": 1791386278.2242148, "kind": "lead", "text": "opponent leads 9♣", "round": 19}
+{"t": 1791386285.46864, "kind": "response", "text": "I answer face up J♣ (beats)", "round": 19}
+{"t": 1791386285.7523937, "kind": "trick", "text": "I take the trick (+2 pts) — score me 41 / opp 47", "round": 19}
+{"t": 1791386290.2963362, "kind": "lead", "text": "I lead 8♦ 9♦ K♦", "round": 19}
+{"t": 1791386292.8880155, "kind": "response", "text": "opponent answers 8♥ Q♥ K♥", "round": 19}
+{"t": 1791386293.4847605, "kind": "trick", "text": "I take the trick (+11 pts) — score me 52 / opp 47", "round": 19}
+{"t": 1791386295.821229, "kind": "lead", "text": "I lead 10♥", "round": 19}
+{"t": 1791386296.9211926, "kind": "response", "text": "opponent beats with A♥", "round": 19}
+{"t": 1791386297.9422922, "kind": "trick", "text": "opponent takes the trick (+21 pts) — score me 52 / opp 68", "round": 19}
+{"t": 1791386297.94235, "kind": "round_end", "text": "table cleared — round over (me 52 / opp 68)", "round": 19}
+{"t": 1791386302.9721828, "kind": "new_round", "text": "round 20: trump 6♠, my hand 8♦ 7♣ 6♥ 7♥ 7♠", "round": 20}
+{"t": 1791386304.2300458, "kind": "raise_offer", "text": "opponent offers to raise to დავი (2)", "round": 20}
+{"t": 1791386304.2409077, "kind": "match", "text": "match score me None / opp None, target 3, bet None"}
+{"t": 1791386316.9573376, "kind": "match", "text": "match score me None / opp None, target 3, bet 0.4"}
+{"t": 1791386317.451921, "kind": "round_end", "text": "table cleared — round over (me 0 / opp 0)", "round": 20}
+{"t": 1791386319.5315707, "kind": "new_round", "text": "round 21: trump 9♠, my hand 8♣ 10♣ J♣ 9♥ K♥", "round": 21}
+{"t": 1791386325.3971996, "kind": "lead", "text": "opponent leads J♦", "round": 21}
+{"t": 1791386332.542483, "kind": "response", "text": "I answer face down 9♥", "round": 21}
+{"t": 1791386332.7311232, "kind": "trick", "text": "opponent takes the trick (+2 pts) — score me 0 / opp 2", "round": 21}
+{"t": 1791386335.3190753, "kind": "draw", "text": "I draw K♦; opponent draws 1; deck 24", "round": 21}
+{"t": 1791386340.176685, "kind": "lead", "text": "opponent leads Q♥", "round": 21}
+{"t": 1791386345.2875688, "kind": "response", "text": "I answer K♥ (beats)", "round": 21}
+{"t": 1791386345.287671, "kind": "trick", "text": "I take the trick (+7 pts) — score me 7 / opp 2", "round": 21}
+{"t": 1791386347.468859, "kind": "draw", "text": "I draw 7♣; opponent draws 1; deck 22", "round": 21}
+{"t": 1791386355.6037369, "kind": "lead", "text": "I lead 7♣ 8♣ 10♣ J♣", "round": 21}
+{"t": 1791386360.4253006, "kind": "response", "text": "opponent answers 10♦ A♦ 9♣ J♠", "round": 21}
+{"t": 1791386361.1366441, "kind": "trick", "text": "I take the trick (+35 pts) — score me 42 / opp 2", "round": 21}
+{"t": 1791386363.1196105, "kind": "draw", "text": "I draw Q♣ K♣ 7♥ J♥; opponent draws 4; deck 14", "round": 21}
+{"t": 1791386375.9548335, "kind": "lead", "text": "I lead Q♣", "round": 21}
+{"t": 1791386376.9495585, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 21}
+{"t": 1791386377.4494302, "kind": "reveal", "text": "opponent's face-down cards: 6♣", "round": 21}
+{"t": 1791386377.7502785, "kind": "trick", "text": "I take the trick (+3 pts) — score me 45 / opp 2", "round": 21}
+{"t": 1791386379.4356914, "kind": "draw", "text": "I draw 7♠; opponent draws 1; deck 12", "round": 21}
+{"t": 1791386388.750819, "kind": "lead", "text": "I lead 7♥", "round": 21}
+{"t": 1791386389.947711, "kind": "response", "text": "opponent answers 6♥", "round": 21}
+{"t": 1791386390.2450747, "kind": "trick", "text": "I take the trick (+0 pts) — score me 45 / opp 2", "round": 21}
+{"t": 1791386391.8279624, "kind": "draw", "text": "I draw 10♥; opponent draws 1; deck 10", "round": 21}
+{"t": 1791386399.621925, "kind": "lead", "text": "I lead J♥", "round": 21}
+{"t": 1791386400.322787, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 21}
+{"t": 1791386400.8168075, "kind": "reveal", "text": "opponent's face-down cards: 9♦", "round": 21}
+{"t": 1791386401.1158662, "kind": "trick", "text": "I take the trick (+2 pts) — score me 47 / opp 2", "round": 21}
+{"t": 1791386403.3999114, "kind": "draw", "text": "I draw 6♦; opponent draws 1; deck 8", "round": 21}
+{"t": 1791386409.842474, "kind": "lead", "text": "I lead 6♦", "round": 21}
+{"t": 1791386412.8603084, "kind": "round_end", "text": "table cleared — round over (me 47 / opp 2)", "round": 21}
+{"t": 1791386413.3053179, "kind": "match", "text": "match score me None / opp None, target None, bet None"}
+{"t": 1791386422.1417797, "kind": "match", "text": "match score me None / opp 5, target 1, bet None"}
+{"t": 1791386423.907492, "kind": "match", "text": "match score me None / opp None, target None, bet None"}
+{"t": 1791386596.2819026, "kind": "stake", "text": "stake set manually to დავი (2)", "round": 21}
+{"t": 1791387425.4272866, "kind": "match", "text": "match score me None / opp None, target 11, bet 0.4"}
+{"t": 1791387425.9066772, "kind": "new_round", "text": "round 22: trump 10♦, my hand 9♦ Q♦ 9♥ Q♠ K♠", "round": 22}
+{"t": 1791387438.5983899, "kind": "lead", "text": "I lead Q♠ K♠", "round": 22}
+{"t": 1791387445.5821779, "kind": "match", "text": "match score me None / opp None, target None, bet None"}
+{"t": 1791387448.0347528, "kind": "match", "text": "match score me None / opp None, target 11, bet 0.4"}
+{"t": 1791387488.2438614, "kind": "raise_offer", "text": "opponent offers to raise to დავი (2)", "round": 22}
+{"t": 1791387491.3384466, "kind": "round_end", "text": "table cleared — round over (me 0 / opp 0)", "round": 22}
+{"t": 1791387493.4219947, "kind": "new_round", "text": "round 23: trump Q♦, my hand 9♥ 8♠ 9♠ 10♠ J♠", "round": 23}
+{"t": 1791387495.887143, "kind": "lead", "text": "opponent leads 7♥ 8♥", "round": 23}
+{"t": 1791387504.2441304, "kind": "response", "text": "I answer face down 9♥ 8♠", "round": 23}
+{"t": 1791387504.6473725, "kind": "trick", "text": "opponent takes the trick (+0 pts) — score me 0 / opp 0", "round": 23}
+{"t": 1791387506.3269224, "kind": "draw", "text": "I draw 6♣ J♣; opponent draws 2; deck 22", "round": 23}
+{"t": 1791387508.5691648, "kind": "lead", "text": "opponent leads 6♠ Q♠", "round": 23}
+{"t": 1791387516.4879332, "kind": "response", "text": "I answer face up 10♠ J♠ (beats)", "round": 23}
+{"t": 1791387516.8723164, "kind": "trick", "text": "I take the trick (+15 pts) — score me 15 / opp 0", "round": 23}
+{"t": 1791387518.5550807, "kind": "draw", "text": "I draw 10♣ Q♥; opponent draws 2; deck 18", "round": 23}
+{"t": 1791387527.0155156, "kind": "lead", "text": "I lead 9♠", "round": 23}
+{"t": 1791387528.313697, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 23}
+{"t": 1791387528.8118002, "kind": "reveal", "text": "opponent's face-down cards: 8♣", "round": 23}
+{"t": 1791387529.1069133, "kind": "trick", "text": "I take the trick (+0 pts) — score me 15 / opp 0", "round": 23}
+{"t": 1791387532.5127923, "kind": "draw", "text": "I draw A♠; opponent draws 1; deck 16", "round": 23}
+{"t": 1791387540.987933, "kind": "lead", "text": "I lead 6♣", "round": 23}
+{"t": 1791387542.283649, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 23}
+{"t": 1791387542.7726865, "kind": "reveal", "text": "opponent's face-down cards: K♣", "round": 23}
+{"t": 1791387543.0732136, "kind": "trick", "text": "opponent takes the trick (+4 pts) — score me 15 / opp 4", "round": 23}
+{"t": 1791387544.6745243, "kind": "draw", "text": "I draw K♥; opponent draws 1; deck 14", "round": 23}
+{"t": 1791387548.2208083, "kind": "lead", "text": "opponent leads 6♦ 8♦ J♦ K♦", "round": 23}
+{"t": 1791387556.4678128, "kind": "response", "text": "I answer face down 10♣ J♣ Q♥ K♥", "round": 23}
+{"t": 1791387557.0556285, "kind": "trick", "text": "opponent takes the trick (+25 pts) — score me 15 / opp 29", "round": 23}
+{"t": 1791387558.9407094, "kind": "draw", "text": "I draw 9♦ 10♦ 6♥ A♥; opponent draws 4; deck 6", "round": 23}
+{"t": 1791387563.9390423, "kind": "lead", "text": "opponent leads 9♣", "round": 23}
+{"t": 1791387570.8257277, "kind": "response", "text": "I answer 6♥", "round": 23}
+{"t": 1791387571.554353, "kind": "trick", "text": "opponent takes the trick (+0 pts) — score me 15 / opp 29", "round": 23}
+{"t": 1791387573.4383647, "kind": "draw", "text": "I draw 10♥; opponent draws 1; deck 4", "round": 23}
+{"t": 1791387575.7869434, "kind": "lead", "text": "opponent leads 7♣", "round": 23}
+{"t": 1791387580.9697535, "kind": "response", "text": "I answer face up 10♦ (beats)", "round": 23}
+{"t": 1791387581.3825505, "kind": "trick", "text": "I take the trick (+10 pts) — score me 25 / opp 29", "round": 23}
+{"t": 1791387583.2567284, "kind": "draw", "text": "I draw A♣; opponent draws 1; deck 2", "round": 23}
+{"t": 1791387588.4160903, "kind": "lead", "text": "I lead 9♦", "round": 23}
+{"t": 1791387599.6408594, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 23}
+{"t": 1791387600.1416955, "kind": "reveal", "text": "opponent's face-down cards: 7♠", "round": 23}
+{"t": 1791387600.441046, "kind": "trick", "text": "I take the trick (+0 pts) — score me 25 / opp 29", "round": 23}
+{"t": 1791387602.9489481, "kind": "draw", "text": "I draw 7♦; opponent draws 1 (opponent took the trump card Q♦); deck 0", "round": 23}
+{"t": 1791387611.308566, "kind": "lead", "text": "I lead 10♥", "round": 23}
+{"t": 1791387618.6708245, "kind": "raise_offer", "text": "opponent offers to raise to დავი (2)", "round": 23}
+{"t": 1791387620.2248702, "kind": "round_end", "text": "table cleared — round over (me 25 / opp 29)", "round": 23}
+{"t": 1791387622.2937586, "kind": "new_round", "text": "round 24: trump A♠, my hand 8♦ 8♣ 7♠ 8♠ 10♠", "round": 24}
+{"t": 1791387624.6350324, "kind": "lead", "text": "opponent leads 7♦ K♦", "round": 24}
+{"t": 1791387634.4604013, "kind": "response", "text": "I answer face up 8♦ 10♠ (beats)", "round": 24}
+{"t": 1791387634.9709191, "kind": "trick", "text": "I take the trick (+14 pts) — score me 14 / opp 0", "round": 24}
+{"t": 1791387636.6427796, "kind": "draw", "text": "I draw 9♦ J♠; opponent draws 2; deck 22", "round": 24}
+{"t": 1791387645.39973, "kind": "lead", "text": "I lead 8♣", "round": 24}
+{"t": 1791387646.7835824, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 24}
+{"t": 1791387647.2829492, "kind": "reveal", "text": "opponent's face-down cards: A♣", "round": 24}
+{"t": 1791387647.5786924, "kind": "trick", "text": "opponent takes the trick (+11 pts) — score me 14 / opp 11", "round": 24}
+{"t": 1791387649.0760202, "kind": "draw", "text": "I draw J♦; opponent draws 1; deck 20", "round": 24}
+{"t": 1791387650.8268318, "kind": "lead", "text": "opponent leads J♣ Q♣", "round": 24}
+{"t": 1791387660.6582923, "kind": "response", "text": "I answer face up 7♠ J♠ (beats)", "round": 24}
+{"t": 1791387661.0315301, "kind": "trick", "text": "I take the trick (+7 pts) — score me 21 / opp 11", "round": 24}
+{"t": 1791387663.2434764, "kind": "draw", "text": "I draw 10♦ Q♦; opponent draws 2; deck 16", "round": 24}
+{"t": 1791387677.1562166, "kind": "lead", "text": "I lead 9♦ 10♦ J♦ Q♦", "round": 24}
+{"t": 1791387679.2350955, "kind": "response", "text": "opponent answers 10♣ 6♠ Q♠ K♠", "round": 24}
+{"t": 1791387679.9463542, "kind": "trick", "text": "I take the trick (+32 pts) — score me 53 / opp 11", "round": 24}
+{"t": 1791387681.7465072, "kind": "draw", "text": "I draw A♦ 8♥ 10♥ 9♠; opponent draws 4; deck 8", "round": 24}
+{"t": 1791387686.3395088, "kind": "lead", "text": "I lead A♦", "round": 24}
+{"t": 1791387688.958817, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 24}
+{"t": 1791387689.443602, "kind": "reveal", "text": "opponent's face-down cards: 6♦", "round": 24}
+{"t": 1791387689.726969, "kind": "trick", "text": "I take the trick (+11 pts) — score me 64 / opp 11", "round": 24}
+{"t": 1791387691.9837277, "kind": "round_end", "text": "round over (panel shows 18 cards / ≥64 pts)", "round": 24, "panel": ["K♦", "7♦", "8♦", "10♠", "Q♣", "J♣", "7♠", "J♠", "9♦", "J♦", "Q♦", "10♦", "K♠", "6♠", "Q♠", "10♣", "A♦", "6♦"]}
+{"t": 1791387696.0753589, "kind": "new_round", "text": "round 25: trump 10♦, my hand A♦ 6♣ 8♥ J♥ 8♠", "round": 25}
+{"t": 1791387708.5763116, "kind": "lead", "text": "I lead 8♥ J♥", "round": 25}
+{"t": 1791387708.7954295, "kind": "response", "text": "opponent answers (2 card(s), not seen)", "round": 25}
+{"t": 1791387708.7955403, "kind": "trick", "text": "I take the trick (+2 pts, 2 unseen) — score me 2 / opp 0", "round": 25}
+{"t": 1791387709.0318427, "kind": "match", "text": "match score me None / opp None, target None, bet None"}
+{"t": 1791387711.5991926, "kind": "match", "text": "match score me None / opp None, target 11, bet 0.4"}
+{"t": 1791387716.5898383, "kind": "draw", "text": "I draw 7♣ K♥; opponent draws 2; deck 22", "round": 25}
+{"t": 1791387731.775112, "kind": "lead", "text": "I lead 6♣ 7♣", "round": 25}
+{"t": 1791387731.9593341, "kind": "response", "text": "opponent answers (2 card(s), not seen)", "round": 25}
+{"t": 1791387731.9594452, "kind": "trick", "text": "I take the trick (+0 pts, 2 unseen) — score me 2 / opp 0", "round": 25}
+{"t": 1791387732.4534588, "kind": "draw", "text": "I draw 8♦ K♦; opponent draws 2; deck 18", "round": 25}
+{"t": 1791387740.7741904, "kind": "lead", "text": "I lead 8♠", "round": 25}
+{"t": 1791387742.8665836, "kind": "response", "text": "opponent beats with 10♠", "round": 25}
+{"t": 1791387743.165768, "kind": "trick", "text": "opponent takes the trick (+10 pts) — score me 2 / opp 10", "round": 25}
+{"t": 1791387744.7550762, "kind": "draw", "text": "I draw K♠; opponent draws 1; deck 16", "round": 25}
+{"t": 1791387747.3939757, "kind": "lead", "text": "opponent leads 7♥", "round": 25}
+{"t": 1791387757.1665654, "kind": "stake", "text": "I raised: stake now დავი (2)", "round": 25}
+{"t": 1791387762.204398, "kind": "response", "text": "I answer K♥ (beats)", "round": 25}
+{"t": 1791387762.2044997, "kind": "trick", "text": "I take the trick (+4 pts) — score me 6 / opp 10", "round": 25}
+{"t": 1791387762.3751683, "kind": "draw", "text": "I draw 10♥; opponent draws 1; deck 14", "round": 25}
+{"t": 1791387777.0909145, "kind": "stake", "text": "I raised: stake now სე (3)", "round": 25}
+{"t": 1791387786.9025702, "kind": "lead", "text": "I lead K♠", "round": 25}
+{"t": 1791387798.627093, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 25}
+{"t": 1791387799.0456545, "kind": "reveal", "text": "opponent's face-down cards: Q♦", "round": 25}
+{"t": 1791387799.4260256, "kind": "trick", "text": "opponent takes the trick (+7 pts) — score me 6 / opp 17", "round": 25}
+{"t": 1791387801.1153157, "kind": "draw", "text": "I draw 10♣; opponent draws 1; deck 12", "round": 25}
+{"t": 1791387806.3713052, "kind": "lead", "text": "opponent leads 6♠", "round": 25}
+{"t": 1791387813.101151, "kind": "response", "text": "I answer face up K♦ (beats)", "round": 25}
+{"t": 1791387813.6759777, "kind": "trick", "text": "I take the trick (+4 pts) — score me 10 / opp 17", "round": 25}
+{"t": 1791387815.1766045, "kind": "draw", "text": "I draw J♣; opponent draws 1; deck 10", "round": 25}
+{"t": 1791387823.6017418, "kind": "lead", "text": "I lead J♣", "round": 25}
+{"t": 1791387825.5740628, "kind": "response", "text": "opponent beats with K♣", "round": 25}
+{"t": 1791387825.8693817, "kind": "trick", "text": "opponent takes the trick (+6 pts) — score me 10 / opp 23", "round": 25}
+{"t": 1791387827.383236, "kind": "draw", "text": "I draw Q♠; opponent draws 1; deck 8", "round": 25}
+{"t": 1791387832.1249623, "kind": "lead", "text": "opponent leads 9♣", "round": 25}
+{"t": 1791387837.8722706, "kind": "response", "text": "I answer face up 10♣ (beats)", "round": 25}
+{"t": 1791387838.474026, "kind": "trick", "text": "I take the trick (+10 pts) — score me 20 / opp 23", "round": 25}
+{"t": 1791387840.1548915, "kind": "draw", "text": "I draw 7♠; opponent draws 1; deck 6", "round": 25}
+{"t": 1791387846.570049, "kind": "lead", "text": "I lead 7♠", "round": 25}
+{"t": 1791387848.34358, "kind": "response", "text": "opponent answers (1 card(s), not seen)", "round": 25}
+{"t": 1791387848.8409452, "kind": "reveal", "text": "opponent's face-down cards: A♠", "round": 25}
+{"t": 1791387849.1365006, "kind": "trick", "text": "opponent takes the trick (+11 pts) — score me 20 / opp 34", "round": 25}
+{"t": 1791387850.9490347, "kind": "draw", "text": "I draw Q♣; opponent draws 1; deck 4", "round": 25}
+{"t": 1791387855.3052819, "kind": "lead", "text": "opponent leads 9♦", "round": 25}
+{"t": 1791387861.1035025, "kind": "response", "text": "I answer Q♣", "round": 25}
+{"t": 1791387861.8779464, "kind": "trick", "text": "opponent takes the trick (+3 pts) — score me 20 / opp 37", "round": 25}
+{"t": 1791387863.4928412, "kind": "draw", "text": "I draw J♠; opponent draws 1; deck 2", "round": 25}
+{"t": 1791387865.7236, "kind": "lead", "text": "opponent leads A♣", "round": 25}
+{"t": 1791387873.972643, "kind": "response", "text": "I answer face down J♠", "round": 25}
+{"t": 1791387874.2427163, "kind": "trick", "text": "opponent takes the trick (+13 pts) — score me 20 / opp 50", "round": 25}
+{"t": 1791387875.823173, "kind": "draw", "text": "I draw 10♦; opponent draws 1 (I got the trump card); deck 0", "round": 25}
+{"t": 1791387880.148167, "kind": "lead", "text": "opponent leads J♦", "round": 25}
+{"t": 1791387890.2723668, "kind": "response", "text": "I answer face down 8♦", "round": 25}
+{"t": 1791387890.842112, "kind": "trick", "text": "opponent takes the trick (+2 pts) — score me 20 / opp 52", "round": 25}
+{"t": 1791387898.502557, "kind": "lead", "text": "opponent leads A♥", "round": 25}
+{"t": 1791387901.9026098, "kind": "response", "text": "I answer face up 10♦ (beats)", "round": 25}
+{"t": 1791387902.4744468, "kind": "trick", "text": "I take the trick (+21 pts) — score me 41 / opp 52", "round": 25}
+{"t": 1791387909.1942785, "kind": "match", "text": "match score me None / opp None, target None, bet None"}
+{"t": 1791387909.4049418, "kind": "stake", "text": "I raised: stake now ჩარი (4)", "round": 25}
+{"t": 1791387911.78402, "kind": "match", "text": "match score me None / opp None, target 11, bet 0.4"}
+{"t": 1791387913.43225, "kind": "lead", "text": "I lead Q♠", "round": 25}
+{"t": 1791387915.8523018, "kind": "response", "text": "opponent answers Q♥", "round": 25}
+{"t": 1791387916.1283028, "kind": "trick", "text": "I take the trick (+6 pts) — score me 47 / opp 52", "round": 25}
+{"t": 1791387922.367109, "kind": "lead", "text": "I lead A♦", "round": 25}
+{"t": 1791387923.882, "kind": "response", "text": "opponent answers 6♦", "round": 25}
+{"t": 1791387924.4612854, "kind": "trick", "text": "I take the trick (+11 pts) — score me 58 / opp 52", "round": 25}
+{"t": 1791387927.3123398, "kind": "lead", "text": "I lead 10♥", "round": 25}
+{"t": 1791387928.1000133, "kind": "response", "text": "opponent beats with 7♦", "round": 25}
+{"t": 1791387929.0916014, "kind": "trick", "text": "opponent takes the trick (+10 pts) — score me 58 / opp 62", "round": 25}
+{"t": 1791387929.0916593, "kind": "round_end", "text": "table cleared — round over (me 58 / opp 62, some cards unseen)", "round": 25}
+{"t": 1791387934.1234157, "kind": "new_round", "text": "round 26: trump J♥, my hand 9♦ 9♣ K♣ A♣ 6♠", "round": 26}
+{"t": 1791387938.3520255, "kind": "lead", "text": "opponent leads Q♦", "round": 26}
+{"t": 1791387958.0005221, "kind": "response", "text": "I answer face down 9♦", "round": 26}
+{"t": 1791387958.5730414, "kind": "trick", "text": "opponent takes the trick (+3 pts) — score me 0 / opp 3", "round": 26}
+{"t": 1791387960.1860344, "kind": "draw", "text": "I draw 6♥; opponent draws 1; deck 24", "round": 26}
+{"t": 1791387961.927107, "kind": "lead", "text": "opponent leads J♠ Q♠", "round": 26}
+{"t": 1791387970.0939054, "kind": "response", "text": "I answer face down 6♥ 6♠", "round": 26}
+{"t": 1791387970.5759723, "kind": "trick", "text": "opponent takes the trick (+5 pts) — score me 0 / opp 8", "round": 26}
+{"t": 1791387972.2783446, "kind": "draw", "text": "I draw 7♦ 7♠; opponent draws 2; deck 20", "round": 26}
+{"t": 1791387978.01766, "kind": "lead", "text": "opponent leads J♣", "round": 26}
+{"t": 1791387987.1690347, "kind": "response", "text": "I answer face up A♣ (beats)", "round": 26}
+{"t": 1791387987.4450226, "kind": "trick", "text": "I take the trick (+13 pts) — score me 13 / opp 8", "round": 26}
+{"t": 1791387989.9542828, "kind": "draw", "text": "I draw 9♠; opponent draws 1; deck 18", "round": 26}
+{"t": 1791387997.9043336, "kind": "lead", "text": "I lead 9♣ K♣", "round": 26}
+{"t": 1791388001.0994055, "kind": "response", "text": "opponent answers J♦ 7♣", "round": 26}
+{"t": 1791388001.4951096, "kind": "trick", "text": "I take the trick (+6 pts) — score me 19 / opp 8", "round": 26}
+{"t": 1791388003.091853, "kind": "draw", "text": "I draw 8♣ A♥; opponent draws 2; deck 14", "round": 26}
+{"t": 1791388010.9029567, "kind": "lead", "text": "I lead 7♠ 9♠", "round": 26}
+{"t": 1791388013.099317, "kind": "response", "text": "opponent beats with 10♥ A♠", "round": 26}
+{"t": 1791388013.4995718, "kind": "trick", "text": "opponent takes the trick (+21 pts) — score me 19 / opp 29", "round": 26}
+{"t": 1791388014.9893756, "kind": "draw", "text": "I draw 10♣ 7♥; opponent draws 2; deck 10", "round": 26}
+{"t": 1791388017.0391345, "kind": "lead", "text": "opponent leads 6♣ Q♣", "round": 26}
+{"t": 1791388027.6907668, "kind": "stake", "text": "I raised: stake now დავი (2)", "round": 26}
+{"t": 1791388032.5369718, "kind": "response", "text": "I answer 8♣ 10♣ (beats)", "round": 26}
+{"t": 1791388032.5370748, "kind": "trick", "text": "I take the trick (+13 pts) — score me 32 / opp 29", "round": 26}
+{"t": 1791388033.7243757, "kind": "draw", "text": "I draw K♦ 8♥; opponent draws 2; deck 6", "round": 26}
+{"t": 1791388042.074016, "kind": "lead", "text": "I lead 7♦", "round": 26}
+{"t": 1791388043.559306, "kind": "response", "text": "opponent answers (1 card(s), not seen)", "round": 26}
+{"t": 1791388044.068521, "kind": "reveal", "text": "opponent's face-down cards: A♦", "round": 26}
+{"t": 1791388044.3595002, "kind": "trick", "text": "opponent takes the trick (+11 pts) — score me 32 / opp 40", "round": 26}
+{"t": 1791388046.1531723, "kind": "draw", "text": "I draw 8♦; opponent draws 1; deck 4", "round": 26}
+{"t": 1791388048.2853358, "kind": "lead", "text": "opponent leads 8♠ 10♠", "round": 26}
+{"t": 1791388055.1943164, "kind": "response", "text": "I answer face up 7♥ 8♥ (beats)", "round": 26}
+{"t": 1791388055.5734842, "kind": "trick", "text": "I take the trick (+10 pts) — score me 42 / opp 40", "round": 26}
+{"t": 1791388059.8845413, "kind": "draw", "text": "I draw 6♦ K♠; opponent draws 2 (opponent took the trump card J♥); deck 0", "round": 26}
+{"t": 1791388064.1121385, "kind": "lead", "text": "I lead K♠", "round": 26}
+{"t": 1791388074.4204795, "kind": "response", "text": "opponent beats with 9♥", "round": 26}
+{"t": 1791388074.7234385, "kind": "trick", "text": "I take the trick (+4 pts) — score me 46 / opp 40", "round": 26}
+{"t": 1791388079.9936135, "kind": "match", "text": "match score me None / opp None, target None, bet None"}
+{"t": 1791388080.4195776, "kind": "stake", "text": "I raised: stake now სე (3)", "round": 26}
+{"t": 1791388084.486206, "kind": "match", "text": "match score me None / opp None, target 11, bet 0.4"}
+{"t": 1791388088.731685, "kind": "lead", "text": "I lead 6♦ 8♦ K♦", "round": 26}
+{"t": 1791388104.5606983, "kind": "response", "text": "opponent beats with 10♦ Q♥ K♥", "round": 26}
+{"t": 1791388105.188635, "kind": "trick", "text": "opponent takes the trick (+21 pts) — score me 46 / opp 61", "round": 26}
+{"t": 1791388109.6189842, "kind": "raise_offer", "text": "opponent offers to raise to ჩარი (4)", "round": 26}
+{"t": 1791388112.7787886, "kind": "round_end", "text": "table cleared — round over (me 46 / opp 61)", "round": 26}
+{"t": 1791388114.884956, "kind": "match", "text": "match score me None / opp None, target None, bet None"}
+{"t": 1791388139.7873304, "kind": "match", "text": "match score me None / opp None, target 9, bet 1.0"}
+{"t": 1791388140.454189, "kind": "new_round", "text": "round 27: trump A♣, my hand 6♣ 8♣ 6♥ K♥ 10♠", "round": 27}
+{"t": 1791388149.5198846, "kind": "lead", "text": "opponent leads 7♥", "round": 27}
+{"t": 1791388156.5721333, "kind": "response", "text": "I answer face up K♥ (beats)", "round": 27}
+{"t": 1791388156.8553588, "kind": "trick", "text": "I take the trick (+4 pts) — score me 4 / opp 0", "round": 27}
+{"t": 1791388158.261378, "kind": "draw", "text": "I draw 7♣; opponent draws 1; deck 24", "round": 27}
+{"t": 1791388172.2347803, "kind": "lead", "text": "I lead 6♣", "round": 27}
+{"t": 1791388174.9248888, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 27}
+{"t": 1791388175.3295705, "kind": "reveal", "text": "opponent's face-down cards: J♣", "round": 27}
+{"t": 1791388175.629015, "kind": "trick", "text": "opponent takes the trick (+2 pts) — score me 4 / opp 2", "round": 27}
+{"t": 1791388177.724853, "kind": "draw", "text": "I draw A♠; opponent draws 1; deck 22", "round": 27}
+{"t": 1791388180.4778342, "kind": "lead", "text": "opponent leads 6♦ 7♦ 9♦ A♦", "round": 27}
+{"t": 1791388191.668635, "kind": "response", "text": "I answer face down 7♣ 8♣ 6♥ 10♠", "round": 27}
+{"t": 1791388192.1432827, "kind": "trick", "text": "opponent takes the trick (+21 pts) — score me 4 / opp 23", "round": 27}
+{"t": 1791388194.6792161, "kind": "draw", "text": "I draw 10♦ 9♥ 9♠ J♠; opponent draws 4; deck 14", "round": 27}
+{"t": 1791388196.8915966, "kind": "lead", "text": "opponent leads 8♦ K♦", "round": 27}
+{"t": 1791388203.9269419, "kind": "response", "text": "I answer face down 9♥ 9♠", "round": 27}
+{"t": 1791388204.317814, "kind": "trick", "text": "opponent takes the trick (+4 pts) — score me 4 / opp 27", "round": 27}
+{"t": 1791388207.1047313, "kind": "draw", "text": "I draw 6♠ Q♠; opponent draws 2; deck 10", "round": 27}
+{"t": 1791388208.9515562, "kind": "lead", "text": "opponent leads Q♦", "round": 27}
+{"t": 1791388216.327027, "kind": "response", "text": "I answer face up 10♦ (beats)", "round": 27}
+{"t": 1791388216.6090822, "kind": "trick", "text": "I take the trick (+13 pts) — score me 17 / opp 27", "round": 27}
+{"t": 1791388218.5072258, "kind": "draw", "text": "I draw 8♠; opponent draws 1; deck 8", "round": 27}
+{"t": 1791388226.1639376, "kind": "stake", "text": "I raised: stake now დავი (2)", "round": 27}
+{"t": 1791388231.5656612, "kind": "lead", "text": "I lead 6♠ 8♠ J♠ Q♠ A♠", "round": 27}
+{"t": 1791388234.4495385, "kind": "response", "text": "opponent answers 10♣ Q♣ K♣ 8♥ A♥", "round": 27}
+{"t": 1791388235.257204, "kind": "trick", "text": "I take the trick (+44 pts) — score me 61 / opp 27", "round": 27}
+{"t": 1791388235.257263, "kind": "round_end", "text": "table cleared — round over (me 61 / opp 27)", "round": 27}
+{"t": 1791388242.3717744, "kind": "new_round", "text": "round 28: trump 8♠, my hand Q♦ A♦ 7♥ J♠ Q♠", "round": 28}
+{"t": 1791388253.2568297, "kind": "match", "text": "match score me None / opp None, target None, bet None"}
+{"t": 1791388258.8123035, "kind": "match", "text": "match score me None / opp None, target 9, bet 1.0"}
+{"t": 1791388262.5365322, "kind": "lead", "text": "I lead Q♦ A♦", "round": 28}
+{"t": 1791388268.030165, "kind": "response", "text": "opponent answers 8♦ 6♥", "round": 28}
+{"t": 1791388268.3268852, "kind": "trick", "text": "I take the trick (+14 pts) — score me 14 / opp 0", "round": 28}
+{"t": 1791388269.8354106, "kind": "draw", "text": "I draw 7♦ 9♠; opponent draws 2; deck 22", "round": 28}
+{"t": 1791388277.352893, "kind": "lead", "text": "I lead 7♦", "round": 28}
+{"t": 1791388281.1558251, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 28}
+{"t": 1791388281.349168, "kind": "reveal", "text": "opponent's face-down cards: 8♥", "round": 28}
+{"t": 1791388281.9514892, "kind": "trick", "text": "I take the trick (+0 pts) — score me 14 / opp 0", "round": 28}
+{"t": 1791388283.7527606, "kind": "draw", "text": "I draw 7♣; opponent draws 1; deck 20", "round": 28}
+{"t": 1791388290.9657161, "kind": "lead", "text": "I lead 7♣", "round": 28}
+{"t": 1791388294.461, "kind": "response", "text": "opponent answers (1 card(s), not seen)", "round": 28}
+{"t": 1791388294.9600654, "kind": "reveal", "text": "opponent's face-down cards: 10♣", "round": 28}
+{"t": 1791388295.2600012, "kind": "trick", "text": "opponent takes the trick (+10 pts) — score me 14 / opp 10", "round": 28}
+{"t": 1791388297.7793865, "kind": "draw", "text": "I draw 10♦; opponent draws 1; deck 18", "round": 28}
+{"t": 1791388300.8115008, "kind": "lead", "text": "opponent leads 9♦ K♦", "round": 28}
+{"t": 1791388313.7593644, "kind": "response", "text": "I answer face up 10♦ Q♠ (beats)", "round": 28}
+{"t": 1791388314.1392512, "kind": "trick", "text": "I take the trick (+17 pts) — score me 31 / opp 10", "round": 28}
+{"t": 1791388316.2413297, "kind": "draw", "text": "I draw J♦ K♥; opponent draws 2; deck 14", "round": 28}
+{"t": 1791388324.5569236, "kind": "lead", "text": "I lead J♦", "round": 28}
+{"t": 1791388326.5370188, "kind": "response", "text": "opponent answers (1 card(s), not seen)", "round": 28}
+{"t": 1791388327.0345614, "kind": "reveal", "text": "opponent's face-down cards: 7♠", "round": 28}
+{"t": 1791388327.3389196, "kind": "trick", "text": "opponent takes the trick (+2 pts) — score me 31 / opp 12", "round": 28}
+{"t": 1791388329.1561224, "kind": "draw", "text": "I draw A♣; opponent draws 1; deck 12", "round": 28}
+{"t": 1791388333.800132, "kind": "lead", "text": "opponent leads Q♥", "round": 28}
+{"t": 1791388342.2697906, "kind": "response", "text": "I answer face up K♥ (beats)", "round": 28}
+{"t": 1791388342.8405888, "kind": "trick", "text": "I take the trick (+7 pts) — score me 38 / opp 12", "round": 28}
+{"t": 1791388344.3558903, "kind": "draw", "text": "I draw Q♣; opponent draws 1; deck 10", "round": 28}
+{"t": 1791388353.2179427, "kind": "lead", "text": "I lead 7♥", "round": 28}
+{"t": 1791388354.7076638, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 28}
+{"t": 1791388355.5090609, "kind": "trick", "text": "I take the trick (+0 pts, 1 unseen) — score me 38 / opp 12", "round": 28}
+{"t": 1791388361.417982, "kind": "draw", "text": "I draw 6♣; opponent draws 1; deck 8", "round": 28}
+{"t": 1791388366.9552424, "kind": "lead", "text": "opponent leads 9♣ J♣", "round": 28}
+{"t": 1791388374.2003102, "kind": "response", "text": "I answer face up Q♣ A♣ (beats)", "round": 28}
+{"t": 1791388374.5726025, "kind": "trick", "text": "I take the trick (+16 pts) — score me 54 / opp 12", "round": 28}
+{"t": 1791388376.8879502, "kind": "draw", "text": "I draw J♥ 6♠; opponent draws 2; deck 4", "round": 28}
+{"t": 1791388384.3456707, "kind": "lead", "text": "I lead 6♠ 9♠", "round": 28}
+{"t": 1791388387.2238789, "kind": "raise_offer", "text": "opponent offers to raise to დავი (2)", "round": 28}
+{"t": 1791388389.0620434, "kind": "stake", "text": "opponent's raise accepted: stake now დავი (2)", "round": 28}
+{"t": 1791388391.5632124, "kind": "response", "text": "opponent answers 8♣ 10♥", "round": 28}
+{"t": 1791388391.9566207, "kind": "trick", "text": "I take the trick (+10 pts) — score me 64 / opp 12", "round": 28}
+{"t": 1791388394.2914562, "kind": "draw", "text": "I draw 6♦ K♣; opponent draws 2 (opponent took the trump card 8♠); deck 0", "round": 28}
+{"t": 1791388401.460986, "kind": "lead", "text": "I lead 6♦", "round": 28}
+{"t": 1791388402.7565277, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 28}
+{"t": 1791388403.252605, "kind": "reveal", "text": "opponent's face-down cards: 9♥", "round": 28}
+{"t": 1791388403.5496657, "kind": "trick", "text": "I take the trick (+0 pts) — score me 64 / opp 12", "round": 28}
+{"t": 1791388409.414057, "kind": "lead", "text": "I lead 6♣ K♣", "round": 28}
+{"t": 1791388411.594111, "kind": "response", "text": "opponent beats with 8♠ K♠", "round": 28}
+{"t": 1791388412.0890238, "kind": "trick", "text": "opponent takes the trick (+8 pts) — score me 64 / opp 20", "round": 28}
+{"t": 1791388416.6303005, "kind": "lead", "text": "opponent leads 10♠ A♠", "round": 28}
+{"t": 1791388418.1960595, "kind": "response", "text": "I answer face down J♥ J♠", "round": 28}
+{"t": 1791388419.1722267, "kind": "trick", "text": "opponent takes the trick (+25 pts) — score me 64 / opp 45", "round": 28}
+{"t": 1791388419.1722846, "kind": "round_end", "text": "table cleared — round over (me 64 / opp 45, some cards unseen)", "round": 28}
+{"t": 1791388424.2192526, "kind": "new_round", "text": "round 29: trump A♠, my hand K♦ A♣ 8♥ K♥ 9♠", "round": 29}
+{"t": 1791388441.0653954, "kind": "lead", "text": "I lead 8♥ K♥", "round": 29}
+{"t": 1791388445.660484, "kind": "response", "text": "opponent answers 9♦ 6♣", "round": 29}
+{"t": 1791388446.0602458, "kind": "trick", "text": "I take the trick (+4 pts) — score me 4 / opp 0", "round": 29}
+{"t": 1791388449.967958, "kind": "draw", "text": "I draw 6♦ 10♦; opponent draws 2; deck 22", "round": 29}
+{"t": 1791388459.6345744, "kind": "lead", "text": "I lead 6♦ 10♦ K♦", "round": 29}
+{"t": 1791388464.4464152, "kind": "response", "text": "opponent answers 8♦ Q♦ 8♠", "round": 29}
+{"t": 1791388464.8251424, "kind": "trick", "text": "I take the trick (+17 pts) — score me 21 / opp 0", "round": 29}
+{"t": 1791388466.5411298, "kind": "draw", "text": "I draw J♦ A♦ 7♣; opponent draws 3; deck 16", "round": 29}
+{"t": 1791388473.651485, "kind": "lead", "text": "I lead J♦ A♦", "round": 29}
+{"t": 1791388475.640082, "kind": "response", "text": "opponent answers 9♣ Q♣", "round": 29}
+{"t": 1791388476.0375695, "kind": "trick", "text": "I take the trick (+16 pts) — score me 37 / opp 0", "round": 29}
+{"t": 1791388477.8333592, "kind": "draw", "text": "I draw 7♠ Q♠; opponent draws 2; deck 12", "round": 29}
+{"t": 1791388486.898594, "kind": "lead", "text": "I lead 7♠ 9♠ Q♠", "round": 29}
+{"t": 1791388490.9986863, "kind": "response", "text": "opponent answers 9♥ J♥ K♠", "round": 29}
+{"t": 1791388491.4892406, "kind": "trick", "text": "I take the trick (+9 pts) — score me 46 / opp 0", "round": 29}
+{"t": 1791388493.3063188, "kind": "draw", "text": "I draw K♣ 6♠ J♠; opponent draws 3; deck 6", "round": 29}
+{"t": 1791388500.184492, "kind": "round_end", "text": "table cleared — round over (me 46 / opp 0)", "round": 29}
+{"t": 1791388502.2997005, "kind": "new_round", "text": "round 30: trump 10♣, my hand 6♦ J♣ J♥ 7♠ 10♠", "round": 30}
+{"t": 1791388509.5810034, "kind": "lead", "text": "I lead 6♦", "round": 30}
+{"t": 1791388513.4767988, "kind": "response", "text": "opponent answers 7♥", "round": 30}
+{"t": 1791388513.7721672, "kind": "trick", "text": "I take the trick (+0 pts) — score me 0 / opp 0", "round": 30}
+{"t": 1791388515.1765907, "kind": "draw", "text": "I draw Q♥; opponent draws 1; deck 24", "round": 30}
+{"t": 1791388527.678229, "kind": "lead", "text": "I lead 7♠", "round": 30}
+{"t": 1791388529.47897, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 30}
+{"t": 1791388529.9785583, "kind": "reveal", "text": "opponent's face-down cards: K♠", "round": 30}
+{"t": 1791388530.2727172, "kind": "trick", "text": "opponent takes the trick (+4 pts) — score me 0 / opp 4", "round": 30}
+{"t": 1791388532.0708995, "kind": "draw", "text": "I draw J♦; opponent draws 1; deck 22", "round": 30}
+{"t": 1791388536.1597004, "kind": "lead", "text": "opponent leads J♠", "round": 30}
+{"t": 1791388542.5642455, "kind": "response", "text": "I answer 10♠ (beats)", "round": 30}
+{"t": 1791388543.3892856, "kind": "trick", "text": "I take the trick (+12 pts) — score me 12 / opp 4", "round": 30}
+{"t": 1791388545.1024885, "kind": "draw", "text": "I draw 9♠; opponent draws 1; deck 20", "round": 30}
+{"t": 1791388552.320821, "kind": "lead", "text": "I lead J♥ Q♥", "round": 30}
+{"t": 1791388559.9281137, "kind": "response", "text": "opponent beats with 7♣ K♥", "round": 30}
+{"t": 1791388560.22134, "kind": "trick", "text": "opponent takes the trick (+9 pts) — score me 12 / opp 13", "round": 30}
+{"t": 1791388562.4200377, "kind": "draw", "text": "I draw Q♦ K♦; opponent draws 2; deck 16", "round": 30}
+{"t": 1791388568.070582, "kind": "lead", "text": "opponent leads 6♠", "round": 30}
+{"t": 1791388574.7825165, "kind": "response", "text": "I answer face up 9♠ (beats)", "round": 30}
+{"t": 1791388575.0565858, "kind": "trick", "text": "I take the trick (+0 pts) — score me 12 / opp 13", "round": 30}
+{"t": 1791388576.5643349, "kind": "draw", "text": "I draw 8♠; opponent draws 1; deck 14", "round": 30}
+{"t": 1791388583.670597, "kind": "lead", "text": "I lead J♦ Q♦ K♦", "round": 30}
+{"t": 1791388586.7875433, "kind": "response", "text": "opponent answers 7♦ 8♦ 9♦", "round": 30}
+{"t": 1791388587.2532897, "kind": "trick", "text": "I take the trick (+9 pts) — score me 21 / opp 13", "round": 30}
+{"t": 1791388589.4677215, "kind": "draw", "text": "I draw 10♦ 9♣ Q♠; opponent draws 3; deck 8", "round": 30}
+{"t": 1791388596.7340045, "kind": "lead", "text": "I lead 8♠ Q♠", "round": 30}
+{"t": 1791388606.586113, "kind": "response", "text": "opponent answers 8♥ 10♥", "round": 30}
+{"t": 1791388606.9548447, "kind": "trick", "text": "I take the trick (+13 pts) — score me 34 / opp 13", "round": 30}
+{"t": 1791388609.3642013, "kind": "draw", "text": "I draw Q♣ 9♥; opponent draws 2; deck 4", "round": 30}
+{"t": 1791388621.2124326, "kind": "lead", "text": "I lead J♣ Q♣", "round": 30}
+{"t": 1791388627.0115137, "kind": "response", "text": "opponent answers K♣ 6♥", "round": 30}
+{"t": 1791388627.4046233, "kind": "trick", "text": "I take the trick (+9 pts) — score me 43 / opp 13", "round": 30}
+{"t": 1791388629.5386896, "kind": "draw", "text": "I draw 8♣ A♥; opponent draws 2 (opponent took the trump card 10♣); deck 0", "round": 30}
+{"t": 1791388634.4629052, "kind": "lead", "text": "I lead 9♥", "round": 30}
+{"t": 1791388640.4768836, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 30}
+{"t": 1791388640.9768937, "kind": "reveal", "text": "opponent's face-down cards: 6♣", "round": 30}
+{"t": 1791388641.2835276, "kind": "trick", "text": "opponent takes the trick (+0 pts) — score me 43 / opp 13", "round": 30}
+{"t": 1791388648.0115235, "kind": "lead", "text": "opponent leads A♦", "round": 30}
+{"t": 1791388657.9655347, "kind": "round_end", "text": "table cleared — round over (me 43 / opp 13)", "round": 30}
+{"t": 1791388659.947951, "kind": "new_round", "text": "round 31: trump J♥, my hand 9♦ Q♦ 10♥ K♥ 7♠", "round": 31}
+{"t": 1791388668.7802794, "kind": "lead", "text": "I lead 9♦ Q♦", "round": 31}
+{"t": 1791388671.4824803, "kind": "response", "text": "opponent answers K♣ 6♠", "round": 31}
+{"t": 1791388671.872035, "kind": "trick", "text": "I take the trick (+7 pts) — score me 7 / opp 0", "round": 31}
+{"t": 1791388673.86743, "kind": "draw", "text": "I draw J♦ 10♣; opponent draws 2; deck 22", "round": 31}
+{"t": 1791388681.9247336, "kind": "lead", "text": "I lead 7♠", "round": 31}
+{"t": 1791388685.121797, "kind": "response", "text": "opponent answers (1 card(s), not seen)", "round": 31}
+{"t": 1791388685.1219566, "kind": "trick", "text": "I take the trick (+0 pts, 1 unseen) — score me 7 / opp 0", "round": 31}
+{"t": 1791388686.8156254, "kind": "draw", "text": "I draw J♣; opponent draws 1; deck 20", "round": 31}
+{"t": 1791388688.9538884, "kind": "lead", "text": "opponent leads Q♠ K♠ A♠", "round": 31}
+{"t": 1791388697.5683749, "kind": "response", "text": "I answer face down J♦ 10♣ J♣", "round": 31}
+{"t": 1791388698.0411923, "kind": "trick", "text": "opponent takes the trick (+32 pts) — score me 7 / opp 32", "round": 31}
+{"t": 1791388700.3515043, "kind": "draw", "text": "I draw 8♦ K♦ A♣; opponent draws 3; deck 14", "round": 31}
+{"t": 1791388702.2750733, "kind": "lead", "text": "opponent leads 9♠", "round": 31}
+{"t": 1791388708.9621842, "kind": "response", "text": "I answer 8♦", "round": 31}
+{"t": 1791388709.7867038, "kind": "trick", "text": "opponent takes the trick (+0 pts) — score me 7 / opp 32", "round": 31}
+{"t": 1791388711.6817305, "kind": "draw", "text": "I draw 9♥; opponent draws 1; deck 12", "round": 31}
+{"t": 1791388714.931724, "kind": "lead", "text": "opponent leads 8♣", "round": 31}
+{"t": 1791388721.1353233, "kind": "response", "text": "I answer A♣ (beats)", "round": 31}
+{"t": 1791388721.9704087, "kind": "trick", "text": "I take the trick (+11 pts) — score me 18 / opp 32", "round": 31}
+{"t": 1791388723.4630218, "kind": "draw", "text": "I draw J♠; opponent draws 1; deck 10", "round": 31}
+{"t": 1791388735.376971, "kind": "lead", "text": "I lead J♠", "round": 31}
+{"t": 1791388739.532046, "kind": "raise_offer", "text": "opponent offers to raise to დავი (2)", "round": 31}
+{"t": 1791388742.1672752, "kind": "stake", "text": "opponent's raise accepted: stake now დავი (2)", "round": 31}
+{"t": 1791388744.9937508, "kind": "response", "text": "opponent beats with 7♥", "round": 31}
+{"t": 1791388745.2861266, "kind": "trick", "text": "opponent takes the trick (+2 pts) — score me 18 / opp 34", "round": 31}
+{"t": 1791388747.079708, "kind": "draw", "text": "I draw Q♣; opponent draws 1; deck 8", "round": 31}
+{"t": 1791388748.947243, "kind": "lead", "text": "opponent leads 9♣", "round": 31}
+{"t": 1791388760.5551999, "kind": "response", "text": "I answer K♦", "round": 31}
+{"t": 1791388761.3447828, "kind": "trick", "text": "opponent takes the trick (+4 pts) — score me 18 / opp 38", "round": 31}
+{"t": 1791388763.1592155, "kind": "draw", "text": "I draw 7♣; opponent draws 1; deck 6", "round": 31}
+{"t": 1791388765.995984, "kind": "lead", "text": "opponent leads 6♦ 10♦", "round": 31}
+{"t": 1791388773.3687546, "kind": "response", "text": "I answer face up 10♥ K♥ (beats)", "round": 31}
+{"t": 1791388773.736842, "kind": "trick", "text": "I take the trick (+24 pts) — score me 42 / opp 38", "round": 31}
+{"t": 1791388775.4467034, "kind": "draw", "text": "I draw 7♦ 6♣; opponent draws 2; deck 2", "round": 31}
+{"t": 1791388780.663762, "kind": "lead", "text": "I lead 6♣ 7♣ Q♣", "round": 31}
+{"t": 1791388785.1702952, "kind": "response", "text": "opponent beats with 6♥ Q♥ A♥", "round": 31}
+{"t": 1791388785.6544695, "kind": "trick", "text": "opponent takes the trick (+17 pts) — score me 42 / opp 55", "round": 31}
+{"t": 1791388789.8869476, "kind": "draw", "text": "I draw J♥; opponent draws 1 (I got the trump card); deck 0", "round": 31}
+{"t": 1791388793.3989544, "kind": "lead", "text": "opponent leads 8♠ 10♠", "round": 31}
+{"t": 1791388798.9025924, "kind": "response", "text": "I answer face up 9♥ J♥ (beats)", "round": 31}
+{"t": 1791388799.4865348, "kind": "trick", "text": "I take the trick (+12 pts) — score me 54 / opp 55", "round": 31}
+{"t": 1791388802.7597885, "kind": "lead", "text": "I lead 7♦", "round": 31}
+{"t": 1791388804.5384502, "kind": "response", "text": "opponent beats with A♦", "round": 31}
+{"t": 1791388805.5335925, "kind": "trick", "text": "opponent takes the trick (+11 pts) — score me 54 / opp 66", "round": 31}
+{"t": 1791388805.5336545, "kind": "round_end", "text": "table cleared — round over (me 54 / opp 66, some cards unseen)", "round": 31}
+{"t": 1791388810.481343, "kind": "new_round", "text": "round 32: trump 9♠, my hand 9♦ J♣ 7♥ K♥ Q♠", "round": 32}
+{"t": 1791388814.9208484, "kind": "lead", "text": "opponent leads 9♣ Q♣", "round": 32}
+{"t": 1791388822.6486447, "kind": "response", "text": "I answer face up J♣ Q♠ (beats)", "round": 32}
+{"t": 1791388823.020388, "kind": "trick", "text": "I take the trick (+8 pts) — score me 8 / opp 0", "round": 32}
+{"t": 1791388825.0307157, "kind": "draw", "text": "I draw 8♦ 7♣; opponent draws 2; deck 22", "round": 32}
+{"t": 1791388833.6572773, "kind": "lead", "text": "I lead 8♦ 9♦", "round": 32}
+{"t": 1791388835.736851, "kind": "response", "text": "opponent beats with Q♦ K♠", "round": 32}
+{"t": 1791388836.139213, "kind": "trick", "text": "opponent takes the trick (+7 pts) — score me 8 / opp 7", "round": 32}
+{"t": 1791388838.5480642, "kind": "draw", "text": "I draw 8♠ J♠; opponent draws 2; deck 18", "round": 32}
+{"t": 1791388842.285287, "kind": "lead", "text": "opponent leads 9♥ 10♥ J♥ A♥", "round": 32}
+{"t": 1791388858.1839824, "kind": "response", "text": "I answer face down 7♣ 7♥ K♥ 8♠", "round": 32}
+{"t": 1791388858.750828, "kind": "trick", "text": "opponent takes the trick (+27 pts) — score me 8 / opp 34", "round": 32}
+{"t": 1791388860.865871, "kind": "draw", "text": "I draw 6♦ A♦ 10♣ 10♠; opponent draws 4; deck 10", "round": 32}
+{"t": 1791388863.2883034, "kind": "lead", "text": "opponent leads 6♥ Q♥", "round": 32}
+{"t": 1791388875.6605153, "kind": "response", "text": "I answer face up 10♠ J♠ (beats)", "round": 32}
+{"t": 1791388876.2809556, "kind": "trick", "text": "I take the trick (+15 pts) — score me 23 / opp 34", "round": 32}
+{"t": 1791388877.8441117, "kind": "draw", "text": "I draw 7♦ 8♥; opponent draws 2; deck 6", "round": 32}
+{"t": 1791388884.694594, "kind": "lead", "text": "I lead 8♥", "round": 32}
+{"t": 1791388888.4887035, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 32}
+{"t": 1791388888.9893808, "kind": "reveal", "text": "opponent's face-down cards: 6♣", "round": 32}
+{"t": 1791388889.28597, "kind": "trick", "text": "I take the trick (+0 pts) — score me 23 / opp 34", "round": 32}
+{"t": 1791388890.7977555, "kind": "draw", "text": "I draw K♣; opponent draws 1; deck 4", "round": 32}
+{"t": 1791388902.3830452, "kind": "lead", "text": "I lead 10♣ K♣", "round": 32}
+{"t": 1791388907.6581662, "kind": "raise_offer", "text": "opponent offers to raise to დავი (2)", "round": 32}
+{"t": 1791388909.643801, "kind": "round_end", "text": "table cleared — round over (me 23 / opp 34)", "round": 32}
+{"t": 1791388911.7607183, "kind": "new_round", "text": "round 33: trump 6♣, my hand 7♦ Q♣ 7♥ K♠ A♠", "round": 33}
+{"t": 1791388917.4073591, "kind": "lead", "text": "opponent leads 9♠", "round": 33}
+{"t": 1791388924.0564346, "kind": "response", "text": "I answer face up A♠ (beats)", "round": 33}
+{"t": 1791388924.2334616, "kind": "trick", "text": "I take the trick (+11 pts) — score me 11 / opp 0", "round": 33}
+{"t": 1791388925.8285346, "kind": "draw", "text": "I draw Q♠; opponent draws 1; deck 24", "round": 33}
+{"t": 1791388934.6537848, "kind": "lead", "text": "I lead Q♠ K♠", "round": 33}
+{"t": 1791388937.3415658, "kind": "response", "text": "opponent beats with 7♣ 8♣", "round": 33}
+{"t": 1791388937.738556, "kind": "trick", "text": "opponent takes the trick (+7 pts) — score me 11 / opp 7", "round": 33}
+{"t": 1791388939.649795, "kind": "draw", "text": "I draw 6♠ 7♠; opponent draws 2; deck 20", "round": 33}
+{"t": 1791388941.886493, "kind": "lead", "text": "opponent leads 8♠", "round": 33}
+{"t": 1791388948.6629024, "kind": "response", "text": "I answer 7♥", "round": 33}
+{"t": 1791388949.4864304, "kind": "trick", "text": "opponent takes the trick (+0 pts) — score me 11 / opp 7", "round": 33}
+{"t": 1791388951.3832693, "kind": "draw", "text": "I draw 8♦; opponent draws 1; deck 18", "round": 33}
+{"t": 1791388954.8274639, "kind": "lead", "text": "opponent leads J♦ Q♦", "round": 33}
+{"t": 1791388961.848646, "kind": "response", "text": "I answer face down 7♦ 8♦", "round": 33}
+{"t": 1791388962.4113803, "kind": "trick", "text": "opponent takes the trick (+5 pts) — score me 11 / opp 12", "round": 33}
+{"t": 1791388964.3229496, "kind": "draw", "text": "I draw K♦ 9♥; opponent draws 2; deck 14", "round": 33}
+{"t": 1791388967.064467, "kind": "lead", "text": "opponent leads 9♦", "round": 33}
+{"t": 1791388974.5117025, "kind": "response", "text": "I answer K♦ (beats)", "round": 33}
+{"t": 1791388975.3387136, "kind": "trick", "text": "I take the trick (+4 pts) — score me 15 / opp 12", "round": 33}
+{"t": 1791388976.9331214, "kind": "draw", "text": "I draw A♦; opponent draws 1; deck 12", "round": 33}
+{"t": 1791388985.8470192, "kind": "lead", "text": "I lead 6♠ 7♠", "round": 33}
+{"t": 1791388989.8872423, "kind": "raise_offer", "text": "opponent offers to raise to დავი (2)", "round": 33}
+{"t": 1791388991.7610943, "kind": "round_end", "text": "table cleared — round over (me 15 / opp 12)", "round": 33}
+{"t": 1791388993.8684928, "kind": "new_round", "text": "round 34: trump 10♠, my hand K♦ 10♥ J♥ 9♠ Q♠", "round": 34}
+{"t": 1791388997.8144855, "kind": "lead", "text": "opponent leads 7♥ 8♥", "round": 34}
+{"t": 1791389005.2338285, "kind": "response", "text": "I answer face up 10♥ J♥ (beats)", "round": 34}
+{"t": 1791389005.5994148, "kind": "trick", "text": "I take the trick (+12 pts) — score me 12 / opp 0", "round": 34}
+{"t": 1791389007.9152513, "kind": "draw", "text": "I draw 6♦ 7♣; opponent draws 2; deck 22", "round": 34}
+{"t": 1791389015.3802197, "kind": "lead", "text": "I lead 7♣", "round": 34}
+{"t": 1791389017.2506325, "kind": "response", "text": "opponent beats with A♣", "round": 34}
+{"t": 1791389017.5711043, "kind": "trick", "text": "opponent takes the trick (+11 pts) — score me 12 / opp 11", "round": 34}
+{"t": 1791389019.364432, "kind": "draw", "text": "I draw 10♦; opponent draws 1; deck 20", "round": 34}
+{"t": 1791389021.2941332, "kind": "lead", "text": "opponent leads 9♥", "round": 34}
+{"t": 1791389028.3099487, "kind": "response", "text": "I answer face down 6♦", "round": 34}
+{"t": 1791389029.084078, "kind": "trick", "text": "opponent takes the trick (+0 pts) — score me 12 / opp 11", "round": 34}
+{"t": 1791389030.8781986, "kind": "draw", "text": "I draw K♥; opponent draws 1; deck 18", "round": 34}
+{"t": 1791389032.9293706, "kind": "lead", "text": "opponent leads 7♦ Q♦", "round": 34}
+{"t": 1791389040.175714, "kind": "response", "text": "I answer face up 10♦ K♦ (beats)", "round": 34}
+{"t": 1791389040.6520116, "kind": "trick", "text": "I take the trick (+17 pts) — score me 29 / opp 11", "round": 34}
+{"t": 1791389042.2447836, "kind": "draw", "text": "I draw 8♦ Q♥; opponent draws 2; deck 14", "round": 34}
+{"t": 1791389049.4142854, "kind": "lead", "text": "I lead Q♥ K♥", "round": 34}
+{"t": 1791389052.5630915, "kind": "raise_offer", "text": "opponent offers to raise to დავი (2)", "round": 34}
+{"t": 1791389053.4990232, "kind": "stake", "text": "opponent's raise accepted: stake now დავი (2)", "round": 34}
+{"t": 1791389056.0953822, "kind": "response", "text": "opponent beats with A♥ A♠", "round": 34}
+{"t": 1791389056.5127318, "kind": "trick", "text": "opponent takes the trick (+29 pts) — score me 29 / opp 40", "round": 34}
+{"t": 1791389058.2990198, "kind": "draw", "text": "I draw 6♣ 10♣; opponent draws 2; deck 10", "round": 34}
+{"t": 1791389060.234394, "kind": "lead", "text": "opponent leads 8♣", "round": 34}
+{"t": 1791389067.3735244, "kind": "response", "text": "I answer face up 10♣ (beats)", "round": 34}
+{"t": 1791389067.6447535, "kind": "trick", "text": "I take the trick (+10 pts) — score me 39 / opp 40", "round": 34}
+{"t": 1791389069.142168, "kind": "draw", "text": "I draw K♣; opponent draws 1; deck 8", "round": 34}
+{"t": 1791389078.1355617, "kind": "lead", "text": "I lead 9♠ Q♠", "round": 34}
+{"t": 1791389083.144214, "kind": "response", "text": "opponent answers 6♥ 6♠", "round": 34}
+{"t": 1791389083.5569162, "kind": "trick", "text": "I take the trick (+3 pts) — score me 42 / opp 40", "round": 34}
+{"t": 1791389084.9304097, "kind": "draw", "text": "I draw 9♦ K♠; opponent draws 2; deck 4", "round": 34}
+{"t": 1791389092.6493728, "kind": "lead", "text": "I lead 6♣ K♣", "round": 34}
+{"t": 1791389097.856902, "kind": "response", "text": "opponent answers J♣ Q♣", "round": 34}
+{"t": 1791389098.2332768, "kind": "trick", "text": "I take the trick (+9 pts) — score me 51 / opp 40", "round": 34}
+{"t": 1791389100.4733138, "kind": "draw", "text": "I draw J♦ 9♣; opponent draws 2 (opponent took the trump card 10♠); deck 0", "round": 34}
+{"t": 1791389106.1938565, "kind": "lead", "text": "I lead 9♣", "round": 34}
+{"t": 1791389109.387816, "kind": "response", "text": "opponent gives 1 card(s) face down", "round": 34}
+{"t": 1791389109.8885417, "kind": "reveal", "text": "opponent's face-down cards: 7♠", "round": 34}
+{"t": 1791389110.191102, "kind": "trick", "text": "opponent takes the trick (+0 pts) — score me 51 / opp 40", "round": 34}
+{"t": 1791389114.533436, "kind": "lead", "text": "opponent leads 8♠ 10♠ J♠", "round": 34}
+{"t": 1791389128.9210973, "kind": "stake", "text": "I raised: stake now სე (3)", "round": 34}
+{"t": 1791389132.6975107, "kind": "response", "text": "I answer face down 8♦ 9♦ J♦", "round": 34}
+{"t": 1791389133.3693035, "kind": "trick", "text": "opponent takes the trick (+14 pts) — score me 51 / opp 54", "round": 34}
+{"t": 1791389141.0364077, "kind": "round_end", "text": "table cleared — round over (me 51 / opp 54)", "round": 34}
+{"t": 1791389143.0340173, "kind": "match", "text": "match score me None / opp None, target None, bet None"}
+{"t": 1791389448.7212539, "kind": "match", "text": "match score me None / opp 1, target 98, bet None"}
+{"t": 1791389450.227357, "kind": "match", "text": "match score me None / opp None, target None, bet None"}
+{"t": 1791389451.9301257, "kind": "match", "text": "match score me 2 / opp None, target None, bet None"}
+{"t": 1791389455.376705, "kind": "match", "text": "match score me None / opp None, target None, bet None"}
+{"t": 1791389465.1653602, "kind": "match", "text": "match score me 2 / opp None, target None, bet None"}
+{"t": 1791389466.9371502, "kind": "match", "text": "match score me None / opp None, target None, bet None"}
+{"t": 1791389472.436243, "kind": "match", "text": "match score me 2 / opp None, target None, bet None"}
+{"t": 1791389475.206436, "kind": "match", "text": "match score me None / opp None, target None, bet None"}
+{"t": 1791389486.9978743, "kind": "match", "text": "match score me 2 / opp None, target None, bet None"}
+{"t": 1791389489.6749883, "kind": "match", "text": "match score me None / opp None, target None, bet None"}
+{"t": 1791389493.2285101, "kind": "match", "text": "match score me 2 / opp None, target None, bet None"}
+{"t": 1791389495.8959115, "kind": "match", "text": "match score me None / opp None, target None, bet None"}

@@ -1,0 +1,114 @@
+{
+  "name": "Adjarabet Bura - Chrome fullscreen 1920x1080",
+  "reference_size": [1920, 1080],
+  "card_size": [119, 168],
+  "card_spacing": 132,
+  "card_template_scale_note": "card PNG/WEBP templates are resized to card_size",
+  "template_files": {
+    "pattern": "{suit}{rank}.webp",
+    "suit_codes": {
+      "D": "0",
+      "C": "1",
+      "H": "2",
+      "S": "3"
+    },
+    "rank_codes": {
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9",
+      "10": "10",
+      "J": "11",
+      "Q": "12",
+      "K": "13",
+      "A": "14"
+    }
+  },
+  "corner_box": [2, 4, 44, 72],
+  "regions": {
+    "my_hand": [620, 740, 1520, 1000],
+    "opp_hand": [600, 30, 1560, 250],
+    "center": [600, 270, 1545, 700],
+    "trump": [1540, 400, 1700, 600],
+    "deck_back": [1676, 419, 1784, 576],
+    "my_pile": [1650, 830, 1790, 965],
+    "opp_pile": [1650, 90, 1790, 225],
+    "buttons": [700, 980, 1500, 1060],
+    "modal": [830, 40, 1280, 345],
+    "end_panel": [560, 320, 1660, 690],
+    "toast": [700, 0, 1220, 60],
+    "my_avatar": [29, 792, 169, 932],
+    "opp_avatar": [29, 121, 169, 261],
+    "opp_score": [40, 340, 162, 437],
+    "stake_box": [40, 439, 162, 636],
+    "my_score": [40, 639, 162, 735]
+  },
+  "stability_regions": ["my_hand", "opp_hand", "center", "trump", "buttons", "modal", "end_panel"],
+  "colors_hsv": {
+    "table_blue": [
+      [95, 110, 40],
+      [130, 255, 255]
+    ],
+    "white_card": [
+      [0, 0, 200],
+      [180, 70, 255]
+    ],
+    "back_dark": [
+      [0, 0, 0],
+      [180, 120, 50]
+    ],
+    "back_logo_red": [
+      [170, 150, 120],
+      [180, 255, 255]
+    ],
+    "btn_orange": [
+      [8, 150, 150],
+      [22, 255, 255]
+    ],
+    "btn_green": [
+      [55, 120, 80],
+      [85, 255, 255]
+    ],
+    "btn_blue": [
+      [100, 170, 120],
+      [125, 255, 255]
+    ],
+    "btn_red": [
+      [170, 150, 120],
+      [180, 255, 255]
+    ],
+    "ring_green": [
+      [40, 120, 100],
+      [90, 255, 255]
+    ],
+    "ring_orange": [
+      [5, 150, 150],
+      [25, 255, 255]
+    ],
+    "panel_green": [
+      [60, 80, 40],
+      [90, 255, 140]
+    ]
+  },
+  "thresholds": {
+    "card_score_min": 0.86,
+    "card_margin_min": 0.04,
+    "trump_score_min": 0.85,
+    "button_min_area": 2500,
+    "ring_min_fraction": 0.05,
+    "end_panel_min_fraction": 0.35,
+    "modal_min_area": 3000,
+    "card_detect_min": 0.8
+  },
+  "trump_visible_width": 110,
+  "stake_badges": {
+    "me": {
+      "center": [141, 905],
+      "radius": 12
+    },
+    "opp": {
+      "center": [141, 234],
+      "radius": 12
+    }
+  }
+}

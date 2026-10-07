@@ -1,0 +1,23 @@
+[   0.20s] -- status WAITING waiting for a new deal (start the tool before the cards are dealt)
+[   3.00s] new_round     round 1: trump K♦, my hand 9♦ J♦ K♣ 6♥ J♠
+[   3.00s] -- status OK 
+[   3.40s] >> LEAD: LEAD J♠   (win 46% · lose 52% · 1280 samples)
+[   7.80s] lead          I lead 6♥
+[  10.80s] response      opponent gives 1 card(s) face down
+[  11.30s] reveal        opponent's face-down cards: 9♥
+[  11.60s] trick         I take the trick (+0 pts) — score me 0 / opp 0
+[  12.60s] >> CLAIM: CONTINUE — press გაგრძელება   (you have 0 pts; need 61; P(enough)=0%)
+[  13.80s] draw          I draw 10♣; opponent draws 1; deck 24
+[  13.80s] >> LEAD: LEAD 9♦   (win 50% · lose 48% · 960 samples)
+[  15.60s] lead          I lead J♠
+[  32.70s] response      opponent gives 1 card(s) face down
+[  33.20s] reveal        opponent's face-down cards: K♠
+[  33.50s] trick         opponent takes the trick (+6 pts) — score me 0 / opp 6
+[  35.40s] draw          I draw Q♦; opponent draws 1; deck 22
+[  37.90s] lead          opponent leads 6♠ 8♠ Q♠
+[  37.90s] >> RESPOND: BEAT 9♦ on Q♠, J♦ on 8♠, Q♦ on 6♠   (win 54% · lose 44% · 2656 samples)
+[  49.30s] response      I answer face up 9♦ J♦ Q♦ (beats)
+[  49.90s] trick         I take the trick (+8 pts) — score me 8 / opp 6
+[  50.60s] >> CLAIM: CONTINUE — press გაგრძელება   (you have 8 pts; need 61; P(enough)=0%)
+
+processed 3062 frames, 27 stable observations in 26.4s

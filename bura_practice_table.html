@@ -1,0 +1,634 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bura Practice Table</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya+SC:wght@500;700&family=Alegreya+Sans:wght@400;500;700&display=swap">
+<style>
+/* Layout: card table (felt) on the left, ledger column on the right; stacks on phones. Single deliberate dark look. */
+:root{
+  --felt:#123f38; --felt-deep:#0b2b26; --rail:#3a2416; --ink:#f2ede2; --muted:#a8c0b8;
+  --gold:#d8a548; --red:#c7343f; --card:#fbf9f3; --card-ink:#1d1d1f; --line:rgba(242,237,226,.14);
+  --good:#5cc08a; --bad:#e2675f;
+  --display:"Alegreya SC", "Palatino Linotype", Georgia, serif;
+  --body:"Alegreya Sans", "Segoe UI", system-ui, sans-serif;
+  --cw:clamp(50px, 8.2vw, 84px);
+  color-scheme:dark;
+}
+html,body{height:100%}
+body{background:var(--felt-deep);color:var(--ink);font-family:var(--body);font-size:15px;padding-inline:16px;padding-block:14px;box-sizing:border-box}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+h1{font-family:var(--display);font-weight:700;font-size:1.55rem;margin:0;letter-spacing:.02em}
+.top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 18px;max-width:1180px;margin:0 auto 12px}
+.top .sub{color:var(--muted);font-size:.9rem}
+.wrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;max-width:1180px;margin:0 auto}
+@media (max-width:860px){.wrap{grid-template-columns:minmax(0,1fr)}}
+
+.table{background:radial-gradient(ellipse at 50% 40%, #1a5248 0%, var(--felt) 55%, #0e342e 100%);border:10px solid var(--rail);border-radius:22px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.06), 0 10px 30px rgba(0,0,0,.35);padding:14px;display:grid;grid-template-rows:auto 1fr auto auto;gap:12px;min-height:560px;min-width:0}
+.row{display:flex;justify-content:center;gap:clamp(4px,1vw,10px);flex-wrap:wrap;min-height:calc(var(--cw)*1.41 + 8px);align-items:flex-end}
+.label{font-family:var(--display);font-size:.8rem;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;text-align:center}
+.mid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center}
+.trick{display:flex;justify-content:center;gap:clamp(4px,1vw,10px);min-height:calc(var(--cw)*1.41*1.5);align-items:center;position:relative}
+.pair{position:relative;width:var(--cw);height:calc(var(--cw)*1.41*1.5)}
+.pair .card{position:absolute;left:0}
+.pair .lead{top:0}
+.pair .resp{top:calc(var(--cw)*0.7)}
+.stock{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:calc(var(--cw)*1.6)}
+.stockbox{position:relative;width:calc(var(--cw)*1.6);height:calc(var(--cw)*1.41)}
+.stockbox .trumpcard{position:absolute;left:calc(var(--cw)*0.2);top:50%;transform:translateY(-50%) rotate(-90deg);transform-origin:center}
+.stockbox .back{position:absolute;right:0;top:0}
+.count{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.85rem}
+
+/* cards */
+.card{width:var(--cw);aspect-ratio:119/168;max-width:100%;background:var(--card);color:var(--card-ink);border-radius:calc(var(--cw)*.09);
+  box-shadow:0 2px 6px rgba(0,0,0,.35);position:relative;user-select:none;flex:none;font-family:var(--body);transition:transform .15s ease, box-shadow .15s ease}
+.card.red{color:var(--red)}
+.card .ix{position:absolute;left:7%;top:5%;line-height:.95;text-align:center;font-weight:700;font-size:calc(var(--cw)*.23)}
+.card .ix small{display:block;font-size:calc(var(--cw)*.2)}
+.card .ix.br{left:auto;top:auto;right:7%;bottom:5%;transform:rotate(180deg)}
+.card .pip{position:absolute;inset:0;display:grid;place-items:center;font-size:calc(var(--cw)*.55)}
+.card .face{position:absolute;inset:22% 18%;border:1.5px solid currentColor;border-radius:6px;display:grid;place-items:center;font-family:var(--display);font-size:calc(var(--cw)*.42);opacity:.9}
+.card.back{background:repeating-linear-gradient(45deg,#7b2230 0 6px,#8e2a39 6px 12px);border:3px solid var(--card)}
+.card.back::after{content:"";position:absolute;inset:22%;border:2px solid rgba(255,255,255,.55);border-radius:50%}
+.card.dim{opacity:.38}
+.card.trumpmark{outline:2px solid var(--gold);outline-offset:1px}
+.mine .card{cursor:pointer}
+.mine .card:hover{transform:translateY(-4px)}
+.mine .card.sel{transform:translateY(-16px);box-shadow:0 0 0 3px var(--gold),0 8px 16px rgba(0,0,0,.4)}
+.mine .card:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.mine.locked .card{cursor:default}
+.mine .card:disabled{opacity:1}
+.mine.locked .card:hover{transform:none}
+
+.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;min-height:44px}
+button{font-family:var(--body);font-weight:700;font-size:.95rem;border-radius:999px;padding:9px 16px;border:1px solid var(--line);background:#1c4a42;color:var(--ink);cursor:pointer}
+button:hover:not(:disabled){filter:brightness(1.15)}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+button:disabled{opacity:.4;cursor:not-allowed}
+button.primary{background:var(--gold);color:#241a08;border-color:transparent}
+button.claim{background:#d77a1f;color:#1d1206;border-color:transparent}
+button.raise{background:#2457b8;border-color:transparent}
+button.fold{background:#111;border-color:#333}
+button.danger{background:#a8323a;border-color:transparent}
+button .ka{font-weight:500;opacity:.85;margin-left:6px;font-size:.85em}
+.status{text-align:center;font-family:var(--display);font-size:1.05rem;min-height:1.4em}
+.thinking::after{content:"";display:inline-block;width:1em;text-align:left;animation:dots 1s steps(4) infinite}
+@keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
+
+/* ledger */
+.side{display:flex;flex-direction:column;gap:12px;min-width:0}
+.panel{background:#0f2f2a;border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.panel h2{font-family:var(--display);font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 8px;font-weight:500}
+.score{display:grid;grid-template-columns:1fr auto;gap:4px 10px;font-variant-numeric:tabular-nums}
+.score b{font-size:1.15rem}
+.meter{height:6px;border-radius:3px;background:rgba(255,255,255,.08);overflow:hidden;margin:2px 0 6px;grid-column:1/-1}
+.meter i{display:block;height:100%;background:var(--gold)}
+.meter.opp i{background:#7fa9d8}
+.opts{display:grid;gap:8px}
+.opts label{display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--muted)}
+select{background:#16403a;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:4px 6px;font-family:var(--body)}
+.log{font-size:.88rem;line-height:1.4;max-height:260px;overflow:auto;display:flex;flex-direction:column;gap:3px}
+.log div{color:var(--muted)}
+.log div.me{color:var(--ink)}
+.log div.win{color:var(--good)}
+.log div.loss{color:var(--bad)}
+.rules{font-size:.85rem;color:var(--muted);line-height:1.45}
+.rules p{margin:.3em 0}
+.overlay{position:absolute;inset:0;display:grid;place-items:center;background:rgba(6,20,17,.72);border-radius:12px;z-index:5}
+.overlay .box{background:#0f2f2a;border:1px solid var(--gold);border-radius:14px;padding:18px 20px;max-width:340px;text-align:center;display:grid;gap:10px}
+.overlay .box h3{margin:0;font-family:var(--display);font-size:1.3rem}
+.tablewrap{position:relative;min-width:0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style></head><body>
+
+<div class="top">
+  <h1>Bura Practice Table</h1>
+  <div class="sub">5-card Bura · 36 cards · 61 points wins the round · you against the strategy bot</div>
+</div>
+
+<div class="wrap">
+  <div class="tablewrap">
+    <div class="table" id="table">
+      <div>
+        <div class="label" id="botLabel">Bot</div>
+        <div class="row" id="botHand"></div>
+      </div>
+      <div class="mid">
+        <div class="trick" id="trick"></div>
+        <div class="stock">
+          <div class="stockbox" id="stock"></div>
+          <div class="count" id="deckCount"></div>
+        </div>
+      </div>
+      <div>
+        <div class="status" id="status"></div>
+        <div class="actions" id="actions"></div>
+      </div>
+      <div>
+        <div class="row mine" id="myHand"></div>
+        <div class="label" style="margin-top:6px">Your hand</div>
+      </div>
+    </div>
+    <div class="overlay" id="overlay" hidden><div class="box" id="overlayBox"></div></div>
+  </div>
+
+  <aside class="side">
+    <div class="panel">
+      <h2>Round</h2>
+      <div class="score">
+        <span>Your points</span><b id="myPts">0</b>
+        <div class="meter"><i id="myMeter" style="width:0"></i></div>
+        <span>Bot points</span><b id="botPts">0</b>
+        <div class="meter opp"><i id="botMeter" style="width:0"></i></div>
+        <span>Stake</span><b id="stake">1</b>
+        <span>Trump</span><b id="trumpTxt">–</b>
+      </div>
+    </div>
+    <div class="panel">
+      <h2>Match</h2>
+      <div class="score">
+        <span>You</span><b id="matchMe">0</b>
+        <span>Bot</span><b id="matchBot">0</b>
+        <span>Playing to</span><b id="matchTarget">7</b>
+      </div>
+    </div>
+    <div class="panel opts">
+      <h2>Settings</h2>
+      <label for="optTarget">Match target
+        <select id="optTarget"><option>1</option><option>3</option><option>5</option><option selected>7</option><option>11</option></select>
+      </label>
+      <label for="optThink">Bot thinking time
+        <select id="optThink"><option value="300">0.3 s</option><option value="800" selected>0.8 s</option><option value="1500">1.5 s</option></select>
+      </label>
+      <label for="optReveal">Show bot's cards
+        <select id="optReveal"><option value="0" selected>No</option><option value="1">Yes (testing)</option></select>
+      </label>
+      <button id="newMatch">New match</button>
+    </div>
+    <div class="panel">
+      <h2>Table log</h2>
+      <div class="log" id="log" aria-live="polite"></div>
+    </div>
+    <div class="panel rules">
+      <h2>How to play</h2>
+      <p>Lead 1–5 cards of one suit. The answer must use the same number of cards; it wins only if every led card is beaten (higher card of the same suit, or any trump on a side suit). You may always give cards face down instead.</p>
+      <p>Card order: 6 7 8 9 J Q K 10 A. Points: A 11, 10 10, K 4, Q 3, J 2.</p>
+      <p>After winning a trick you may claim <b>ვარ</b> if your pile has 61+. A wrong claim loses the round. Raise <b>დავი</b> on your turn; <b>გატანება</b> gives up the round.</p>
+    </div>
+  </aside>
+</div>
+
+<script>
+/* ===================== Engine (same strategy as the assistant: PIMC + exact endgame) ===================== */
+function BuraCore(){
+  const SUITS=['D','C','H','S'], SYM={D:'♦',C:'♣',H:'♥',S:'♠'};
+  const RANKS=['6','7','8','9','10','J','Q','K','A'];
+  const ORDER=['6','7','8','9','J','Q','K','10','A'];
+  const PTS={'6':0,'7':0,'8':0,'9':0,'10':10,'J':2,'Q':3,'K':4,'A':11};
+  const N=36, HAND=5, WIN=61, LEAD_MAX=5;
+  const suitOf=[], rankOf=[], strength=[], points=[];
+  for(let s=0;s<4;s++)for(let r=0;r<9;r++){const c=s*9+r;suitOf[c]=s;rankOf[c]=r;strength[c]=ORDER.indexOf(RANKS[r]);points[c]=PTS[RANKS[r]];}
+  const cardName=c=>RANKS[rankOf[c]]+SYM[SUITS[suitOf[c]]];
+
+  function rng(seed){let a=(seed>>>0)||1;return function(){a=(a+0x6D2B79F5)|0;let t=Math.imul(a^(a>>>15),1|a);t=(t+Math.imul(t^(t>>>7),61|t))^t;return((t^(t>>>14))>>>0)/4294967296;};}
+  function shuffle(arr,R){for(let i=arr.length-1;i>0;i--){const j=Math.floor(R()*(i+1));const t=arr[i];arr[i]=arr[j];arr[j]=t;}return arr;}
+  const isT=(c,trump)=>suitOf[c]===trump?1:0;
+
+  function beats(b,a,trump){ if(suitOf[b]===suitOf[a]) return strength[b]>strength[a]; return suitOf[b]===trump; }
+  function beatAssignment(resp,lead,trump){
+    const k=lead.length; if(resp.length!==k) return null;
+    const order=lead.map((_,i)=>i).sort((i,j)=>(strength[lead[j]]+100*isT(lead[j],trump))-(strength[lead[i]]+100*isT(lead[i],trump)));
+    const used=new Array(k).fill(false), pairs=[];
+    const rec=p=>{ if(p===k) return true; const a=lead[order[p]];
+      for(let j=0;j<k;j++){ if(!used[j]&&beats(resp[j],a,trump)){ used[j]=true; pairs.push([a,resp[j]]); if(rec(p+1)) return true; pairs.pop(); used[j]=false; } }
+      return false; };
+    return rec(0)?pairs:null;
+  }
+  function combos(arr,k){const out=[],idx=[];const go=st=>{if(idx.length===k){out.push(idx.map(i=>arr[i]));return;}for(let i=st;i<arr.length;i++){idx.push(i);go(i+1);idx.pop();}};go(0);return out;}
+  function legalLeads(hand){const by={};for(const c of hand.slice().sort((a,b)=>a-b))(by[suitOf[c]]=by[suitOf[c]]||[]).push(c);const out=[];for(const s in by){const cs=by[s];for(let k=1;k<=Math.min(LEAD_MAX,cs.length);k++)out.push(...combos(cs,k));}return out;}
+  function legalResponses(hand,lead){const h=hand.slice().sort((a,b)=>a-b);if(h.length<=lead.length)return[h];return combos(h,lead.length);}
+
+  // ---- perfect-information mechanics (player 0 = the deciding player)
+  const mk=(h0,h1,deck,pts,tricks,leader)=>({h:[h0,h1],deck,pts,tricks,leader,done:false,result:0});
+  const clone=s=>({h:[s.h[0].slice(),s.h[1].slice()],deck:s.deck.slice(),pts:s.pts.slice(),tricks:s.tricks.slice(),leader:s.leader,done:s.done,result:s.result});
+  function finish(s,w){s.done=true;s.result=w==null?0:(w===0?1:-1);}
+  function endByCards(s){const[a,b]=s.pts;finish(s,a===b?null:(a>b?0:1));}
+  function rm(arr,c){const i=arr.indexOf(c);if(i>=0)arr.splice(i,1);}
+  function drawCards(s,w){const need=[HAND-s.h[0].length,HAND-s.h[1].length];const order=[w,1-w];
+    while(s.deck.length&&(need[0]>0||need[1]>0)){for(const p of order){if(need[p]>0&&s.deck.length){s.h[p].push(s.deck.pop());need[p]--;}}}}
+  function applyTrick(s,L,lead,resp,trump){
+    for(const c of lead)rm(s.h[L],c); for(const c of resp)rm(s.h[1-L],c);
+    const w=beatAssignment(resp,lead,trump)?1-L:L;
+    let g=0;for(const c of lead)g+=points[c];for(const c of resp)g+=points[c];
+    s.pts[w]+=g;s.tricks[w]++;
+    if(s.pts[w]>=WIN){finish(s,w);return w;}
+    drawCards(s,w);s.leader=w;
+    if(!s.h[0].length&&!s.h[1].length&&!s.deck.length)endByCards(s);
+    return w;
+  }
+  // ---- playout policies
+  function leadPolicy(s,p,trump,R){
+    const hand=s.h[p];const nt=hand.filter(c=>suitOf[c]!==trump);
+    if(!nt.length)return[hand.reduce((m,c)=>strength[c]<strength[m]?c:m)];
+    if(R()<0.3){const g={};for(const c of nt)(g[suitOf[c]]=g[suitOf[c]]||[]).push(c);let best=[];for(const k in g)if(g[k].length>best.length)best=g[k];
+      if(best.length>=2)return best.slice().sort((a,b)=>strength[b]-strength[a]).slice(0,LEAD_MAX);}
+    if(!s.deck.length&&R()<0.5)return[nt.reduce((m,c)=>(strength[c]>strength[m]||(strength[c]===strength[m]&&points[c]>points[m]))?c:m)];
+    return[nt.reduce((m,c)=>(points[c]<points[m]||(points[c]===points[m]&&strength[c]<strength[m]))?c:m)];
+  }
+  const cheapKey=trump=>(x,y)=>(isT(x,trump)-isT(y,trump))||(points[x]-points[y])||(strength[x]-strength[y]);
+  function cheapestBeat(hand,lead,trump){
+    const rem=hand.slice(),chosen=[];
+    const order=lead.slice().sort((a,b)=>(isT(b,trump)-isT(a,trump))||(strength[b]-strength[a]));
+    for(const a of order){const c=rem.filter(b=>beats(b,a,trump));if(!c.length)return null;c.sort(cheapKey(trump));rm(rem,c[0]);chosen.push(c[0]);}
+    return beatAssignment(chosen,lead,trump)?chosen:null;
+  }
+  function responsePolicy(s,p,lead,trump,R){
+    const hand=s.h[p],k=lead.length;if(hand.length<=k)return hand.slice();
+    const beat=cheapestBeat(hand,lead,trump);
+    if(beat){let tp=0;for(const c of lead)tp+=points[c];for(const c of beat)tp+=points[c];
+      const tr=beat.filter(c=>suitOf[c]===trump);let htp=0;for(const c of tr)htp+=points[c];
+      if(s.pts[p]+tp>=WIN||!tr.length||tp>=10||(tp>=4&&htp<10)||R()<0.15)return beat;}
+    return hand.slice().sort(cheapKey(trump)).slice(0,k);
+  }
+  function rollout(s,trump,R){let n=0;while(!s.done&&n<60){const L=s.leader;if(!s.h[L].length){endByCards(s);break;}
+    const lead=leadPolicy(s,L,trump,R);const resp=responsePolicy(s,1-L,lead,trump,R);applyTrick(s,L,lead,resp,trump);n++;}return s;}
+  const outcome=s=>s.result+0.001*(s.pts[0]-s.pts[1])/120;
+
+  // ---- exact solver for an empty stock
+  function Solver(trump){this.trump=trump;this.memo=new Map();this.nodes=0;this.limit=150000;}
+  Solver.prototype.value=function(s){
+    if(s.done)return outcome(s);
+    const key=s.h[0].slice().sort((a,b)=>a-b).join(',')+'|'+s.h[1].slice().sort((a,b)=>a-b).join(',')+'|'+s.leader+'|'+s.pts[0]+'|'+s.pts[1]+'|'+(s.tricks[0]>0?1:0)+(s.tricks[1]>0?1:0);
+    const m=this.memo.get(key);if(m!==undefined)return m;
+    if(++this.nodes>this.limit)throw new Error('limit');
+    const L=s.leader;let best=L===0?-Infinity:Infinity;
+    for(const lead of legalLeads(s.h[L])){let worst=L===0?Infinity:-Infinity;
+      for(const resp of legalResponses(s.h[1-L],lead)){const c=clone(s);applyTrick(c,L,lead,resp,this.trump);const v=this.value(c);
+        if(L===0){if(v<worst)worst=v;if(worst<=best)break;}else{if(v>worst)worst=v;if(worst>=best)break;}}
+      if(L===0){if(worst>best)best=worst;}else{if(worst<best)best=worst;}}
+    this.memo.set(key,best);return best;
+  };
+
+  // ---- information-set sampling
+  function seenSet(info){const s=new Set([...info.myHand,...info.oppKnown,...info.myPile,...info.oppPile,...(info.currentLead||[]),...(info.pendingLead||[])]);
+    if(info.trumpCard!=null&&info.trumpInDeck&&info.deckSize>0)s.add(info.trumpCard);return s;}
+  function unseen(info){const s=seenSet(info);const out=[];for(let c=0;c<N;c++)if(!s.has(c))out.push(c);return out;}
+  function sample(info,R){const pool=shuffle(unseen(info),R);let i=0;const nOpp=info.oppHandSize-info.oppKnown.length;
+    const opp=info.oppKnown.concat(pool.slice(i,i+nOpp));i+=nOpp;
+    const tb=info.trumpCard!=null&&info.trumpInDeck&&info.deckSize>0;const nd=info.deckSize-(tb?1:0);
+    let deck=pool.slice(i,i+nd);if(tb)deck=[info.trumpCard].concat(deck);return{opp,deck};}
+  const pileP=a=>a.reduce((t,c)=>t+points[c],0);
+  const build=(info,sm)=>mk(info.myHand.slice(),sm.opp.slice(),sm.deck.slice(),[pileP(info.myPile),pileP(info.oppPile)],[info.myTricks,info.oppTricks],info.leader);
+
+  function makeCont(trump,solver){return(s,r)=>{if(s.done)return outcome(s);if(!s.deck.length&&solver){try{return solver.value(s);}catch(e){}}rollout(s,trump,r);return outcome(s);};}
+
+  function evaluate(info,budgetMs,seed){
+    const R=rng(seed||((Math.random()*4294967296)>>>0));const trump=info.trump;
+    const leading=info.leader===0&&!(info.currentLead&&info.currentLead.length);
+    const actions=leading?legalLeads(info.myHand):legalResponses(info.myHand,info.currentLead);
+    const res=actions.map(a=>({cards:a,n:0,win:0,lose:0,draw:0,value:0,exact:false}));
+    if(!actions.length)return[];
+    const solver=info.deckSize===0?new Solver(trump):null;const cont=makeCont(trump,solver);
+    const play=(sm,a,r)=>{const s=build(info,sm);
+      if(leading){
+        if(!s.deck.length&&solver){let worst=Infinity;for(const resp of legalResponses(s.h[1],a)){const c=clone(s);applyTrick(c,0,a,resp,trump);worst=Math.min(worst,cont(c,r));}return worst;}
+        const resp=responsePolicy(s,1,a,trump,r);applyTrick(s,0,a,resp,trump);
+      }else{s.h[1]=s.h[1].concat(info.currentLead);applyTrick(s,1,info.currentLead,a,trump);}
+      return cont(s,r);};
+    const tally=(r,v)=>{r.n++;r.value+=v;if(v>0.5)r.win++;else if(v<-0.5)r.lose++;else r.draw++;};
+    const exact=info.deckSize===0&&unseen(info).length===info.oppHandSize-info.oppKnown.length;
+    if(exact){const sm=sample(info,R);for(const r of res){if(solver)solver.nodes=0;tally(r,play(sm,r.cards,rng(1)));r.exact=true;}}
+    else{
+      const tEnd=Date.now()+budgetMs;let alive=res.slice(),ns=0;
+      while(ns<6000){
+        for(let b=0;b<16;b++){const sm=sample(info,R);const sd=(R()*4294967296)>>>0;
+          for(const r of alive){if(solver)solver.nodes=0;tally(r,play(sm,r.cards,rng(sd)));}
+          if(solver&&solver.memo.size>300000)solver.memo.clear();}
+        ns+=16;if(Date.now()>tEnd)break;
+        if(alive.length>2&&ns>=64){alive.sort((x,y)=>y.value/y.n-x.value/x.n);const best=alive[0].value/alive[0].n;
+          alive=alive.filter((r,i)=>{const m=r.value/r.n;const se=Math.sqrt(Math.max(1e-9,1-m*m)/r.n)*2.5;return i<2||m+se>=best;});}
+      }
+    }
+    const mean=r=>r.n?r.value/r.n:-9;
+    return res.sort((x,y)=>mean(y)-mean(x));
+  }
+
+  // probability of winning the round from here (for raise decisions)
+  function positionValue(info,budgetMs){
+    const leadingNow=info.leader===0&&!(info.pendingLead&&info.pendingLead.length);
+    const responding=info.leader===1&&info.currentLead&&info.currentLead.length;
+    if(leadingNow||responding){const r=evaluate(info,budgetMs)[0];return r&&r.n?{win:r.win/r.n,lose:r.lose/r.n}:{win:0,lose:0};}
+    const R=rng((Math.random()*4294967296)>>>0);const trump=info.trump;
+    const solver=info.deckSize===0?new Solver(trump):null;const cont=makeCont(trump,solver);
+    const tEnd=Date.now()+budgetMs;let n=0,w=0,l=0;
+    while(n<4000&&(n<64||Date.now()<tEnd)){const s=build(info,sample(info,R));if(solver)solver.nodes=0;
+      if(info.pendingLead&&info.pendingLead.length){s.h[0]=s.h[0].concat(info.pendingLead);const resp=responsePolicy(s,1,info.pendingLead,trump,R);applyTrick(s,0,info.pendingLead,resp,trump);}
+      const v=cont(s,R);n++;if(v>0.5)w++;else if(v<-0.5)l++;}
+    return{win:w/n,lose:l/n};
+  }
+
+  return{SUITS,RANKS,SYM,N,HAND,WIN,suitOf,rankOf,strength,points,cardName,beatAssignment,legalLeads,evaluate,positionValue,rng,shuffle};
+}
+
+/* ===================== Engine runner (web worker when available) ===================== */
+const Core=BuraCore();
+let worker=null,seq=0;const pending=new Map();
+try{
+  const src='const Core=('+BuraCore.toString()+')();onmessage=e=>{const d=e.data;let out;try{out={id:d.id,ok:true,val:Core[d.fn](...d.args)};}catch(err){out={id:d.id,ok:false,err:String(err)};}postMessage(out);};';
+  worker=new Worker(URL.createObjectURL(new Blob([src],{type:'text/javascript'})));
+  worker.onmessage=e=>{const p=pending.get(e.data.id);if(!p)return;pending.delete(e.data.id);e.data.ok?p.res(e.data.val):p.rej(new Error(e.data.err));};
+  worker.onerror=()=>{worker=null;for(const[,p]of pending)p.rej(new Error('worker'));pending.clear();};
+}catch(e){worker=null;}
+function engine(fn,...args){
+  const local=()=>new Promise((res,rej)=>setTimeout(()=>{try{res(Core[fn](...args));}catch(err){rej(err);}},20));
+  if(!worker)return local();
+  return new Promise((res,rej)=>{const id=++seq;pending.set(id,{res,rej});worker.postMessage({id,fn,args});}).catch(()=>local());
+}
+
+/* ===================== Game state ===================== */
+const ME=1,BOT=0;  // engine perspective: player 0 = bot
+const STAKES=[{v:1,n:'1'},{v:2,n:'დავი'},{v:3,n:'სე'},{v:4,n:'ჩარი'},{v:5,n:'ფანჯი'},{v:6,n:'შაში'}];
+const stakeName=v=>(STAKES.find(s=>s.v===v)||{n:String(v)}).n;
+const nextStake=v=>{const s=STAKES.find(s=>s.v>v);return s?s.v:null;};
+const $=id=>document.getElementById(id);
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const P=Core.points;
+
+let G=null;
+let match={me:0,bot:0,target:7,starter:ME};
+
+function newRound(){
+  const deck=Core.shuffle([...Array(Core.N).keys()],Core.rng((Math.random()*4294967296)>>>0));
+  G={deck,hands:{[ME]:[],[BOT]:[]},piles:{[ME]:[],[BOT]:[]},tricks:{[ME]:0,[BOT]:0},
+     trumpCard:null,trump:null,trumpTakenBy:null,leader:match.starter,lead:null,resp:null,respFaceDown:false,
+     phase:'idle',sel:new Set(),stake:1,lastRaiser:null,busy:false,over:false};
+  for(let i=0;i<Core.HAND;i++){G.hands[ME].push(G.deck.pop());G.hands[BOT].push(G.deck.pop());}
+  G.trumpCard=G.deck[0];G.trump=Core.suitOf[G.trumpCard];
+  sortHand();
+  log(`New round. Trump ${Core.cardName(G.trumpCard)}. ${match.starter===ME?'You lead':'Bot leads'}.`);
+  match.starter=match.starter===ME?BOT:ME;
+  render();nextTurn();
+}
+function sortHand(){const t=G.trump;G.hands[ME].sort((a,b)=>((Core.suitOf[a]===t)-(Core.suitOf[b]===t))||(Core.suitOf[a]-Core.suitOf[b])||(Core.strength[a]-Core.strength[b]));}
+const pts=who=>G.piles[who].reduce((t,c)=>t+P[c],0);
+
+function botInfo(extra){
+  return Object.assign({trump:G.trump,myHand:G.hands[BOT].slice(),oppHandSize:G.hands[ME].length,deckSize:G.deck.length,
+    trumpCard:G.trumpCard,trumpInDeck:G.trumpTakenBy==null&&G.deck.length>0,
+    oppKnown:(G.trumpTakenBy===ME&&G.hands[ME].includes(G.trumpCard))?[G.trumpCard]:[],
+    myPile:G.piles[BOT].slice(),oppPile:G.piles[ME].slice(),myTricks:G.tricks[BOT],oppTricks:G.tricks[ME],
+    leader:BOT,currentLead:[],pendingLead:[]},extra||{});
+}
+const think=()=>+$('optThink').value;
+
+/* ---------- turn flow ---------- */
+async function nextTurn(){
+  if(G.over)return;
+  if(G.leader===ME){G.phase='me-lead';G.sel.clear();render();}
+  else{await botLead();}
+}
+
+async function botLead(){
+  G.phase='bot-think';render();
+  const info=botInfo({leader:BOT});
+  const res=await engine('evaluate',info,think());
+  if(G.over)return;
+  const best=res[0];
+  if(await botMaybeRaise(best))return;
+  if(G.over)return;
+  await playLead(BOT,best.cards);
+}
+
+async function botMaybeRaise(best){
+  if(!best||!best.n)return false;
+  const p=best.win/best.n;const nx=nextStake(G.stake);
+  if(nx&&G.lastRaiser!==BOT&&p>=0.70){
+    G.pendingBot=best;G.offer=nx;G.phase='me-raise-offer';
+    log(`Bot raises to ${stakeName(nx)} (${nx}).`);render();return true;
+  }
+  return false;
+}
+
+async function playLead(who,cards){
+  G.lead={who,cards:cards.slice()};G.resp=null;
+  for(const c of cards){const h=G.hands[who];h.splice(h.indexOf(c),1);}
+  log(`${who===ME?'You lead':'Bot leads'} ${names(cards)}.`,who===ME?'me':'');
+  render();await sleep(350);
+  if(who===BOT){G.phase='me-respond';G.sel.clear();render();}
+  else await botRespond();
+}
+
+async function botRespond(){
+  G.phase='bot-think';render();
+  const info=botInfo({leader:ME,currentLead:G.lead.cards.slice(),oppHandSize:G.hands[ME].length});
+  const res=await engine('evaluate',info,think());
+  if(G.over)return;
+  const best=res[0];
+  if(await botMaybeRaise(best))return;
+  await playResponse(BOT,best.cards);
+}
+
+async function playResponse(who,cards,faceDown){
+  const beat=Core.beatAssignment(cards,G.lead.cards,G.trump);
+  const fd=faceDown||!beat;
+  for(const c of cards){const h=G.hands[who];h.splice(h.indexOf(c),1);}
+  G.resp={who,cards:cards.slice(),faceDown:fd,shown:!fd};
+  render();
+  if(fd){await sleep(500);G.resp.shown=true;render();}
+  log(`${who===ME?'You':'Bot'} ${fd?'give':'beat with'} ${names(cards)}.`,who===ME?'me':'');
+  await sleep(900);
+  resolveTrick(fd?G.lead.who:(beat?who:G.lead.who));
+}
+
+async function resolveTrick(winner){
+  const cards=G.lead.cards.concat(G.resp.cards);
+  const gain=cards.reduce((t,c)=>t+P[c],0);
+  G.piles[winner].push(...cards);G.tricks[winner]++;
+  G.lead=null;G.resp=null;
+  log(`${winner===ME?'You take':'Bot takes'} the trick (+${gain}). Score ${pts(ME)} : ${pts(BOT)}.`,winner===ME?'win':'loss');
+  G.leader=winner;
+  if(winner===BOT){
+    if(pts(BOT)>=Core.WIN){log(`Bot claims ვარ with ${pts(BOT)} points.`,'loss');return endRound(BOT,'bot claimed');}
+    draw(winner);render();await sleep(300);
+    if(checkCardsOut())return;
+    return nextTurn();
+  }
+  G.phase='me-claim';render();
+}
+
+function draw(winner){
+  const need={[ME]:Core.HAND-G.hands[ME].length,[BOT]:Core.HAND-G.hands[BOT].length};
+  const order=[winner,winner===ME?BOT:ME];
+  while(G.deck.length&&(need[ME]>0||need[BOT]>0)){for(const p of order){if(need[p]>0&&G.deck.length){const c=G.deck.pop();G.hands[p].push(c);need[p]--;if(c===G.trumpCard)G.trumpTakenBy=p;}}}
+  sortHand();
+}
+function checkCardsOut(){
+  if(!G.hands[ME].length&&!G.hands[BOT].length&&!G.deck.length){
+    const a=pts(ME),b=pts(BOT);
+    if(a===b){log(`Cards are out: ${a} : ${b}. Draw.`);return endRound(null,'draw'),true;}
+    log(`Cards are out: ${a} : ${b}.`);endRound(a>b?ME:BOT,'cards out');return true;
+  }
+  return false;
+}
+
+function endRound(winner,why){
+  G.over=true;G.phase='over';
+  if(winner===ME)match.me+=G.stake;else if(winner===BOT)match.bot+=G.stake;
+  const t=winner==null?'Round drawn':(winner===ME?`You win ${G.stake}`:`Bot wins ${G.stake}`);
+  log(`${t} (${why}).`,winner===ME?'win':(winner===BOT?'loss':''));
+  render();
+  const done=match.me>=match.target||match.bot>=match.target;
+  showOverlay(done?(match.me>=match.target?'You win the match':'The bot wins the match'):t,
+    `Your points ${pts(ME)} · bot ${pts(BOT)} · match ${match.me} : ${match.bot}`,
+    done?[['New match',()=>{hideOverlay();startMatch();},'primary']]:[['Next round',()=>{hideOverlay();newRound();},'primary']]);
+}
+
+/* ---------- human actions ---------- */
+function toggleSel(c){
+  if(!['me-lead','me-respond'].includes(G.phase))return;
+  G.sel.has(c)?G.sel.delete(c):G.sel.add(c);render();
+}
+function selArr(){return G.hands[ME].filter(c=>G.sel.has(c));}
+function canLead(){const s=selArr();return s.length>0&&s.length<=5&&s.every(c=>Core.suitOf[c]===Core.suitOf[s[0]]);}
+async function doLead(){if(!canLead())return;const s=selArr();G.sel.clear();G.phase='busy';await playLead(ME,s);}
+async function doRespond(faceDown){const s=selArr();if(s.length!==G.lead.cards.length)return;G.sel.clear();G.phase='busy';await playResponse(ME,s,faceDown);}
+async function doClaim(){
+  const p=pts(ME);
+  if(p>=Core.WIN){log(`You claim ვარ with ${p} points.`,'win');endRound(ME,'claim');}
+  else{log(`Wrong claim: you have ${p} points.`,'loss');endRound(BOT,'wrong claim');}
+}
+async function doContinue(){G.phase='busy';draw(ME);render();await sleep(250);if(checkCardsOut())return;nextTurn();}
+function doFold(){log('You give up the round (გატანება).','loss');endRound(BOT,'gave up');}
+
+async function doRaise(){
+  const nx=nextStake(G.stake);if(!nx||G.lastRaiser===ME)return;
+  const backTo=G.phase;G.phase='bot-think';render();
+  log(`You raise to ${stakeName(nx)} (${nx}).`,'me');
+  const info=backTo==='me-respond'
+    ?botInfo({leader:BOT,pendingLead:G.lead.cards.slice()})
+    :botInfo({leader:ME});
+  const v=await engine('positionValue',info,Math.max(400,think()));
+  const cur=G.stake,evAccept=nx*(v.win-v.lose),evDecline=-cur;
+  const counter=nextStake(nx);
+  if(counter&&v.win>=0.80){
+    G.stake=nx;G.lastRaiser=ME;G.offer=counter;G.counterFrom=backTo;G.phase='me-raise-offer';
+    log(`Bot accepts and counter-raises to ${stakeName(counter)} (${counter}).`);render();return;
+  }
+  if(evAccept>=evDecline){G.stake=nx;G.lastRaiser=ME;log(`Bot accepts. Stake ${stakeName(nx)} (${nx}).`);G.phase=backTo;render();}
+  else{log('Bot declines the raise.','win');endRound(ME,'bot declined raise');}
+}
+async function answerOffer(choice){
+  const offer=G.offer,resume=G.counterFrom;G.counterFrom=null;
+  if(choice==='decline'){log('You decline the raise.','loss');return endRound(BOT,'raise declined');}
+  if(choice==='accept'){
+    G.stake=offer;G.lastRaiser=BOT;log(`You accept. Stake ${stakeName(offer)} (${offer}).`,'me');
+  }else{ // counter
+    const c=nextStake(offer);G.stake=offer;G.lastRaiser=BOT;
+    log(`You counter-raise to ${stakeName(c)} (${c}).`,'me');
+    G.phase='bot-think';render();
+    const info=resume?(resume==='me-respond'?botInfo({leader:BOT,pendingLead:G.lead.cards.slice()}):botInfo({leader:ME}))
+      :(G.lead?botInfo({leader:ME,currentLead:G.lead.cards.slice()}):botInfo({leader:BOT}));
+    const v=await engine('positionValue',info,Math.max(400,think()));
+    if(c*(v.win-v.lose)>=-offer){G.stake=c;G.lastRaiser=ME;log(`Bot accepts. Stake ${stakeName(c)} (${c}).`);}
+    else{log('Bot declines your counter-raise.','win');return endRound(ME,'bot declined raise');}
+  }
+  if(resume){G.phase=resume;render();return;}
+  // continue the bot's interrupted move
+  const best=G.pendingBot;G.pendingBot=null;render();
+  if(G.lead&&G.lead.who===ME)await playResponse(BOT,best.cards);
+  else await playLead(BOT,best.cards);
+}
+
+/* ---------- rendering ---------- */
+function names(cs){return cs.map(Core.cardName).join(' ');}
+function cardEl(c,opts={}){
+  const d=document.createElement(opts.button?'button':'div');
+  if(opts.button){d.type='button';d.style.padding='0';d.style.border='0';}
+  if(c==null||opts.back){d.className='card back';return d;}
+  const r=Core.RANKS[Core.rankOf[c]],s=Core.SYM[Core.SUITS[Core.suitOf[c]]];
+  d.className='card'+(Core.suitOf[c]===0||Core.suitOf[c]===2?' red':'');
+  const face=['J','Q','K'].includes(r);
+  d.innerHTML=`<span class="ix">${r}<small>${s}</small></span>`+(face?`<span class="face">${r}${s}</span>`:`<span class="pip">${s}</span>`)+`<span class="ix br">${r}<small>${s}</small></span>`;
+  d.setAttribute('aria-label',Core.cardName(c));
+  return d;
+}
+function btn(label,ka,cls,fn,disabled){const b=document.createElement('button');b.type='button';b.className=cls||'';b.innerHTML=label+(ka?`<span class="ka">${ka}</span>`:'');b.disabled=!!disabled;b.onclick=fn;return b;}
+
+function render(){
+  if(!G)return;
+  const reveal=$('optReveal').value==='1';
+  // bot hand
+  const bh=$('botHand');bh.innerHTML='';
+  for(const c of G.hands[BOT])bh.appendChild(reveal?cardEl(c):cardEl(null,{back:true}));
+  $('botLabel').textContent=`Bot · ${G.hands[BOT].length} cards · pile ${G.piles[BOT].length}`;
+  // trick
+  const tr=$('trick');tr.innerHTML='';
+  if(G.lead){
+    G.lead.cards.forEach((c,i)=>{
+      const pair=document.createElement('div');pair.className='pair';
+      const l=cardEl(c);l.classList.add('lead');pair.appendChild(l);
+      if(G.resp){const rc=G.resp.cards[i];const r=G.resp.shown?cardEl(rc):cardEl(null,{back:true});r.classList.add('resp');pair.appendChild(r);}
+      tr.appendChild(pair);
+    });
+  }
+  // stock
+  const st=$('stock');st.innerHTML='';
+  const tc=cardEl(G.trumpCard);tc.classList.add('trumpcard');if(G.trumpTakenBy!=null||!G.deck.length)tc.classList.add('dim');st.appendChild(tc);
+  if(G.deck.length>1){const b=cardEl(null,{back:true});b.classList.add('back');st.appendChild(b);}
+  $('deckCount').textContent=G.deck.length?`${G.deck.length} in stock`:'stock empty';
+  // my hand
+  const mh=$('myHand');mh.innerHTML='';
+  const active=['me-lead','me-respond'].includes(G.phase);
+  mh.classList.toggle('locked',!active);
+  for(const c of G.hands[ME]){
+    const e=cardEl(c,{button:true});if(G.sel.has(c))e.classList.add('sel');if(Core.suitOf[c]===G.trump)e.classList.add('trumpmark');
+    e.onclick=()=>toggleSel(c);e.disabled=!active;mh.appendChild(e);
+  }
+  // panels
+  $('myPts').textContent=pts(ME);$('botPts').textContent=pts(BOT);
+  $('myMeter').style.width=Math.min(100,pts(ME)/61*100)+'%';$('botMeter').style.width=Math.min(100,pts(BOT)/61*100)+'%';
+  $('stake').textContent=G.stake===1?'1':`${stakeName(G.stake)} (${G.stake})`;
+  $('trumpTxt').textContent=`${Core.cardName(G.trumpCard)} · ${['diamonds','clubs','hearts','spades'][G.trump]}`;
+  $('matchMe').textContent=match.me;$('matchBot').textContent=match.bot;$('matchTarget').textContent=match.target;
+  // status + actions
+  const s=$('status'),a=$('actions');a.innerHTML='';s.className='status';
+  const canRaise=nextStake(G.stake)&&G.lastRaiser!==ME;
+  const raiseBtn=()=>btn(`Raise`,stakeName(nextStake(G.stake)||G.stake),'raise',doRaise,!canRaise);
+  switch(G.phase){
+    case 'me-lead':
+      s.textContent='Your lead: pick 1–5 cards of one suit';
+      a.append(btn('Lead','', 'primary',doLead,!canLead()),raiseBtn(),btn('Give up','გატანება','fold',doFold));break;
+    case 'me-respond':{
+      const k=G.lead.cards.length,sel=selArr();
+      const beat=sel.length===k&&Core.beatAssignment(sel,G.lead.cards,G.trump);
+      s.textContent=`Answer with ${k} card${k>1?'s':''}`;
+      a.append(btn('Beat','', 'primary',()=>doRespond(false),!beat),btn('Give face down','', '',()=>doRespond(true),sel.length!==k),raiseBtn(),btn('Give up','გატანება','fold',doFold));break;}
+    case 'me-claim':
+      s.textContent=`You won the trick · your pile: ${pts(ME)} points`;
+      a.append(btn('Claim','ვარ','claim',doClaim),btn('Continue','გაგრძელება','primary',doContinue));break;
+    case 'me-raise-offer':
+      s.textContent=`Bot wants to raise to ${stakeName(G.offer)} (${G.offer})`;
+      a.append(btn('Accept','თანხმობა','primary',()=>answerOffer('accept')),btn('Decline','არ მსურს','danger',()=>answerOffer('decline')));
+      if(nextStake(G.offer))a.append(btn('Counter','' + stakeName(nextStake(G.offer)),'raise',()=>answerOffer('counter')));
+      break;
+    case 'bot-think':s.textContent='Bot is thinking';s.classList.add('thinking');break;
+    case 'over':s.textContent='Round over';break;
+    default:s.textContent='';
+  }
+}
+function log(t,cls){const d=document.createElement('div');d.textContent=t;if(cls)d.className=cls;const L=$('log');L.prepend(d);while(L.children.length>80)L.lastChild.remove();}
+function showOverlay(title,text,buttons){
+  const b=$('overlayBox');b.innerHTML='';const h=document.createElement('h3');h.textContent=title;const p=document.createElement('div');p.textContent=text;p.style.color='var(--muted)';
+  const row=document.createElement('div');row.className='actions';for(const[l,f,c]of buttons)row.appendChild(btn(l,'',c,f));
+  b.append(h,p,row);$('overlay').hidden=false;row.querySelector('button')?.focus();
+}
+function hideOverlay(){$('overlay').hidden=true;}
+
+function startMatch(){match={me:0,bot:0,target:+$('optTarget').value,starter:Math.random()<0.5?ME:BOT};$('log').innerHTML='';newRound();}
+$('newMatch').onclick=()=>{if(G&&G.phase==='bot-think')return;hideOverlay();startMatch();};
+$('optReveal').onchange=render;
+$('optTarget').onchange=()=>{match.target=+$('optTarget').value;render();};
+startMatch();
+</script>
+</body></html>

@@ -75,6 +75,54 @@ class TrackerTests(unittest.TestCase):
         self.assertEqual(t.round.my_tricks, 1)          # I won although 9H beats 6H
         self.assertEqual(t.round.next_leader, ME)
 
+    def test_unseen_answer_credited_by_pile_badge(self):
+        """His answer is never captured, but his pile badge changes: the trick is his."""
+        t = GameTracker(R)
+        t.update(ob("AC 6H 9D JD KC", 5, trump="KD", my_turn=True))
+        t.update(ob("6H 9D JD KC", 5, center=["AC"], trump="KD"))
+        t.update(ob("6H 9D JD KC", 4, center=["AC"], trump="KD"))          # card left his hand, not seen
+        t.update(ob("6H 9D JD KC", 4, trump="KD", opp_pile=True, pile_opp=CHANGED))
+        r = t.round
+        self.assertEqual(r.opp_tricks, 1)
+        self.assertEqual(r.my_tricks, 0)
+        self.assertEqual(r.points(OPP), 11)
+        self.assertEqual(r.opp_pile_unknown, 1)
+        self.assertEqual(r.next_leader, OPP)
+        self.assertEqual(r.opp_evidence, [])                              # he did not dump
+
+    def test_unseen_answer_corrected_when_he_leads_next(self):
+        """No badge evidence: credited to me at first, corrected when the opponent leads the next trick."""
+        t = GameTracker(R)
+        t.update(ob("AC 6H 9D JD KC", 5, trump="KD", my_turn=True))
+        t.update(ob("6H 9D JD KC", 5, center=["AC"], trump="KD"))
+        t.update(ob("6H 9D JD KC", 4, center=["AC"], trump="KD"))
+        t.update(ob("6H 9D JD KC", 4, trump="KD"))
+        r = t.round
+        self.assertEqual(r.my_tricks, 1)                                  # no evidence yet
+        self.assertEqual(len(r.opp_evidence), 1)
+        t.update(ob("6H 9D JD KC 7S", 5, trump="KD", my_pile=True, opp_pile=True))   # draws
+        self.assertEqual(r.my_tricks, 1)
+        t.update(ob("6H 9D JD KC 7S", 4, center=["8S"], trump="KD", my_turn=True, my_pile=True, opp_pile=True))
+        self.assertEqual(t.status.status, STATUS_OK)
+        self.assertEqual(r.trick.leader, OPP)
+        self.assertEqual(r.my_tricks, 0)
+        self.assertEqual(r.opp_tricks, 1)
+        self.assertEqual(r.points(OPP), 11)
+        self.assertEqual(r.points(ME), 0)
+        self.assertEqual(r.opp_evidence, [])
+        self.assertIn("correction", [e.kind for e in t.history.events])
+
+    def test_unseen_answer_corrected_by_first_pile(self):
+        """After his first trick only his pile badge shows up: the unseen answer won."""
+        t = GameTracker(R)
+        t.update(ob("AC 6H 9D JD KC", 5, trump="KD", my_turn=True))
+        t.update(ob("6H 9D JD KC", 5, center=["AC"], trump="KD"))
+        t.update(ob("6H 9D JD KC", 4, center=["AC"], trump="KD"))
+        t.update(ob("6H 9D JD KC", 4, trump="KD"))
+        t.update(ob("6H 9D JD KC 7S", 5, trump="KD", opp_pile=True))
+        self.assertEqual(t.round.opp_tricks, 1)
+        self.assertEqual(t.round.my_tricks, 0)
+
     def test_unexplained_change_pauses(self):
         t = GameTracker(R)
         t.update(ob("6S AD 7H 10C KH", 5, opp_turn=True))

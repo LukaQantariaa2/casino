@@ -5,7 +5,7 @@ import math
 from dataclasses import dataclass, field
 
 from ..rules import Rules
-from .core import ME, Ctx
+from .core import Ctx
 from .search import ActionResult, DecisionEngine, InfoState
 
 PHASE_LEAD = "lead"
@@ -36,8 +36,26 @@ class Recommendation:
     exact: bool = False
 
 
+MIN_ALT_SAMPLES = 200   # alternatives with fewer effective samples get no percentages
+
+
 def _pct(x: float | None) -> str:
     return "?" if x is None else f"{100 * x:.0f}%"
+
+
+def _edge(pw: float, pl: float) -> float:
+    return pw - pl
+
+
+def _opponent_accepts(current: int, offered: int, pw: float, pl: float) -> bool:
+    """Zero-sum: they accept iff playing at ``offered`` beats folding ``current``."""
+    return offered * (pl - pw) >= -current
+
+
+def _ev_if_i_raise(current: int, offered: int, pw: float, pl: float) -> float:
+    if _opponent_accepts(current, offered, pw, pl):
+        return offered * _edge(pw, pl)
+    return float(current)
 
 
 class Advisor:
@@ -73,10 +91,31 @@ class Advisor:
         stake = stake or StakeInfo()
 
         if phase == PHASE_CLAIM:
-            return self._claim(info)
+            return self._claim(info, budget_s)
 
         if phase == PHASE_RAISE_OFFER:
             return self._raise_offer(info, stake, budget_s)
+
+        special = Ctx(self.rules, info.trump_suit).hand_special(info.my_hand)
+        if special is not None:
+            rec = Recommendation(
+                phase,
+                f"{special.split(' (')[0].upper()} — play all {len(info.my_hand)} cards",
+                f"{self.names(info.my_hand)} wins the round outright",
+                cards=tuple(info.my_hand),
+                win_prob=1.0,
+                lose_prob=0.0,
+                expected=float(stake.current),
+                exact=True,
+            )
+            if stake.can_raise and not stake.i_raised_last:
+                nxt = self.rules.next_stake(stake.current)
+                if nxt is not None:
+                    rec.extra.append(
+                        f"RAISE ({self.rules.stake_name(nxt)}) first — "
+                        "a declined raise still wins the current stake, an accepted one wins more"
+                    )
+            return rec
 
         results = self.engine.evaluate(info, budget_s)
 
@@ -99,94 +138,104 @@ class Advisor:
             exact=best.exact,
         )
 
-        rec.detail = (
-            f"win {_pct(best.win_prob)} · "
-            f"lose {_pct(best.lose_prob)} · "
-            f"{'exact' if best.exact else f'{best.n} samples'}"
-        )
+        if best.exact:
+            rec.detail = f"win {_pct(best.win_prob)} · lose {_pct(best.lose_prob)} · exact"
+        else:
+            n_eff = best.n_eff
+            samples = f"{best.n} samples" if n_eff >= 0.9 * best.n else f"{best.n} samples (eff. {n_eff:.0f})"
+            rec.detail = (
+                f"win {_pct(best.win_prob)} ±{_pct(1.96 * best.win_se)} · "
+                f"lose {_pct(best.lose_prob)} · {samples}"
+            )
+            if self.engine.last_tempered:
+                rec.detail += " · opponent model tempered (his play did not fit it)"
 
-        # Check whether the second-best action is statistically close.
-        #
-        # `1 - mean**2` may become slightly negative because of floating-point
-        # precision, or because mean is outside [-1, 1]. Taking ** 0.5 of a
-        # negative value produces a complex number in Python, which later
-        # cannot be compared with a float.
-        #
-        # Clamp the variance-like value to >= 0 to prevent that.
+        # Is the second-best action statistically indistinguishable from the best?
+        # The two share the same sampled worlds, so their difference has at most the
+        # variance of the two independent estimates combined.
         if len(results) > 1 and results[1].n and not best.exact:
             second = results[1]
+            se_diff = math.sqrt(best.mean_se ** 2 + second.mean_se ** 2)
+            if best.mean - second.mean < 1.5 * se_diff:
+                rec.detail += " · close call: the next option is about as good"
 
-            best_var = max(0.0, 1.0 - best.mean ** 2)
-            second_var = max(0.0, 1.0 - second.mean ** 2)
-
-            best_se = math.sqrt(
-                best_var / max(1, best.n)
-            )
-
-            second_se = math.sqrt(
-                second_var / max(1, second.n)
-            )
-
-            se = best_se + second_se
-            difference = best.mean - second.mean
-
-            if difference < se:
-                rec.detail += (
-                    " · close call: the next option is about as good"
-                )
-
-        # Show up to three alternative actions.
+        # Show up to three alternative actions; percentages only when they rest on enough samples.
         for r in results[1:4]:
-            if r.n:
+            if not r.n:
+                continue
+            if r.exact or r.n_eff >= MIN_ALT_SAMPLES:
                 rec.alternatives.append(
-                    f"{self._describe(info, r)}  —  "
-                    f"win {_pct(r.win_prob)}, "
-                    f"lose {_pct(r.lose_prob)}"
+                    f"{self._describe(info, r)}  —  win {_pct(r.win_prob)}, lose {_pct(r.lose_prob)}"
+                )
+            else:
+                rec.alternatives.append(
+                    f"{self._describe(info, r)}  —  dropped early (clearly worse)"
                 )
 
-        # Raise advice on my own turn.
+        # Raise if taking the next stake has higher EV than playing on at ``current``.
         if stake.can_raise and not stake.i_raised_last:
             nxt = self.rules.next_stake(stake.current)
-            thr = self.rules.assistant(
-                "raise_min_win_probability"
-            )
-
-            if (
-                nxt is not None
-                and best.win_prob >= thr
-                and best.lose_prob < 1 - thr
-            ):
-                rec.extra.append(
-                    f"RAISE ({self.rules.stake_name(nxt)}) — "
-                    f"win chance {_pct(best.win_prob)} ≥ {_pct(thr)}"
-                )
+            margin = float(self.rules.assistant("ev_margin") or 0.0)
+            if nxt is not None:
+                ev_stay = stake.current * _edge(best.win_prob, best.lose_prob)
+                ev_raise = _ev_if_i_raise(stake.current, nxt, best.win_prob, best.lose_prob)
+                if ev_raise > ev_stay + margin:
+                    rec.extra.append(
+                        f"RAISE ({self.rules.stake_name(nxt)}) — "
+                        f"EV {ev_raise:+.2f} vs stay {ev_stay:+.2f}"
+                    )
 
         return rec
 
-    def _claim(self, info: InfoState) -> Recommendation:
+    def _claim(self, info: InfoState, budget_s: float | None = None) -> Recommendation:
         p = self.engine.claim_probability(info)
-        need = self.rules.assistant(
-            "claim_min_probability"
-        )
-
         pts = info.my_points_known
-
         unk = (
             f" + {info.my_pile_unknown} unknown cards"
             if info.my_pile_unknown
             else ""
         )
-
-        if p >= need:
+        ev_claim = 2.0 * p - 1.0
+        # Certain (or empty-pile impossible) cases skip a full continue-search.
+        if p >= 1.0 - 1e-12:
             return Recommendation(
                 PHASE_CLAIM,
                 "CLAIM — press ვარ",
                 (
                     f"you have {pts} pts{unk} "
                     f"(≥ {self.rules.win_points}); "
-                    f"P={_pct(p)}"
+                    f"P={_pct(p)} EV(claim) {ev_claim:+.2f}"
                 ),
                 win_prob=p,
+                expected=ev_claim,
+            )
+        if p <= 0.0 and info.my_pile_unknown == 0:
+            return Recommendation(
+                PHASE_CLAIM,
+                "CONTINUE — press გაგრძელება",
+                (
+                    f"you have {pts} pts{unk}; "
+                    f"need {self.rules.win_points}; "
+                    f"P(enough)={_pct(p)}"
+                ),
+                win_prob=p,
+                expected=ev_claim,
+            )
+
+        pw, _pd, pl = self.engine.win_probability(info, budget_s)
+        ev_cont = _edge(pw, pl)
+        margin = float(self.rules.assistant("ev_margin") or 0.0)
+        if ev_claim > ev_cont + margin:
+            return Recommendation(
+                PHASE_CLAIM,
+                "CLAIM — press ვარ",
+                (
+                    f"you have {pts} pts{unk}; "
+                    f"P(enough)={_pct(p)}; "
+                    f"EV(claim) {ev_claim:+.2f} vs continue {ev_cont:+.2f}"
+                ),
+                win_prob=p,
+                expected=ev_claim,
             )
 
         return Recommendation(
@@ -195,9 +244,11 @@ class Advisor:
             (
                 f"you have {pts} pts{unk}; "
                 f"need {self.rules.win_points}; "
-                f"P(enough)={_pct(p)}"
+                f"P(enough)={_pct(p)}; "
+                f"EV(claim) {ev_claim:+.2f} vs continue {ev_cont:+.2f}"
             ),
             win_prob=p,
+            expected=ev_cont,
         )
 
     def _raise_offer(
@@ -221,37 +272,43 @@ class Advisor:
 
         ev_accept = new * (pw - pl)
         ev_decline = -cur
-
-        thr_counter = self.rules.assistant(
-            "counter_raise_min_win_probability"
-        )
-
         counter = self.rules.next_stake(new)
+        margin = float(self.rules.assistant("ev_margin") or 0.0)
+
+        ev_counter = None
+        if counter is not None:
+            ev_counter = _ev_if_i_raise(new, counter, pw, pl)
 
         detail = (
             f"win {_pct(pw)} · "
             f"lose {_pct(pl)} · "
             f"accept EV {ev_accept:+.2f} "
-            f"vs decline {ev_decline:+.2f} "
-            f"(break-even win chance "
-            f"{_pct((new - cur) / (2 * new))} "
-            f"with no draws)"
+            f"vs decline {ev_decline:+.2f}"
+            + (f" vs counter {ev_counter:+.2f}" if ev_counter is not None else "")
+            + (
+                f" (break-even win chance "
+                f"{_pct((new - cur) / (2 * new))} "
+                f"with no draws)"
+            )
         )
 
-        if counter is not None and pw >= thr_counter:
+        best_kind = "decline"
+        best_ev = ev_decline
+        if ev_accept >= best_ev - 1e-12:
+            best_kind, best_ev = "accept", ev_accept
+        if ev_counter is not None and ev_counter > best_ev + margin:
+            best_kind, best_ev = "counter", ev_counter
+
+        if best_kind == "counter":
             return Recommendation(
                 PHASE_RAISE_OFFER,
-                (
-                    f"COUNTER-RAISE to "
-                    f"{self.rules.stake_name(counter)}"
-                ),
+                f"COUNTER-RAISE to {self.rules.stake_name(counter)}",
                 detail,
                 win_prob=pw,
                 lose_prob=pl,
-                expected=counter * (pw - pl),
+                expected=ev_counter,
             )
-
-        if ev_accept >= ev_decline:
+        if best_kind == "accept":
             return Recommendation(
                 PHASE_RAISE_OFFER,
                 "ACCEPT (თანხმობა)",
@@ -260,7 +317,6 @@ class Advisor:
                 lose_prob=pl,
                 expected=ev_accept,
             )
-
         return Recommendation(
             PHASE_RAISE_OFFER,
             "DECLINE (არ მსურს)",

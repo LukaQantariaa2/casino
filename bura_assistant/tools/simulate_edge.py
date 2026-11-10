@@ -22,7 +22,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
 from bura.engine.core import ME, OPP, Ctx, SimState, apply_trick  # noqa: E402
-from bura.engine.policy import lead_policy, response_policy  # noqa: E402
+from bura.engine.policy import fast_lead, fast_response  # noqa: E402
 from bura.engine.search import DecisionEngine, InfoState  # noqa: E402
 from bura.rules import Rules  # noqa: E402
 
@@ -53,9 +53,9 @@ def play_round(rules, engine, rng, a_leads_first: bool) -> float:
         if leader == ME:
             info = info_for_A(rules, ctx, s, trump_card, trump_taken_by, piles, leader=ME)
             lead = engine.evaluate(info)[0].cards
-            resp = response_policy(ctx, s, OPP, lead, rng)
+            resp = fast_response(ctx, s, OPP, lead)
         else:
-            lead = lead_policy(ctx, s, OPP, rng)
+            lead = fast_lead(ctx, s, OPP)
             # A sees the lead; the lead is no longer in B's hand
             s.hands[OPP] = [c for c in s.hands[OPP] if c not in lead]
             info = info_for_A(rules, ctx, s, trump_card, trump_taken_by, piles, current_lead=lead, leader=OPP)

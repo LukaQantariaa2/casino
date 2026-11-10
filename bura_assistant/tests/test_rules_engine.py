@@ -144,6 +144,129 @@ class EngineTests(unittest.TestCase):
         ctx = Ctx(self.R, info.trump_suit)
         self.assertIn(tuple(sorted(rec.cards)), [tuple(sorted(x)) for x in ctx.legal_leads(info.my_hand)])
 
+    def test_lead_likelihood_prefers_low_side_suit(self):
+        from bura.engine.policy import LEAD_FLOOR, lead_likelihood
+        ctx = Ctx(self.R, self.R.suits.index("D"))
+        hand = self.P("6S AS 7H 10C KH")
+        p_low = lead_likelihood(ctx, hand, self.P("6S"))
+        p_ace = lead_likelihood(ctx, hand, self.P("AS"))
+        self.assertGreater(p_low, p_ace)
+        # calibrated: an "irrational" ace lead is a few times less likely, never ~impossible
+        self.assertGreaterEqual(p_ace, LEAD_FLOOR)
+        self.assertLess(p_low / p_ace, 10)
+
+    def test_posterior_does_not_collapse_on_high_lead(self):
+        import random
+        from bura.engine.policy import WEIGHT_FLOOR, sample_weight
+        from bura.engine.search import draw_sample
+        ctx = Ctx(self.R, self.R.suits.index("D"))
+        P = self.P
+        for lead in ("10C", "AC"):
+            info = InfoState(self.R, self.R.suits.index("D"), P("6S KD 7H 10H QH"), 4, 26,
+                             trump_card=P("7D")[0], leader=OPP, current_lead=P(lead))
+            rng = random.Random(1)
+            ws = [sample_weight(ctx, info, draw_sample(info, rng)) for _ in range(1000)]
+            ess = sum(ws) ** 2 / sum(w * w for w in ws)
+            self.assertGreater(ess / 1000, 0.4, f"ESS collapsed after opponent led {lead}")
+            self.assertGreaterEqual(min(ws), WEIGHT_FLOOR)
+
+    def test_same_state_same_answer(self):
+        P = self.P
+        info = InfoState(self.R, self.R.suits.index("D"), P("6S AS 7H 10C KH"), 5, 26,
+                         trump_card=P("7D")[0], leader=ME)
+        eng = DecisionEngine(self.R, time_budget_s=30.0, max_samples=48)
+        a = eng.evaluate(info)
+        b = eng.evaluate(info)
+        self.assertEqual([(r.cards, r.n, round(r.mean, 9)) for r in a],
+                         [(r.cards, r.n, round(r.mean, 9)) for r in b])
+        self.assertGreater(a[0].win_se, 0.0)
+
+    def test_history_tail_hides_advice(self):
+        from bura.tracker.state import History
+        h = History()
+        h.add("lead", "a")
+        h.add("advice", "x")
+        h.add("trick", "b")
+        self.assertEqual([e.text for e in h.tail(5)], ["a", "b"])
+
+    def test_raise_ev_helpers(self):
+        from bura.engine.advisor import _ev_if_i_raise, _opponent_accepts
+        self.assertTrue(_opponent_accepts(1, 2, 0.55, 0.45))
+        self.assertFalse(_opponent_accepts(1, 2, 0.95, 0.05))
+        self.assertGreater(_ev_if_i_raise(1, 2, 0.6, 0.3), 1 * (0.6 - 0.3))
+        self.assertLess(_ev_if_i_raise(1, 2, 0.3, 0.6), 1 * (0.3 - 0.6))
+
+    def test_dump_and_lead_posterior(self):
+        from bura.engine.policy import dump_weight, sample_weight
+        from bura.engine.search import OppEvidence, Sample
+        ctx = Ctx(self.R, self.R.suits.index("D"))
+        P = self.P
+        self.assertLess(dump_weight(ctx, P("AC 7H"), P("10C")), dump_weight(ctx, P("6S 7H"), P("10C")))
+        info = InfoState(self.R, self.R.suits.index("D"), P("6D 7D"), 2, 0,
+                         trump_card=P("8D")[0], trump_card_in_deck=False, leader=OPP,
+                         current_lead=P("6S"),
+                         opp_evidence=[OppEvidence("dump", tuple(P("10C")), True)])
+        w_ace = sample_weight(ctx, info, Sample(P("AS AC"), [], 0, 0))
+        w_low = sample_weight(ctx, info, Sample(P("7S 8S"), [], 0, 0))
+        self.assertGreater(w_low, w_ace)
+
+    def test_bura_rules(self):
+        from bura.engine.policy import sample_weight
+        from bura.engine.search import Sample
+        P = self.P
+        ctx = Ctx(self.R, self.R.suits.index("D"))
+        self.assertIsNotNone(ctx.hand_special(P("6D 7D 8D 9D JD")))
+        self.assertIsNone(ctx.hand_special(P("6S 7S 8S 9S JS")))       # Malyutka is not an instant win
+        # a full opponent hand that is already Bura would have been declared -> impossible world
+        info = InfoState(self.R, self.R.suits.index("D"), P("6S 7S 8S 9S JS"), 5, 26,
+                         trump_card=P("AD")[0], leader=ME)
+        self.assertEqual(sample_weight(ctx, info, Sample(P("6D 7D 8D 9D JD"), [], 0, 0)), 0.0)
+        self.assertGreater(sample_weight(ctx, info, Sample(P("6D 7D 8D 9D JC"), [], 0, 0)), 0.0)
+        # drawing into Bura ends the round in the simulation
+        s = SimState([P("6D 7D 8D 9D 6C"), P("6S 8C 9C JC QC")], P("KC JD"), [0, 0], [0, 0], ME)
+        apply_trick(ctx, s, ME, tuple(P("6C")), tuple(P("6S")))   # I win the trick and draw J♦
+        self.assertTrue(s.done)
+        self.assertEqual(s.result, 1.0)
+        # advisor tells me to play the Bura
+        info2 = InfoState(self.R, self.R.suits.index("D"), P("6D 7D 8D 9D JD"), 5, 26,
+                          trump_card=P("AD")[0], leader=ME)
+        rec = self.A.recommend(PHASE_LEAD, info2, StakeInfo(current=1, can_raise=True))
+        self.assertTrue(rec.headline.startswith("BURA"))
+        self.assertTrue(rec.extra and rec.extra[0].startswith("RAISE"))
+
+    def test_short_stock_exact_solver(self):
+        P = self.P
+        # stock of 2 (trump card drawn last): a decisive position must be resolved with certainty
+        info = InfoState(self.R, self.R.suits.index("D"), P("AD 10D"), 2, 2, trump_card=P("6D")[0],
+                         my_pile_known=P("AH AC AS 10H 10C"), my_pile_unknown=9,
+                         opp_pile_known=P("10S KH KC KS QH QC QS JH"), opp_pile_unknown=8,
+                         opp_known=P("6C 7C"), leader=ME)
+        self.assertEqual(info.check(), [])
+        res = self.E.evaluate(info, 0.5)
+        self.assertGreater(res[0].win_prob, 0.99)
+
+    def test_short_stock_screens_then_solves(self):
+        """Stock of 4 with many legal leads: every action is reported, the finalists come first."""
+        from bura.engine import search
+        P = self.P
+        info = InfoState(self.R, self.R.suits.index("D"), P("7H 9H JH KH 8C"), 5, 4, trump_card=P("6D")[0],
+                         my_pile_unknown=11, opp_pile_unknown=11, leader=ME)
+        self.assertEqual(info.check(), [])
+        actions = self.E.legal_actions(info)
+        self.assertGreater(len(actions), search.EXACT_MAX_ACTIONS)
+        res = self.E.evaluate(info, 0.6)
+        self.assertEqual({r.cards for r in res}, set(actions))
+        finalists = res[:search.EXACT_MAX_ACTIONS]
+        self.assertTrue(all(r.n > 0 for r in finalists))
+        self.assertEqual(finalists, sorted(finalists, key=lambda r: -r.mean))
+
+    def test_claim_skips_when_pile_short(self):
+        P = self.P
+        info = InfoState(self.R, 0, P("6S"), 1, 0, trump_card=P("7D")[0], trump_card_in_deck=False,
+                         my_pile_known=P("AH"), leader=ME)
+        rec = self.A.recommend(PHASE_CLAIM, info, budget_s=0.2)
+        self.assertTrue(rec.headline.startswith("CONTINUE"))
+
 
 if __name__ == "__main__":
     unittest.main()

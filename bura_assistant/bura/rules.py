@@ -35,7 +35,7 @@ DEFAULTS: dict[str, Any] = {
                "declining_a_raise_loses": "current_stake", "fold_loses": "current_stake"},
     "specials": [],
     "assistant": {"claim_min_probability": 0.999, "raise_min_win_probability": 0.70,
-                  "counter_raise_min_win_probability": 0.80},
+                  "counter_raise_min_win_probability": 0.80, "ev_margin": 0.02},
 }
 
 SUIT_SYMBOLS = {"D": "♦", "C": "♣", "H": "♥", "S": "♠"}

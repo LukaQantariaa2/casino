@@ -46,7 +46,9 @@ evaluates every legal action, and shows the best one in a small always-on-top ov
   * `CLAIM — press ვარ` / `CONTINUE — press გაგრძელება` after you win a trick,
   * `ACCEPT (თანხმობა)` / `DECLINE (არ მსურს)` / `COUNTER-RAISE` when the opponent raises,
   * `▲ RAISE (დავი)` hint when your winning chance is high enough.
-  Each tip comes with win / loss probabilities and the next-best alternatives.
+  Each tip comes with win / loss probabilities (± a 95% sampling interval), the sample count and the next-best
+  alternatives; *close call* means the runner-up is within noise, *dropped early* means it was clearly worse.
+  Every tip is also written to `logs\session-*.jsonl` (kind `advice`) with the state it was computed from.
 * **Points** for both players (exact; `+ n?` means n cards in that pile were never seen), trump, deck size,
   opponent hand size, stake.
 * **Card map** — all 36 cards: in your hand, held by the opponent (known), in a pile, or still unseen.
@@ -82,17 +84,30 @@ A single unexplained frame is ignored (usually a card in motion); repeated ones 
 
 * **Information set** — everything you know: your hand, the trump card and whether it is still under the deck,
   every card that has been shown, both piles, hand sizes, deck size.
-* **Sampling** — the hidden cards are dealt at random many times, consistent with all of the above.
-* **Before the deck is empty** — each legal action is played out on every sample with fast, realistic playout
-  policies (Perfect-Information Monte Carlo). All actions share the same samples (common random numbers) and
+* **Sampling** — the hidden cards are dealt many times, consistent with all of the above, **from the posterior**
+  P(opponent hand | what he has played): his visible lead is scored with a Bura lead model (low side-suit cards
+  are likely leads, aces and trumps are not), a face-down dump after the stock is empty makes hands that still hold
+  a cheap beat unlikely, and a full hand that would already be a Bura is impossible (he would have declared it).
+  Small posteriors are enumerated exactly; large ones are importance-weighted.
+* **Playouts** — each legal action is evaluated on every sample (Perfect-Information Monte Carlo). The opponent's
+  reply to your action is a 1-ply best response; the following tricks use the same 1-ply greedy play while the
+  stock is short and fast heuristics before that. All actions share the same samples (common random numbers) and
   clearly worse actions are dropped early (successive halving), so the time budget goes to close calls.
-* **Once the deck is empty** — every sample is solved **exactly** with minimax + memoisation; when the
-  opponent's hand is fully known the answer is exact, with no sampling at all.
-* **Claim (ვარ)** — recommended only if P(my pile ≥ win points) ≥ `claim_min_probability` (default 99.9%);
-  with every card in your pile seen, it is exact.
-* **Raise offer** — accept when `new × (P_win − P_loss) ≥ −current` (declining costs the current stake).
-  Without draws the break-even win chance is `(new − current) / (2 × new)`, e.g. 25% for 1→2.
-* **Raise hint** — shown when your win probability ≥ `raise_min_win_probability`.
+* **Short / empty stock** — with ≤ 6 cards in the stock every sample is solved **exactly** with alpha-beta minimax +
+  memoisation (the stock order is known inside a sample). All moves are first screened with fast playouts (30% of
+  the time budget); the best 5 are then solved exactly on fresh samples for the rest. Deeper in a playout the
+  empty-stock endgame is solved exactly as well. When the opponent's hand is fully known the answer is exact, with
+  no sampling at all.
+* **Bura** — five trumps in hand win the round (`specials` in the rules file). The overlay tells you to play it,
+  and to raise first if you can. A *Malyutka* (five cards of one non-trump suit) is not an instant win; it is
+  simply a legal 5-card lead and is evaluated like any other lead.
+* **Claim (ვარ)** — claim when `EV(claim) = 2·P(pile ≥ 61) − 1` beats the EV of playing on; with every card in
+  your pile seen, it is exact.
+* **Raise offer** — accept when `new × (P_win − P_loss) ≥ −current` (declining costs the current stake), counter
+  when the counter-raise has a higher EV still. Without draws the break-even win chance is
+  `(new − current) / (2 × new)`, e.g. 25% for 1→2.
+* **Raise hint** — shown when raising has a higher EV than playing on at the current stake, assuming the
+  opponent accepts only when that is better for him than folding.
 
 Time per decision: `engine.time_budget_s` in `config\app.json` (default 1.2 s).
 
@@ -122,7 +137,7 @@ Time per decision: `engine.time_budget_s` in `config\app.json` (default 1.2 s).
 | `scoring.loser_with_zero_tricks_multiplier` | e.g. 2 to count a trickless loss double |
 | `stakes.levels` | stake ladder `{value, name}` (1, დავი 2, სე 3, ჩარი 4, ფანჯი 5, შაში 6) |
 | `specials` | instant-win hands: `trumps_in_hand`, `same_rank_in_hand`, `same_suit_in_hand` (`enabled`, `count`, `rank`) |
-| `assistant.*` | thresholds for claim, raise and counter-raise advice |
+| `assistant.ev_margin` | how much better (in stake units) a claim / raise / counter must be before it is advised |
 
 ## 6. Testing tools
 

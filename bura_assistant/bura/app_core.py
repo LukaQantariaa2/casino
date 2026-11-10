@@ -56,7 +56,7 @@ class Pipeline:
                                    TrackerConfig(tc.get("uncertain_to_pause", 4), tc.get("lowconf_to_pause", 6)))
         ec = cfg["engine"]
         self.engine = DecisionEngine(self.rules, ec.get("time_budget_s", 1.2), ec.get("max_samples", 6000),
-                                     opponent_model=ec.get("opponent_model", "heuristic"))
+                                     opponent_model=ec.get("opponent_model", "lookahead"))
         self.advisor = Advisor(self.rules, self.engine)
         cc = cfg.get("capture", {})
         self.stability = StabilityDetector(self.layout, cc.get("still_frames", 2), cc.get("diff_threshold", 1.5))

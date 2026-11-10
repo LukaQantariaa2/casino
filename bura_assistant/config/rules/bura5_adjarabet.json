@@ -64,9 +64,16 @@
 
   "specials": [
     {
-      "name": "Bura (all trumps in hand)",
-      "enabled": false,
+      "name": "Bura (all 5 cards are trumps)",
+      "enabled": true,
       "condition": {"type": "trumps_in_hand", "count": 5},
+      "check": "after_every_draw",
+      "effect": "win_round"
+    },
+    {
+      "name": "Malyutka (5 cards of one non-trump suit) - no instant win, it is just a legal 5-card lead",
+      "enabled": false,
+      "condition": {"type": "same_suit_in_hand", "count": 5},
       "check": "after_every_draw",
       "effect": "win_round"
     },
@@ -82,6 +89,7 @@
   "assistant": {
     "claim_min_probability": 0.999,
     "raise_min_win_probability": 0.70,
-    "counter_raise_min_win_probability": 0.80
+    "counter_raise_min_win_probability": 0.80,
+    "ev_margin": 0.02
   }
 }

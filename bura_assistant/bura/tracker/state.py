@@ -5,7 +5,7 @@ import time
 from dataclasses import dataclass, field
 
 from ..engine.core import ME, OPP
-from ..engine.search import InfoState
+from ..engine.search import InfoState, OppEvidence
 from ..rules import Rules
 
 
@@ -56,6 +56,7 @@ class RoundState:
     i_raised_last: bool = False
     finished: bool = False
     result: str = ""
+    opp_evidence: list[OppEvidence] = field(default_factory=list)
 
     # ------------------------------------------------------------- derived
     def points(self, who: int) -> int:
@@ -90,7 +91,7 @@ class RoundState:
                          my_pile_known=list(self.my_pile), my_pile_unknown=self.my_pile_unknown,
                          opp_pile_known=list(self.opp_pile), opp_pile_unknown=self.opp_pile_unknown,
                          my_tricks=self.my_tricks, opp_tricks=self.opp_tricks, leader=leader,
-                         current_lead=lead)
+                         current_lead=lead, opp_evidence=list(self.opp_evidence))
 
     def consistency_errors(self) -> list[str]:
         errs = []
@@ -138,5 +139,9 @@ class History:
                 pass
         return ev
 
-    def tail(self, n: int = 12) -> list[Event]:
-        return self.events[-n:]
+    def tail(self, n: int = 12, exclude: tuple[str, ...] = ("advice",)) -> list[Event]:
+        """Last ``n`` game events (engine advice is logged to the file only)."""
+        out = [ev for ev in reversed(self.events) if ev.kind not in exclude]
+        out = out[:n]
+        out.reverse()
+        return out

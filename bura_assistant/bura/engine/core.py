@@ -6,7 +6,7 @@ lists so the Monte Carlo search can run thousands of playouts per second.
 """
 from __future__ import annotations
 
-from itertools import combinations, permutations
+from itertools import combinations
 from typing import Iterable, Sequence
 
 from ..rules import Rules
@@ -20,7 +20,8 @@ class Ctx:
     __slots__ = ("rules", "trump", "suit", "strength", "points", "hand_size", "win_points",
                  "lead_min", "lead_max", "same_suit", "mixed_trumps", "beat_optional",
                  "all_must_beat", "winner_draws_first", "winner_leads", "tie_result",
-                 "out_rule", "claim_enabled", "zero_mult", "trump_beats", "specials", "draw_alternate")
+                 "out_rule", "claim_enabled", "zero_mult", "trump_beats", "specials", "draw_alternate",
+                 "_rw_cache", "move_cache")
 
     def __init__(self, rules: Rules, trump_suit: int):
         self.rules = rules
@@ -48,6 +49,8 @@ class Ctx:
         self.zero_mult = sc.get("loser_with_zero_tricks_multiplier", 1)
         self.trump_beats = rules.raw["trump"]["trump_beats_any_non_trump"]
         self.specials = rules.specials
+        self._rw_cache: dict = {}
+        self.move_cache: dict = {}     # per-trump caches for solvers (legal moves by hand)
 
     # ----- card relations -----
     def beats(self, b: int, a: int) -> bool:
@@ -86,7 +89,13 @@ class Ctx:
         return list(pairs) if rec(0) else None
 
     def responder_wins(self, response: Sequence[int], lead: Sequence[int]) -> bool:
-        return self.beat_assignment(response, lead) is not None
+        if len(lead) == 1:
+            return len(response) == 1 and self.beats(response[0], lead[0])
+        key = (tuple(response), tuple(lead))
+        v = self._rw_cache.get(key)
+        if v is None:
+            v = self._rw_cache[key] = self.beat_assignment(response, lead) is not None
+        return v
 
     # ----- legal actions -----
     def legal_leads(self, hand: Sequence[int]) -> list[tuple[int, ...]]:
@@ -120,25 +129,32 @@ class Ctx:
         return winning or allr
 
     # ----- specials -----
+    def hand_special(self, h: Sequence[int]) -> str | None:
+        """Name of the instant-win combination ``h`` holds (e.g. Bura), or None."""
+        if not self.specials or not h:
+            return None
+        for sp in self.specials:
+            if sp.ctype == "trumps_in_hand":
+                if sum(1 for c in h if self.suit[c] == self.trump) >= sp.count:
+                    return sp.name
+            elif sp.ctype == "same_rank_in_hand":
+                rk = self.rules.ranks.index(sp.rank) if sp.rank in self.rules.ranks else -1
+                if sum(1 for c in h if self.rules.rank_of[c] == rk) >= sp.count:
+                    return sp.name
+            elif sp.ctype == "same_suit_in_hand":
+                counts: dict[int, int] = {}
+                for c in h:
+                    counts[self.suit[c]] = counts.get(self.suit[c], 0) + 1
+                if counts and max(counts.values()) >= sp.count:
+                    return sp.name
+        return None
+
     def special_winner(self, hands: Sequence[Sequence[int]], first: int) -> int | None:
         if not self.specials:
             return None
         for p in (first, 1 - first):
-            h = hands[p]
-            for sp in self.specials:
-                if sp.ctype == "trumps_in_hand":
-                    if sum(1 for c in h if self.suit[c] == self.trump) >= sp.count:
-                        return p
-                elif sp.ctype == "same_rank_in_hand":
-                    rk = self.rules.ranks.index(sp.rank) if sp.rank in self.rules.ranks else -1
-                    if sum(1 for c in h if self.rules.rank_of[c] == rk) >= sp.count:
-                        return p
-                elif sp.ctype == "same_suit_in_hand":
-                    counts: dict[int, int] = {}
-                    for c in h:
-                        counts[self.suit[c]] = counts.get(self.suit[c], 0) + 1
-                    if counts and max(counts.values()) >= sp.count:
-                        return p
+            if self.hand_special(hands[p]) is not None:
+                return p
         return None
 
 
@@ -208,18 +224,23 @@ def apply_trick(ctx: Ctx, s: SimState, leader: int, lead: Sequence[int], respons
         if claim_policy is None or claim_policy(s, winner):
             finish(ctx, s, winner)
             return winner
-    draw_cards(ctx, s, winner)
+    drew = draw_cards(ctx, s, winner)
     s.leader = winner if ctx.winner_leads else 1 - leader
     if not s.hands[0] and not s.hands[1] and not s.deck:
         end_by_cards(ctx, s)
         return winner
-    sw = ctx.special_winner(s.hands, winner)
-    if sw is not None:
-        finish(ctx, s, sw)
+    # specials (Bura ...) need a full hand, which only a draw can produce
+    if drew and ctx.specials:
+        sw = ctx.special_winner(s.hands, winner)
+        if sw is not None:
+            finish(ctx, s, sw)
     return winner
 
 
-def draw_cards(ctx: Ctx, s: SimState, winner: int) -> None:
+def draw_cards(ctx: Ctx, s: SimState, winner: int) -> bool:
+    """Refill both hands from the stock. Returns True if any card was drawn."""
+    if not s.deck:
+        return False
     order = (winner, 1 - winner) if ctx.winner_draws_first else (1 - winner, winner)
     need = [ctx.hand_size - len(s.hands[0]), ctx.hand_size - len(s.hands[1])]
     if ctx.draw_alternate:
@@ -234,6 +255,7 @@ def draw_cards(ctx: Ctx, s: SimState, winner: int) -> None:
             while need[p] > 0 and s.deck:
                 s.hands[p].append(s.deck.pop())
                 need[p] -= 1
+    return True
 
 
 def cards_points(ctx: Ctx, cards: Iterable[int]) -> int:

@@ -14,6 +14,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 from ..engine.core import ME, OPP, Ctx
+from ..engine.search import OppEvidence
 from ..rules import Rules
 from ..vision.recognizer import Observation
 from .state import History, RoundState, Trick
@@ -97,7 +98,6 @@ class GameTracker:
         self._log("manual", "state corrected manually")
 
     def update(self, ob: Observation) -> None:
-        prev = self._last
         self._last = ob
 
         # ---- raise offer modal: dims the table, so read nothing else
@@ -407,6 +407,9 @@ class GameTracker:
         t = r.trick
         ctx = self._ctx()
         beats = t.response_hidden == 0 and ctx.beat_assignment(t.response, t.lead) is not None
+        # Cards are always played face up, so an answer we did not see (or only saw as a back in
+        # flight) may well have beaten the lead.
+        could_win = beats or t.response_hidden > 0
         # a responder may also give up cards that could beat, so the rules alone cannot decide;
         # the decisive evidence is which pile badge changed
         pile_winner = self._pile_change_winner(ob)
@@ -414,14 +417,22 @@ class GameTracker:
             winner, sure = pile_winner, True
         else:
             winner, sure = ((1 - t.leader) if beats else t.leader), False
-        if winner != t.leader and not beats:
+        if winner != t.leader and not could_win:
             # the pile says the responder won but the cards cannot beat: trust the rules
             winner, sure = t.leader, False
         self._award(t.lead + t.response, t.response_hidden, winner)
+        evidence_idx = None
+        if t.leader == ME and winner == ME and not beats:
+            evidence_idx = len(r.opp_evidence)
+            r.opp_evidence.append(OppEvidence(
+                kind="dump",
+                lead=tuple(t.lead),
+                stock_empty=r.deck_size == 0,
+            ))
         r.next_leader = winner if self.rules.raw["draw"]["trick_winner_leads_next"] else 1 - t.leader
         self._last_trick = {"cards": t.lead + t.response, "hidden": t.response_hidden, "winner": winner,
-                            "leader": t.leader, "sure": sure, "checked": sure, "beats": beats,
-                            "pile_ref": self._pile_ref}
+                            "leader": t.leader, "sure": sure, "checked": sure, "beats": could_win,
+                            "pile_ref": self._pile_ref, "evidence_idx": evidence_idx}
         pts = sum(self.rules.points[c] for c in t.lead + t.response)
         who = "I" if winner == ME else "opponent"
         self._log("trick", f"{who} take{'s' if winner == OPP else ''} the trick (+{pts} pts"
@@ -454,6 +465,10 @@ class GameTracker:
         self._award(lt["cards"], lt["hidden"], new)
         lt["winner"] = new
         lt["checked"] = True
+        idx = lt.get("evidence_idx")
+        if idx is not None and new != lt["leader"] and idx < len(r.opp_evidence):
+            del r.opp_evidence[idx]           # he did not give the trick up after all
+            lt["evidence_idx"] = None
         if self.rules.raw["draw"]["trick_winner_leads_next"]:
             r.next_leader = new
         self._log("correction", f"last trick actually won by {'me' if new == ME else 'opponent'} ({why}) — "

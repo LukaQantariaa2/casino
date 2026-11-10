@@ -124,13 +124,35 @@ class Controller:
                 key, phase, info, stake = self._req.get(timeout=0.2)
             except queue.Empty:
                 continue
+            t0 = time.time()
             try:
                 rec = self.p.advisor.recommend(phase, info, stake)
             except Exception as exc:
                 traceback.print_exc()
                 rec = Recommendation(phase, "engine error", f"{type(exc).__name__}: {exc}")
-            if key == self._last_key:      # still the current situation
+            current = key == self._last_key      # still the current situation?
+            self._log_advice(phase, info, rec, time.time() - t0, current)
+            if current:
                 self.on_recommendation(rec, key)
+
+    def _log_advice(self, phase: str, info, rec: Recommendation, secs: float, shown: bool):
+        """Write the recommendation to the session log (file only) so odd episodes can be replayed."""
+        R = self.p.rules
+        try:
+            self.p.history.add(
+                "advice",
+                f"[{phase}] {rec.headline} — {rec.detail}" + ("" if shown else " (stale, not shown)"),
+                phase=phase, headline=rec.headline, detail=rec.detail,
+                cards=[R.card_name(c) for c in rec.cards],
+                win=rec.win_prob, lose=rec.lose_prob, expected=rec.expected, exact=rec.exact,
+                alternatives=rec.alternatives, extra=rec.extra, seconds=round(secs, 2), shown=shown,
+                my_hand=[R.card_name(c) for c in info.my_hand], deck=info.deck_size,
+                opp_hand=info.opp_hand_size, lead=[R.card_name(c) for c in info.current_lead],
+                my_pts=info.my_points_known, opp_pts=info.opp_points_known,
+                my_unknown=info.my_pile_unknown, opp_unknown=info.opp_pile_unknown,
+            )
+        except Exception:
+            pass
 
     # ------------------------------------------------------------------ user actions (thread-safe)
     def toggle_recommendations(self):

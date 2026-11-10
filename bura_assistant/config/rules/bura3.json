@@ -109,7 +109,7 @@
   "specials": [
     {
       "name": "Bura (3 trumps)",
-      "enabled": false,
+      "enabled": true,
       "condition": {
         "type": "trumps_in_hand",
         "count": 3
@@ -132,6 +132,7 @@
   "assistant": {
     "claim_min_probability": 0.999,
     "raise_min_win_probability": 0.7,
-    "counter_raise_min_win_probability": 0.8
+    "counter_raise_min_win_probability": 0.8,
+    "ev_margin": 0.02
   }
 }

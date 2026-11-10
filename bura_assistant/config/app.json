@@ -14,9 +14,9 @@
     "diff_threshold": 2.5
   },
   "engine": {
-    "time_budget_s": 5,
-    "max_samples": 50000,
-    "opponent_model": "heuristic"
+    "time_budget_s": 2.5,
+    "max_samples": 10000,
+    "opponent_model": "lookahead"
   },
   "tracker": {
     "uncertain_to_pause": 4,

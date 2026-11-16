@@ -15,8 +15,9 @@
   },
   "engine": {
     "time_budget_s": 2.5,
-    "max_samples": 10000,
-    "opponent_model": "lookahead"
+    "max_samples": 100000,
+    "opponent_model": "lookahead",
+    "workers": "auto"
   },
   "tracker": {
     "uncertain_to_pause": 4,

@@ -5,8 +5,8 @@ import math
 from dataclasses import dataclass, field
 
 from ..rules import Rules
-from .core import Ctx
-from .search import ActionResult, DecisionEngine, InfoState
+from .core import Ctx, Give
+from .search import ActionResult, DecisionEngine, InfoState, count_worlds
 
 PHASE_LEAD = "lead"
 PHASE_RESPOND = "respond"
@@ -34,13 +34,31 @@ class Recommendation:
     alternatives: list[str] = field(default_factory=list)
     extra: list[str] = field(default_factory=list)  # e.g. raise advice
     exact: bool = False
+    deals_checked: int | None = None   # distinct deals the engine calculated (None: no search needed)
+    deals_possible: int | None = None  # deals consistent with what I have seen
+    deals_all: bool = False            # every possible deal was calculated
 
 
 MIN_ALT_SAMPLES = 200   # alternatives with fewer effective samples get no percentages
+MIN_SOLID_SAMPLES = 100  # below this the headline percentages are flagged as rough
 
 
 def _pct(x: float | None) -> str:
     return "?" if x is None else f"{100 * x:.0f}%"
+
+
+_SUPERSCRIPT = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
+
+
+def _count(n: int) -> str:
+    if n < 1_000_000:
+        return f"{n:,}"
+    if n < 1_000_000_000:
+        return f"{n / 1e6:.1f} million"
+    if n < 1_000_000_000_000:
+        return f"{n / 1e9:.1f} billion"
+    exp = len(str(n)) - 1
+    return f"{n / 10 ** exp:.1f}×10{str(exp).translate(_SUPERSCRIPT)}"
 
 
 def _edge(pw: float, pl: float) -> float:
@@ -70,6 +88,8 @@ class Advisor:
         if r.kind == "lead":
             return f"LEAD {self.names(r.cards)}"
 
+        if isinstance(r.cards, Give):
+            return f"GIVE (face down) {self.names(r.cards)}"
         ctx = Ctx(self.rules, info.trump_suit)
         pairs = ctx.beat_assignment(r.cards, info.current_lead)
 
@@ -87,6 +107,34 @@ class Advisor:
         info: InfoState,
         stake: StakeInfo | None = None,
         budget_s: float | None = None,
+    ) -> Recommendation:
+        self.engine.last_checked = None
+        rec = self._recommend(phase, info, stake, budget_s)
+        self._note_deals(info, rec)
+        return rec
+
+    def _note_deals(self, info: InfoState, rec: Recommendation) -> None:
+        """Append how many possible deals were calculated, out of how many exist."""
+        n = self.engine.last_checked
+        sep = " · " if rec.detail else ""
+        if n is None:
+            rec.detail += f"{sep}no deal calculation needed"
+            return
+        total = count_worlds(info)
+        rec.deals_checked, rec.deals_possible, rec.deals_all = n, total, self.engine.last_exhaustive
+        if self.engine.last_exhaustive:
+            text = ("the only possible deal calculated (all cards known)" if n == 1
+                    else f"all {_count(n)} possible deals calculated")
+        else:
+            text = f"{_count(n)} of {_count(total)} possible deals calculated"
+        rec.detail += sep + text
+
+    def _recommend(
+        self,
+        phase: str,
+        info: InfoState,
+        stake: StakeInfo | None,
+        budget_s: float | None,
     ) -> Recommendation:
         stake = stake or StakeInfo()
 
@@ -138,14 +186,14 @@ class Advisor:
             exact=best.exact,
         )
 
-        if best.exact:
-            rec.detail = f"win {_pct(best.win_prob)} · lose {_pct(best.lose_prob)} · exact"
+        if best.exact or best.worlds:
+            rec.detail = f"win {_pct(best.win_prob)} · lose {_pct(best.lose_prob)}"
+        elif best.n_eff < MIN_SOLID_SAMPLES:
+            rec.detail = f"win ≈{_pct(best.win_prob)} · lose ≈{_pct(best.lose_prob)} · ROUGH (too few deals)"
         else:
-            n_eff = best.n_eff
-            samples = f"{best.n} samples" if n_eff >= 0.9 * best.n else f"{best.n} samples (eff. {n_eff:.0f})"
             rec.detail = (
                 f"win {_pct(best.win_prob)} ±{_pct(1.96 * best.win_se)} · "
-                f"lose {_pct(best.lose_prob)} · {samples}"
+                f"lose {_pct(best.lose_prob)}"
             )
             if self.engine.last_tempered:
                 rec.detail += " · opponent model tempered (his play did not fit it)"
@@ -209,22 +257,21 @@ class Advisor:
                 win_prob=p,
                 expected=ev_claim,
             )
+        pw, _pd, pl = self.engine.win_probability(info, budget_s)
+        ev_cont = _edge(pw, pl)
+        margin = float(self.rules.assistant("ev_margin") or 0.0)
         if p <= 0.0 and info.my_pile_unknown == 0:
             return Recommendation(
                 PHASE_CLAIM,
                 "CONTINUE — press გაგრძელება",
                 (
-                    f"you have {pts} pts{unk}; "
-                    f"need {self.rules.win_points}; "
-                    f"P(enough)={_pct(p)}"
+                    f"if you continue: win {_pct(pw)} · lose {_pct(pl)} — "
+                    f"claiming now would lose ({pts} pts, need {self.rules.win_points})"
                 ),
-                win_prob=p,
-                expected=ev_claim,
+                win_prob=pw,
+                lose_prob=pl,
+                expected=ev_cont,
             )
-
-        pw, _pd, pl = self.engine.win_probability(info, budget_s)
-        ev_cont = _edge(pw, pl)
-        margin = float(self.rules.assistant("ev_margin") or 0.0)
         if ev_claim > ev_cont + margin:
             return Recommendation(
                 PHASE_CLAIM,
@@ -242,12 +289,11 @@ class Advisor:
             PHASE_CLAIM,
             "CONTINUE — press გაგრძელება",
             (
-                f"you have {pts} pts{unk}; "
-                f"need {self.rules.win_points}; "
-                f"P(enough)={_pct(p)}; "
-                f"EV(claim) {ev_claim:+.2f} vs continue {ev_cont:+.2f}"
+                f"if you continue: win {_pct(pw)} · lose {_pct(pl)} — "
+                f"claiming now wins only {_pct(p)} ({pts} pts{unk}, need {self.rules.win_points})"
             ),
-            win_prob=p,
+            win_prob=pw,
+            lose_prob=pl,
             expected=ev_cont,
         )
 

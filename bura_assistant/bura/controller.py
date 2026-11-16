@@ -68,6 +68,7 @@ class Controller:
 
     def stop(self):
         self.stop_flag.set()
+        self.p.engine.stop_workers()
 
     def _capture_loop(self):
         n, t0 = 0, time.time()
@@ -150,6 +151,7 @@ class Controller:
                 opp_hand=info.opp_hand_size, lead=[R.card_name(c) for c in info.current_lead],
                 my_pts=info.my_points_known, opp_pts=info.opp_points_known,
                 my_unknown=info.my_pile_unknown, opp_unknown=info.opp_pile_unknown,
+                deals_checked=rec.deals_checked, deals_possible=rec.deals_possible, deals_all=rec.deals_all,
             )
         except Exception:
             pass

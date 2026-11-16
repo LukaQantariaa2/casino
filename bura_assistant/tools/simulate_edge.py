@@ -63,7 +63,7 @@ def play_round(rules, engine, rng, a_leads_first: bool) -> float:
             s.hands[OPP] += list(lead)
         before = (len(s.deck), s.deck[0] if s.deck else None)
         winner_cards = list(lead) + list(resp)
-        w = apply_trick(ctx, s, leader, tuple(lead), tuple(resp))
+        w = apply_trick(ctx, s, leader, tuple(lead), resp)
         piles[w] += winner_cards
         if before[1] == trump_card and (not s.deck or s.deck[0] != trump_card):
             trump_taken_by = ME if trump_card in s.hands[ME] else OPP

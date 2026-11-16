@@ -26,6 +26,13 @@ def load_config(path: str) -> dict:
         return json.load(fh)
 
 
+def _worker_count(v) -> int:
+    """``engine.workers``: a number, or "auto" (half the logical CPUs, at most 8, keeping room for capture)."""
+    if isinstance(v, int):
+        return v
+    return max(1, min(8, (os.cpu_count() or 2) // 2))
+
+
 def _resolve(root: str, p: str) -> str:
     return p if os.path.isabs(p) else os.path.normpath(os.path.join(root, p))
 
@@ -57,6 +64,8 @@ class Pipeline:
         ec = cfg["engine"]
         self.engine = DecisionEngine(self.rules, ec.get("time_budget_s", 1.2), ec.get("max_samples", 6000),
                                      opponent_model=ec.get("opponent_model", "lookahead"))
+        n = self.engine.start_workers(_worker_count(ec.get("workers", "auto")))
+        self.history.add("info", f"engine: {n} worker process{'es' if n > 1 else ''}")
         self.advisor = Advisor(self.rules, self.engine)
         cc = cfg.get("capture", {})
         self.stability = StabilityDetector(self.layout, cc.get("still_frames", 2), cc.get("diff_threshold", 1.5))

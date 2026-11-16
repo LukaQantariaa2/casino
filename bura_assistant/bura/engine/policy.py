@@ -11,7 +11,7 @@ import math
 import random
 from typing import Sequence
 
-from .core import ME, OPP, Ctx, SimState, apply_trick
+from .core import ME, OPP, Ctx, Give, SimState, apply_trick
 
 
 def _cheap_key(ctx: Ctx, c: int):
@@ -61,7 +61,8 @@ def cheapest_beat(ctx: Ctx, hand: Sequence[int], lead: Sequence[int]) -> list[in
 
 
 def _dump(ctx: Ctx, hand: Sequence[int], k: int) -> tuple[int, ...]:
-    return tuple(sorted(hand, key=lambda c: _cheap_key(ctx, c))[:k])
+    cards = tuple(sorted(hand, key=lambda c: _cheap_key(ctx, c))[:k])
+    return Give(cards) if ctx.beat_optional else cards
 
 
 def greedy_response(ctx: Ctx, s: SimState, leader: int, lead: Sequence[int]) -> tuple[int, ...]:
@@ -84,7 +85,7 @@ def greedy_response(ctx: Ctx, s: SimState, leader: int, lead: Sequence[int]) -> 
     ranked.append(dump)
     if beat is not None:
         for o in opts:
-            if o not in ranked and ctx.responder_wins(o, lead):
+            if o not in ranked and ctx.takes_trick(o, lead):
                 ranked.append(o)
             if len(ranked) >= 7:
                 break

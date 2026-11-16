@@ -421,6 +421,10 @@ class GameTracker:
             # the pile says the responder won but the cards cannot beat: trust the rules
             winner, sure = t.leader, False
         self._award(t.lead + t.response, t.response_hidden, winner)
+        if t.response_hidden and t.leader == ME and r.opp_known:
+            # the unseen answer may have been a card we knew he held (e.g. the trump card he picked up)
+            self._log("info", f"no longer sure the opponent holds {self.n(r.opp_known)}")
+            r.opp_known.clear()
         evidence_idx = None
         if t.leader == ME and winner == ME and not beats:
             evidence_idx = len(r.opp_evidence)

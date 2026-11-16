@@ -8,7 +8,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
 from bura.rules import Rules, RulesError  # noqa: E402
-from bura.engine.core import Ctx, SimState, apply_trick, ME, OPP  # noqa: E402
+from bura.engine.core import Ctx, Give, SimState, apply_trick, ME, OPP  # noqa: E402
 from bura.engine.search import InfoState, DecisionEngine, EndgameSolver  # noqa: E402
 from bura.engine.advisor import Advisor, PHASE_CLAIM, PHASE_RESPOND, PHASE_LEAD, PHASE_RAISE_OFFER, StakeInfo  # noqa
 
@@ -79,6 +79,25 @@ class CoreTests(unittest.TestCase):
         self.assertEqual(s.leader, ME)
         self.assertIn(P("7D")[0], s.hands[0])          # winner drew first (alternating)
 
+    def test_beating_cards_can_be_given_face_down(self):
+        P = self.P
+        lead = tuple(P("7D"))
+        opts = self.ctx.legal_responses(P("8D QD"), lead)
+        self.assertIn(Give(P("8D")), opts)
+        self.assertIn(tuple(P("8D")), opts)
+        self.assertNotEqual(Give(P("8D")), tuple(P("8D")))
+        s = SimState([P("7D AD 7H 10C"), P("8D QD 6C JS")], [], [0, 0], [0, 0], ME)
+        self.assertEqual(apply_trick(self.ctx, s.copy(), ME, lead, tuple(P("8D"))), OPP)
+        self.assertEqual(apply_trick(self.ctx, s.copy(), ME, lead, Give(P("8D"))), ME)
+
+    def test_endgame_counts_face_down_give_up(self):
+        """14 Nov: 7♦ A♦ K♣ vs 8♦ Q♦ A♣ at 51/40 looked won, but he gives 8♦ face down and wins."""
+        R = Rules.load(RULES_PATH)
+        P = R.parse_cards
+        ctx = Ctx(R, R.suits.index("C"))
+        s = SimState([P("7D AD KC"), P("8D QD AC")], [], [51, 40], [6, 4], ME)
+        self.assertLess(EndgameSolver(ctx).value(s), -0.5)
+
     def test_claim_ends_round(self):
         P = self.P
         s = SimState([P("AH 10H"), P("6C 7C")], [], [55, 0], [3, 0], ME)
@@ -110,9 +129,29 @@ class EngineTests(unittest.TestCase):
         info = InfoState(self.R, self.R.suits.index("D"), P("6S AD 7H 10C KH"), 4, 26,
                          trump_card=P("7D")[0], leader=OPP, current_lead=P("9C"))
         self.assertEqual(info.check(), [])
-        rec = self.A.recommend(PHASE_RESPOND, info)
+        rec = self.A.recommend(PHASE_RESPOND, info, budget_s=2.0)
         self.assertEqual(rec.cards, tuple(P("10C")))
+        self.assertGreater(rec.deals_checked, 0)
+        self.assertGreater(rec.deals_possible, rec.deals_checked)
+        self.assertIn(f"{rec.deals_checked:,} of ", rec.detail)
+        self.assertIn("possible deals calculated", rec.detail)
         self.assertIn("BEAT 10♣ on 9♣", rec.headline)
+
+    def test_worker_processes(self):
+        P = self.P
+        eng = DecisionEngine(self.R, time_budget_s=1.0, max_samples=100000, seed=3)
+        self.assertEqual(eng.start_workers(2), 2)
+        try:
+            info = InfoState(self.R, self.R.suits.index("D"), P("6S AD 7H 10C KH"), 4, 26,
+                             trump_card=P("7D")[0], leader=OPP, current_lead=P("9C"))
+            res = eng.evaluate(info)
+            self.assertIn(Give(P("10C")), [r.cards for r in res])     # Give survives the trip to a worker
+            self.assertGreater(eng.last_checked, 0)
+            self.assertEqual(sum(1 for r in res if r.n), len(res))
+            self.assertGreater(eng.win_probability(InfoState(self.R, self.R.suits.index("D"), P("6S AD 7H 10C KH"),
+                                                             5, 26, trump_card=P("7D")[0], leader=OPP))[0], 0.0)
+        finally:
+            eng.stop_workers()
 
     def test_claim(self):
         P = self.P

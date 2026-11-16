@@ -112,6 +112,17 @@ class TrackerTests(unittest.TestCase):
         self.assertEqual(r.opp_evidence, [])
         self.assertIn("correction", [e.kind for e in t.history.events])
 
+    def test_unseen_answer_forgets_known_opponent_card(self):
+        """He held a known card (the trump he picked up); an unseen answer may have been that card."""
+        t = GameTracker(R)
+        t.update(ob("AC 6H 9D JD KC", 5, trump="KD", my_turn=True))
+        t.round.opp_known = [R.parse_card("7D")]
+        t.update(ob("6H 9D JD KC", 5, center=["AC"], trump="KD"))
+        t.update(ob("6H 9D JD KC", 4, center=["AC"], trump="KD"))
+        t.update(ob("6H 9D JD KC", 4, trump="KD", opp_pile=True, pile_opp=CHANGED))
+        self.assertEqual(t.round.opp_pile_unknown, 1)
+        self.assertEqual(t.round.opp_known, [])
+
     def test_unseen_answer_corrected_by_first_pile(self):
         """After his first trick only his pile badge shows up: the unseen answer won."""
         t = GameTracker(R)

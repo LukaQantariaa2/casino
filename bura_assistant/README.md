@@ -97,7 +97,16 @@ A single unexplained frame is ignored (usually a card in motion); repeated ones 
   memoisation (the stock order is known inside a sample). All moves are first screened with fast playouts (30% of
   the time budget); the best 5 are then solved exactly on fresh samples for the rest. Deeper in a playout the
   empty-stock endgame is solved exactly as well. When the opponent's hand is fully known the answer is exact, with
-  no sampling at all.
+  no sampling at all. When at most 120 deals are still possible (opponent hand × stock order × unseen pile cards),
+  every move is solved in every deal ("all N possible deals calculated") instead of sampling. Otherwise the overlay
+  shows how many distinct deals were calculated out of how many are possible ("1,152 of 3.7×10²⁹ possible deals
+  calculated"); the numbers are also written to the session log (`deals_checked`, `deals_possible`).
+* **Worker processes** — sampled deals are spread over several processes (`engine.workers` in `config/app.json`:
+  `"auto"` = half the logical CPUs, at most 8; `1` = single process). Results are merged every 0.4 s so clearly
+  worse moves are dropped across all workers together.
+* **Giving face down** — a responder may give cards face down even when they could beat, conceding the trick.
+  The search considers this for both players, so it may also recommend it to you.
+* Estimates resting on fewer than 100 sampled deals are marked **ROUGH** on the overlay.
 * **Bura** — five trumps in hand win the round (`specials` in the rules file). The overlay tells you to play it,
   and to raise first if you can. A *Malyutka* (five cards of one non-trump suit) is not an instant win; it is
   simply a legal 5-card lead and is evaluated like any other lead.

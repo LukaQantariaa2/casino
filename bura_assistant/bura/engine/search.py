@@ -24,7 +24,7 @@ import time
 from dataclasses import dataclass, field
 from typing import Sequence
 
-from itertools import combinations
+from itertools import combinations, permutations
 
 from ..rules import Rules
 from .core import ME, OPP, Ctx, SimState, apply_trick
@@ -36,6 +36,9 @@ EXACT_DECK_LIMIT = 6          # stock size from which a sampled world is solved 
 EXACT_NODE_LIMIT = 30_000     # per-sample minimax budget before falling back to greedy play
 EXACT_MAX_ACTIONS = 5         # with cards in the stock only this many screened candidates are solved exactly
 SCREEN_FRACTION = 0.3         # share of the time budget spent screening with fast playouts
+SMALL_WORLD_LIMIT = 120       # with at most this many possible deals every action is solved in every deal
+PARALLEL_OVERHEAD_S = 0.08    # time kept back for sending work to the worker processes and merging
+PARALLEL_ROUND_S = 0.4        # worker results are merged (and bad actions dropped) this often
 
 
 @dataclass
@@ -159,6 +162,66 @@ def _posterior_table(ctx: Ctx, info: InfoState) -> tuple[list[tuple[int, ...]], 
     return assigns, weights
 
 
+def _world_shape(info: InfoState) -> tuple[int, int, int, bool]:
+    """(unknown opponent cards, unknown stock cards, cards left for the unseen piles, trump at the bottom)."""
+    k = info.opp_hand_size - len(info.opp_known)
+    trump_bottom = info.trump_card is not None and info.trump_card_in_deck and info.deck_size > 0
+    n_deck = info.deck_size - (1 if trump_bottom else 0)
+    return k, n_deck, len(info.unseen()) - k - n_deck, trump_bottom
+
+
+def _deals_per_hand(info: InfoState) -> int:
+    """Stock orders x unseen pile contents, for one opponent hand."""
+    k, n_deck, left, _ = _world_shape(info)
+    mu, ou = info.my_pile_unknown, info.opp_pile_unknown
+    if k < 0 or n_deck < 0 or left < mu + ou:
+        return 0
+    return math.perm(n_deck + left, n_deck) * math.comb(left, mu) * math.comb(left - mu, ou)
+
+
+def count_worlds(info: InfoState) -> int:
+    """Number of deals consistent with what I have seen (before weighting by the opponent's play)."""
+    k, _, _, _ = _world_shape(info)
+    n_unseen = len(info.unseen())
+    if k < 0 or k > n_unseen:
+        return 0
+    return math.comb(n_unseen, k) * _deals_per_hand(info)
+
+
+def world_key(smp: Sample) -> tuple:
+    return tuple(sorted(smp.opp_hand)), tuple(smp.deck), smp.my_pile_extra, smp.opp_pile_extra
+
+
+def enumerate_worlds(info: InfoState, table: tuple[list[tuple[int, ...]], list[float]] | None,
+                     limit: int) -> list[Sample] | None:
+    """Every possible deal (opponent hand, stock order, unseen pile cards) with its posterior
+    weight, or None if there are more than ``limit``."""
+    if table is None:
+        return None
+    assigns, weights = table
+    per = _deals_per_hand(info)
+    if per <= 0 or len(assigns) * per > limit:
+        return None
+    _, n_deck, _, trump_bottom = _world_shape(info)
+    unseen = info.unseen()
+    pts = info.rules.points
+    mu, ou = info.my_pile_unknown, info.opp_pile_unknown
+    out = []
+    for extra, w in zip(assigns, weights):
+        used = set(extra)
+        rest = [c for c in unseen if c not in used]
+        for stock in permutations(rest, n_deck):
+            left = [c for c in rest if c not in stock]
+            deck = ([info.trump_card] if trump_bottom else []) + list(stock)
+            for mine in combinations(left, mu):
+                left2 = [c for c in left if c not in mine]
+                for theirs in combinations(left2, ou):
+                    out.append(Sample(list(info.opp_known) + list(extra), deck,
+                                      sum(pts[c] for c in mine), sum(pts[c] for c in theirs),
+                                      weight=w / per, from_posterior=True))
+    return out
+
+
 def draw_posterior_sample(ctx: Ctx, info: InfoState, rng: random.Random,
                           table: tuple[list[tuple[int, ...]], list[float]] | None) -> Sample:
     if table is None:
@@ -222,7 +285,7 @@ class EndgameSolver:
             ctx = self.ctx
             pts = ctx.points
             v = cache[key] = sorted(ctx.legal_responses(hand, lead),
-                                    key=lambda r: (0 if ctx.responder_wins(r, lead) else 1, sum(pts[c] for c in r)))
+                                    key=lambda r: (0 if ctx.takes_trick(r, lead) else 1, sum(pts[c] for c in r)))
         return v
 
     def value(self, s: SimState) -> float:
@@ -290,6 +353,7 @@ class ActionResult:
     lose: float = 0.0
     value: float = 0.0           # weighted sum of results (+1 win / -1 loss)
     exact: bool = False
+    worlds: int = 0              # > 0: every possible deal was solved (no sampling error)
     note: str = ""
 
     @property
@@ -299,7 +363,7 @@ class ActionResult:
     @property
     def n_eff(self) -> float:
         """Kish effective sample size of the (importance-)weighted samples."""
-        if self.exact:
+        if self.exact or self.worlds:
             return float("inf")
         if self.w2sum <= 0:
             return float(self.n)
@@ -323,7 +387,7 @@ class ActionResult:
     @property
     def mean_se(self) -> float:
         """Standard error of ``mean`` (results are in [-1, 1])."""
-        if self.exact:
+        if self.exact or self.worlds:
             return 0.0
         ne = max(1.0, self.n_eff)
         return math.sqrt(max(0.0, 1.0 - self.mean ** 2) / ne)
@@ -331,7 +395,7 @@ class ActionResult:
     @property
     def win_se(self) -> float:
         """Standard error of ``win_prob``."""
-        if self.exact:
+        if self.exact or self.worlds:
             return 0.0
         p = self.win_prob
         return math.sqrt(p * (1.0 - p) / max(1.0, self.n_eff))
@@ -351,6 +415,11 @@ class DecisionEngine:
         self.opponent_model = opponent_model
         self.last_ess_fraction: float = 1.0   # diagnostics of the last evaluate()
         self.last_tempered: bool = False
+        self.last_checked: int | None = None  # distinct deals calculated by the last search (None: no search)
+        self.last_exhaustive: bool = False    # the last search covered every possible deal
+        self._seen_worlds: set = set()
+        self._pool = None                     # ProcessPoolExecutor once start_workers() succeeded
+        self.workers = 1
 
     def _reseed(self, info: InfoState) -> None:
         """Deterministic RNG per position: re-evaluating an unchanged state gives the same answer."""
@@ -467,6 +536,17 @@ class DecisionEngine:
         return table, alpha
 
     def evaluate(self, info: InfoState, deadline_s: float | None = None) -> list[ActionResult]:
+        self._seen_worlds = set()
+        res = self._evaluate(info, deadline_s)
+        if res:
+            b = res[0]
+            if b.exact or b.worlds:
+                self.last_checked, self.last_exhaustive = (1 if b.exact else b.worlds), True
+            else:
+                self.last_checked, self.last_exhaustive = len(self._seen_worlds), False
+        return res
+
+    def _evaluate(self, info: InfoState, deadline_s: float | None) -> list[ActionResult]:
         ctx = Ctx(self.rules, info.trump_suit)
         actions = self.legal_actions(info)
         kind = "lead" if (info.leader == ME and not info.current_lead) else "respond"
@@ -496,22 +576,48 @@ class DecisionEngine:
         def rank(rs):
             return sorted(rs, key=lambda r: (-(r.mean if r.n else -9), -r.n))
 
+        worlds = enumerate_worlds(info, table, SMALL_WORLD_LIMIT) if exact_deck else None
+        if worlds:
+            for smp in worlds:
+                solver = shared_solver if shared_solver is not None \
+                    else EndgameSolver(ctx, node_limit=EXACT_NODE_LIMIT)
+                for a in actions:
+                    self._record(results[a], smp.weight, self._play(ctx, info, smp, a, solver, exact_deck))
+            for r in results.values():
+                r.worlds = len(worlds)
+            return rank(results.values())
+
         if exact_deck and info.deck_size > 0 and len(actions) > EXACT_MAX_ACTIONS:
             # Exact solving with cards in the stock is expensive: screen every action with fast
             # playouts first, then spend the rest of the budget solving the best few exactly.
             budget = deadline_s if deadline_s is not None else self.time_budget
             t_screen = time.perf_counter() + SCREEN_FRACTION * budget
-            self._sample_loop(ctx, info, results, list(actions), table, alpha, 0, None, t_screen)
+            self._run_loop(ctx, info, results, list(actions), table, alpha, 0, None, t_screen)
             screened = rank(results.values())
             finalists = [r.cards for r in screened[:EXACT_MAX_ACTIONS]]
             exact_results = {a: ActionResult(kind, a) for a in finalists}
-            self._sample_loop(ctx, info, exact_results, finalists, table, alpha, exact_deck, None, t_end)
+            self._seen_worlds = set()      # count only the deals the finalists were solved on
+            self._run_loop(ctx, info, exact_results, finalists, table, alpha, exact_deck, None, t_end)
             return rank(exact_results.values()) + screened[EXACT_MAX_ACTIONS:]
-        self._sample_loop(ctx, info, results, list(actions), table, alpha, exact_deck, shared_solver, t_end)
+        self._run_loop(ctx, info, results, list(actions), table, alpha, exact_deck, shared_solver, t_end)
         return rank(results.values())
 
+    @staticmethod
+    def _record(r: ActionResult, w: float, v: float) -> None:
+        r.n += 1
+        r.wsum += w
+        r.w2sum += w * w
+        r.value += w * v
+        if v > 0.5:
+            r.win += w
+        elif v < -0.5:
+            r.lose += w
+        else:
+            r.draw += w
+
     def _sample_loop(self, ctx: Ctx, info: InfoState, results: dict, alive: list, table, alpha: float,
-                     exact_deck: int, shared_solver: EndgameSolver | None, t_end: float) -> None:
+                     exact_deck: int, shared_solver: EndgameSolver | None, t_end: float,
+                     halve: bool = True) -> None:
         """Evaluate ``alive`` actions on common posterior samples until ``t_end``, with successive halving.
         ``exact_deck`` 0 still solves the empty-stock part of each playout exactly."""
         batch = 16
@@ -524,36 +630,18 @@ class DecisionEngine:
                     continue          # impossible world (e.g. an undeclared Bura)
                 if alpha != 1.0 and not smp.from_posterior:
                     w = w ** alpha
+                self._seen_worlds.add(world_key(smp))
                 solver = shared_solver if shared_solver is not None \
                     else EndgameSolver(ctx, node_limit=EXACT_NODE_LIMIT)
                 for a in alive:
-                    v = self._play(ctx, info, smp, a, solver, exact_deck)
-                    r = results[a]
-                    r.n += 1
-                    r.wsum += w
-                    r.w2sum += w * w
-                    r.value += w * v
-                    if v > 0.5:
-                        r.win += w
-                    elif v < -0.5:
-                        r.lose += w
-                    else:
-                        r.draw += w
+                    self._record(results[a], w, self._play(ctx, info, smp, a, solver, exact_deck))
                 if shared_solver is not None and len(shared_solver.memo) > 400_000:
                     shared_solver.memo.clear()
+                if time.perf_counter() > t_end:
+                    return
             n_samples += batch
-            if time.perf_counter() > t_end:
-                break
-            # successive halving: drop actions clearly worse than the leader
-            if len(alive) > 2 and n_samples >= 64:
-                ranked = sorted(alive, key=lambda a: -results[a].mean)
-                best = results[ranked[0]]
-                keep = []
-                for a in ranked:
-                    r = results[a]
-                    if r.mean + 2.5 * r.mean_se >= best.mean or len(keep) < 2:
-                        keep.append(a)
-                alive = keep
+            if halve and len(alive) > 2 and n_samples >= 64:
+                alive = self._halve(results, alive)
 
     # ---------------------------------------------------------------- utility decisions
     def win_probability(self, info: InfoState, budget_s: float | None = None) -> tuple[float, float, float]:
@@ -575,10 +663,37 @@ class DecisionEngine:
         shared_solver = EndgameSolver(ctx) if info.deck_size == 0 else None
         t_end = time.perf_counter() + (budget_s if budget_s is not None else self.time_budget)
         table, alpha = self._prepare_posterior(ctx, info)
-        w = d = l = 0.0
-        mass = 0.0
+        worlds = enumerate_worlds(info, table, SMALL_WORLD_LIMIT) if exact_deck else None
+        if worlds:
+            acc = [0.0, 0.0, 0.0, 0.0]
+            for smp in worlds:
+                self._value_add(ctx, info, smp, smp.weight, shared_solver, exact_deck, acc)
+            self.last_checked, self.last_exhaustive = len(worlds), True
+        elif self._pool is not None:
+            acc, seen = self._parallel_value(info, table, alpha, exact_deck, t_end)
+            self.last_checked, self.last_exhaustive = len(seen), False
+        else:
+            acc, seen = self._value_loop(ctx, info, table, alpha, exact_deck, shared_solver, t_end, self.max_samples)
+            self.last_checked, self.last_exhaustive = len(seen), False
+        w, d, l, mass = acc
+        if mass <= 0:
+            return (0.0, 0.0, 0.0)
+        return (w / mass, d / mass, l / mass)
+
+    def _value_add(self, ctx: Ctx, info: InfoState, smp: Sample, wt: float, shared_solver: EndgameSolver | None,
+                   exact_deck: int, acc: list[float]) -> None:
+        """Play ``smp`` out from the current position; acc = [win, draw, lose, total weight]."""
+        solver = shared_solver if shared_solver is not None else EndgameSolver(ctx, node_limit=EXACT_NODE_LIMIT)
+        v = self._continue(ctx, build_state(info, smp), solver, exact_deck)
+        acc[3] += wt
+        acc[0 if v > 0.5 else (2 if v < -0.5 else 1)] += wt
+
+    def _value_loop(self, ctx: Ctx, info: InfoState, table, alpha: float, exact_deck: int,
+                    shared_solver: EndgameSolver | None, t_end: float, max_n: int) -> tuple[list[float], set]:
+        acc = [0.0, 0.0, 0.0, 0.0]
+        seen: set = set()
         n = 0
-        while n < self.max_samples and (n < 32 or time.perf_counter() < t_end):
+        while n < max_n and (n < 32 or time.perf_counter() < t_end):
             smp = draw_posterior_sample(ctx, info, self.rng, table)
             n += 1
             wt = smp.weight
@@ -586,19 +701,107 @@ class DecisionEngine:
                 continue
             if alpha != 1.0 and not smp.from_posterior:
                 wt = wt ** alpha
-            s = build_state(info, smp)
-            solver = shared_solver if shared_solver is not None else EndgameSolver(ctx, node_limit=EXACT_NODE_LIMIT)
-            v = self._continue(ctx, s, solver, exact_deck)
-            mass += wt
-            if v > 0.5:
-                w += wt
-            elif v < -0.5:
-                l += wt
-            else:
-                d += wt
-        if mass <= 0:
-            return (0.0, 0.0, 0.0)
-        return (w / mass, d / mass, l / mass)
+            seen.add(world_key(smp))
+            self._value_add(ctx, info, smp, wt, shared_solver, exact_deck, acc)
+        return acc, seen
+
+    # ---------------------------------------------------------------- worker processes
+    def start_workers(self, n: int) -> int:
+        """Spread sampled deals over ``n`` worker processes (n <= 1: stay single-process).
+        Returns the number of workers actually running."""
+        self.stop_workers()
+        if n <= 1:
+            return 1
+        try:
+            from concurrent.futures import ProcessPoolExecutor
+            pool = ProcessPoolExecutor(max_workers=n, initializer=_worker_init,
+                                       initargs=(self.rules, self.opponent_model))
+            for f in [pool.submit(_worker_ping) for _ in range(n)]:
+                f.result(timeout=120)
+        except Exception:
+            return 1
+        self._pool, self.workers = pool, n
+        return n
+
+    def stop_workers(self) -> None:
+        if self._pool is not None:
+            self._pool.shutdown(wait=False, cancel_futures=True)
+        self._pool, self.workers = None, 1
+
+    def _worker_seconds(self, t_end: float) -> float:
+        return max(0.05, t_end - time.perf_counter() - PARALLEL_OVERHEAD_S)
+
+    def _run_loop(self, ctx: Ctx, info: InfoState, results: dict, alive: list, table, alpha: float,
+                  exact_deck: int, shared_solver: EndgameSolver | None, t_end: float) -> None:
+        """``_sample_loop`` on every worker at once (each on its own deals), results summed."""
+        if self._pool is None:
+            self._sample_loop(ctx, info, results, alive, table, alpha, exact_deck, shared_solver, t_end)
+            return
+        kind = next(iter(results.values())).kind
+        alive = list(alive)
+        done = 0
+        # Short rounds, so that clearly worse actions are dropped across all workers' results together.
+        while done < self.max_samples:
+            secs = min(PARALLEL_ROUND_S, self._worker_seconds(t_end))
+            per = math.ceil((self.max_samples - done) / self.workers)
+            try:
+                futs = [self._pool.submit(_worker_actions, info, alive, kind, table, alpha, exact_deck,
+                                          shared_solver is not None, secs, self.rng.getrandbits(64), per)
+                        for _ in range(self.workers)]
+                outs = [f.result() for f in futs]
+            except Exception:
+                self.stop_workers()          # a broken pool: carry on in this process
+                self._sample_loop(ctx, info, results, alive, table, alpha, exact_deck, shared_solver, t_end)
+                return
+            for rows, seen in outs:
+                for cards, n, wsum, w2sum, win, draw, lose, value in rows:
+                    r = results[cards]
+                    r.n += n
+                    r.wsum += wsum
+                    r.w2sum += w2sum
+                    r.win += win
+                    r.draw += draw
+                    r.lose += lose
+                    r.value += value
+                self._seen_worlds |= seen
+            done = max(results[a].n for a in alive)
+            if time.perf_counter() + 0.05 >= t_end - PARALLEL_OVERHEAD_S:
+                return
+            if len(alive) > 2 and min(results[a].n for a in alive) >= 64:
+                alive = self._halve(results, alive)
+
+    @staticmethod
+    def _halve(results: dict, alive: list) -> list:
+        """Successive halving: keep the actions that could still be the best."""
+        ranked = sorted(alive, key=lambda a: -results[a].mean)
+        best = results[ranked[0]]
+        keep = []
+        for a in ranked:
+            r = results[a]
+            if r.mean + 2.5 * r.mean_se >= best.mean or len(keep) < 2:
+                keep.append(a)
+        return keep
+
+    def _parallel_value(self, info: InfoState, table, alpha: float, exact_deck: int,
+                        t_end: float) -> tuple[list[float], set]:
+        per = math.ceil(self.max_samples / self.workers)
+        secs = self._worker_seconds(t_end)
+        try:
+            futs = [self._pool.submit(_worker_value, info, table, alpha, exact_deck, secs,
+                                      self.rng.getrandbits(64), per) for _ in range(self.workers)]
+            outs = [f.result() for f in futs]
+        except Exception:
+            self.stop_workers()
+            ctx = Ctx(self.rules, info.trump_suit)
+            shared = EndgameSolver(ctx) if info.deck_size == 0 else None
+            return self._value_loop(ctx, info, table, alpha, exact_deck, shared, t_end, self.max_samples)
+        acc = [0.0, 0.0, 0.0, 0.0]
+        seen: set = set()
+        for a, s in outs:
+            for i in range(4):
+                acc[i] += a[i]
+            seen |= s
+        return acc, seen
 
     def claim_probability(self, info: InfoState, samples: int = 4000) -> float:
         """Probability that my pile already holds >= win_points."""
@@ -614,3 +817,41 @@ class DecisionEngine:
             if smp.my_pile_extra >= need:
                 hit += 1
         return hit / samples
+
+
+# ---------------------------------------------------------------- worker-process entry points
+_WORKER: DecisionEngine | None = None
+
+
+def _worker_init(rules: Rules, opponent_model: str) -> None:
+    global _WORKER
+    _WORKER = DecisionEngine(rules, opponent_model=opponent_model)
+
+
+def _worker_ping() -> bool:
+    time.sleep(0.3)              # keeps this worker busy so the pool starts every process up front
+    return _WORKER is not None
+
+
+def _worker_actions(info: InfoState, actions: list, kind: str, table, alpha: float, exact_deck: int,
+                    shared: bool, seconds: float, seed: int, max_samples: int):
+    e = _WORKER
+    e.rng = random.Random(seed)
+    e.max_samples = max_samples
+    e._seen_worlds = set()
+    ctx = Ctx(e.rules, info.trump_suit)
+    results = {a: ActionResult(kind, a) for a in actions}
+    solver = EndgameSolver(ctx) if shared else None
+    e._sample_loop(ctx, info, results, list(actions), table, alpha, exact_deck, solver,
+                   time.perf_counter() + seconds, halve=False)
+    rows = [(r.cards, r.n, r.wsum, r.w2sum, r.win, r.draw, r.lose, r.value) for r in results.values()]
+    return rows, e._seen_worlds
+
+
+def _worker_value(info: InfoState, table, alpha: float, exact_deck: int, seconds: float, seed: int,
+                  max_samples: int):
+    e = _WORKER
+    e.rng = random.Random(seed)
+    ctx = Ctx(e.rules, info.trump_suit)
+    solver = EndgameSolver(ctx) if info.deck_size == 0 else None
+    return e._value_loop(ctx, info, table, alpha, exact_deck, solver, time.perf_counter() + seconds, max_samples)

@@ -14,6 +14,24 @@ from ..rules import Rules
 ME, OPP = 0, 1
 
 
+class Give(tuple):
+    """Response cards given face down: the trick goes to the leader even if they could beat.
+    Never equal to the plain tuple of the same cards, which plays them face up."""
+    __slots__ = ()
+
+    def __eq__(self, other):
+        return isinstance(other, Give) and tuple.__eq__(self, other)
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
+    def __hash__(self):
+        return hash(("give",) + tuple(self))
+
+    def __repr__(self):
+        return f"Give{tuple.__repr__(self)}"
+
+
 class Ctx:
     """Rule tables flattened for speed, bound to one trump suit."""
 
@@ -97,6 +115,10 @@ class Ctx:
             v = self._rw_cache[key] = self.beat_assignment(response, lead) is not None
         return v
 
+    def takes_trick(self, response: Sequence[int], lead: Sequence[int]) -> bool:
+        """Whether the responder wins the trick with ``response`` (a ``Give`` never does)."""
+        return not isinstance(response, Give) and self.responder_wins(response, lead)
+
     # ----- legal actions -----
     def legal_leads(self, hand: Sequence[int]) -> list[tuple[int, ...]]:
         hand = sorted(hand)
@@ -124,7 +146,8 @@ class Ctx:
             return [tuple(hand)]
         allr = list(combinations(hand, k))
         if self.beat_optional:
-            return allr
+            # cards that could beat may still be given face down, conceding the trick
+            return allr + [Give(r) for r in allr if self.responder_wins(r, lead)]
         winning = [r for r in allr if self.responder_wins(r, lead)]
         return winning or allr
 
@@ -211,7 +234,7 @@ def apply_trick(ctx: Ctx, s: SimState, leader: int, lead: Sequence[int], respons
         hl.remove(c)
     for c in response:
         hr.remove(c)
-    winner = 1 - leader if ctx.responder_wins(response, lead) else leader
+    winner = 1 - leader if ctx.takes_trick(response, lead) else leader
     gained = 0
     for c in lead:
         gained += ctx.points[c]

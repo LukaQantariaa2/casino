@@ -14,7 +14,7 @@
     "diff_threshold": 2.5
   },
   "engine": {
-    "time_budget_s": 2.5,
+    "time_budget_s": 4,
     "max_samples": 100000,
     "opponent_model": "lookahead",
     "workers": "auto"

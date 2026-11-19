@@ -1,0 +1,18 @@
+{
+  "reference_size": [1920, 1080],
+  "regions": {
+    "table": [330, 160, 1720, 920],
+    "panel": [60, 365, 170, 730],
+    "opp_score": [70, 372, 160, 458],
+    "my_score": [70, 640, 160, 725],
+    "stake_box": [66, 470, 166, 610],
+    "offer": [930, 355, 1090, 405]
+  },
+  "stability_regions": ["table", "panel"],
+  "table": [330, 160, 1720, 920],
+  "opp_row_bottom": 300,
+  "hand_row_top": 760,
+  "felt_probe": [345, 330, 440, 760],
+  "raise_no_button": [1050, 425, 1170, 450],
+  "raise_yes_button": [880, 425, 990, 450]
+}

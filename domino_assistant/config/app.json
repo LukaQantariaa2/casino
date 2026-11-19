@@ -1,0 +1,43 @@
+{
+  "paths": {
+    "layout": "config/layout/adjarabet_1920x1080.json",
+    "logs_dir": "logs"
+  },
+  "rules": {
+    "default_target": 255,
+    "boneyard_reserve": 2
+  },
+  "capture": {
+    "window_title_hint": "",
+    "monitor_index": 1,
+    "fixed_region": null,
+    "fps": 10,
+    "still_frames": 2,
+    "diff_threshold": 2.5
+  },
+  "engine": {
+    "time_budget_s": 2.0,
+    "max_samples": 50000
+  },
+  "tracker": {
+    "pause_after": 4
+  },
+  "overlay": {
+    "x": 1540,
+    "y": 380,
+    "width": 370,
+    "opacity": 0.92,
+    "font_size": 11,
+    "show_tile_grid": true,
+    "click_through": false,
+    "exclude_from_capture": true
+  },
+  "hotkeys": {
+    "pause_resume": "F8",
+    "reset_round": "F10",
+    "toggle_click_through": "F7"
+  },
+  "ocr": {
+    "enabled": true
+  }
+}

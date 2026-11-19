@@ -1,0 +1,296 @@
+"""Always-on-top recommendation overlay (PySide6).
+
+The overlay only displays information. It never sends clicks or keys to the
+browser; you play every move yourself.
+"""
+from __future__ import annotations
+
+import html
+
+from PySide6.QtCore import QObject, QPoint, Qt, QTimer, Signal
+from PySide6.QtGui import QFont
+from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QHBoxLayout, QLabel, QPushButton, QSizePolicy,
+                               QVBoxLayout, QWidget)
+
+from ..controller import Snapshot
+from ..engine.advisor import Recommendation
+from . import winapi
+
+STATUS_COLORS = {"OK": "#2ecc71", "UNCERTAIN": "#f1c40f", "PAUSED": "#e74c3c", "WAITING": "#95a5a6"}
+CELL_STYLE = {
+    "mine": ("#1f6feb", "#ffffff"),
+    "board": ("#161b22", "#545d68"),
+    "boneyard": ("#3a2a12", "#d9a441"),
+    "unseen": ("#2d333b", "#e6edf3"),
+}
+PHASE_TEXT = {"my_turn": "YOUR TURN", "raise_offer": "OPPONENT RAISES", "wait": "waiting",
+              "round_over": "round over"}
+DECISION_PHASES = ("my_turn", "raise_offer")
+
+
+class Bridge(QObject):
+    snapshot = Signal(object)
+    recommendation = Signal(object, object)
+    hotkey = Signal(str)
+
+
+class Overlay(QWidget):
+    def __init__(self, controller, cfg: dict):
+        super().__init__(None, Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint
+                         | Qt.WindowType.Tool)
+        self.ctrl = controller
+        self.cfg = cfg
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
+        self.setAttribute(Qt.WidgetAttribute.WA_ShowWithoutActivating)
+        self.setWindowTitle("Domino Assistant")
+        oc = cfg.get("overlay", {})
+        self.setWindowOpacity(float(oc.get("opacity", 0.92)))
+        self.click_through = bool(oc.get("click_through", False))
+        self._drag: QPoint | None = None
+        self._snap: Snapshot | None = None
+        self._rec: Recommendation | None = None
+        fs = int(oc.get("font_size", 11))
+
+        self.frame = QFrame(self)
+        self.frame.setObjectName("panel")
+        self.frame.setStyleSheet(
+            "#panel { background: rgba(13,17,23,235); border: 1px solid #30363d; border-radius: 10px; }"
+            "QLabel { color: #e6edf3; }"
+            "QPushButton { background:#21262d; color:#e6edf3; border:1px solid #30363d; border-radius:5px;"
+            " padding:2px 7px; }"
+            "QPushButton:hover { background:#30363d; }")
+        outer = QVBoxLayout(self)
+        outer.setContentsMargins(0, 0, 0, 0)
+        outer.addWidget(self.frame)
+        lay = QVBoxLayout(self.frame)
+        lay.setContentsMargins(12, 10, 12, 10)
+        lay.setSpacing(6)
+
+        head = QHBoxLayout()
+        self.status_lbl = QLabel("●  WAITING")
+        self.status_lbl.setFont(QFont("Segoe UI", fs, QFont.Weight.Bold))
+        self.phase_lbl = QLabel("")
+        self.phase_lbl.setFont(QFont("Segoe UI", fs))
+        self.phase_lbl.setStyleSheet("color:#8b949e")
+        head.addWidget(self.status_lbl)
+        head.addStretch(1)
+        head.addWidget(self.phase_lbl)
+        lay.addLayout(head)
+
+        self.rec_lbl = QLabel("—")
+        self.rec_lbl.setFont(QFont("Segoe UI", fs + 5, QFont.Weight.Bold))
+        self.rec_lbl.setWordWrap(True)
+        self.rec_lbl.setTextFormat(Qt.TextFormat.RichText)
+        self.detail_lbl = QLabel("")
+        self.detail_lbl.setWordWrap(True)
+        self.detail_lbl.setStyleSheet("color:#8b949e")
+        self.extra_lbl = QLabel("")
+        self.extra_lbl.setWordWrap(True)
+        self.extra_lbl.setTextFormat(Qt.TextFormat.RichText)
+        self.alt_lbl = QLabel("")
+        self.alt_lbl.setWordWrap(True)
+        self.alt_lbl.setTextFormat(Qt.TextFormat.RichText)
+        self.alt_lbl.setStyleSheet("color:#adbac7")
+        for w in (self.rec_lbl, self.detail_lbl, self.extra_lbl, self.alt_lbl):
+            lay.addWidget(w)
+
+        self.warn_lbl = QLabel("")
+        self.warn_lbl.setWordWrap(True)
+        self.warn_lbl.hide()
+        lay.addWidget(self.warn_lbl)
+
+        self.info_lbl = QLabel("")
+        self.info_lbl.setTextFormat(Qt.TextFormat.RichText)
+        self.info_lbl.setWordWrap(True)
+        lay.addWidget(self.info_lbl)
+
+        # 28 tiles as a triangle: row a holds a|a .. a|6
+        self.grid_w = QWidget()
+        self.grid = QGridLayout(self.grid_w)
+        self.grid.setSpacing(2)
+        self.grid.setContentsMargins(0, 0, 0, 0)
+        self.cells: list[list[QLabel]] = []
+        for a in range(7):
+            row = []
+            for k in range(7 - a):
+                lbl = QLabel("")
+                lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+                lbl.setFixedHeight(18)
+                lbl.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+                self.grid.addWidget(lbl, a, a + k)
+                row.append(lbl)
+            self.cells.append(row)
+        if oc.get("show_tile_grid", True):
+            lay.addWidget(self.grid_w)
+            legend = QLabel('<span style="color:#1f6feb">■</span> mine  '
+                            '<span style="color:#e6edf3">■</span> unseen (his or boneyard)  '
+                            '<span style="color:#d9a441">■</span> boneyard only  '
+                            '<span style="color:#545d68">■</span> played')
+            legend.setTextFormat(Qt.TextFormat.RichText)
+            legend.setStyleSheet("color:#8b949e; font-size:9px")
+            lay.addWidget(legend)
+        else:
+            self.grid_w.hide()
+
+        self.hist_lbl = QLabel("")
+        self.hist_lbl.setWordWrap(True)
+        self.hist_lbl.setStyleSheet("color:#8b949e; font-size:10px")
+        lay.addWidget(self.hist_lbl)
+
+        btns = QHBoxLayout()
+        hk = cfg.get("hotkeys", {})
+
+        def mk(text, fn, tip=""):
+            b = QPushButton(text)
+            b.setToolTip(tip)
+            b.clicked.connect(fn)
+            btns.addWidget(b)
+            return b
+
+        mk(f"Hide tips {hk.get('pause_resume', 'F8')}", self.ctrl.toggle_recommendations)
+        mk(f"Reset {hk.get('reset_round', 'F10')}", self.ctrl.reset_round, "forget the round and re-read the table")
+        mk("Quit", self.close_app)
+        lay.addLayout(btns)
+        self.src_lbl = QLabel("")
+        self.src_lbl.setStyleSheet("color:#6e7681; font-size:9px")
+        lay.addWidget(self.src_lbl)
+
+        self.setFixedWidth(int(oc.get("width", 360)))
+        self.move(int(oc.get("x", 1540)), int(oc.get("y", 300)))
+
+        self.bridge = Bridge()
+        self.bridge.snapshot.connect(self._on_snapshot)
+        self.bridge.recommendation.connect(self._on_rec)
+        self.bridge.hotkey.connect(self._on_hotkey)
+        self._timer = QTimer(self)
+        self._timer.timeout.connect(self._tick)
+        self._timer.start(500)
+
+    # ---------------------------------------------------------------- window plumbing
+    def showEvent(self, ev):
+        super().showEvent(ev)
+        hwnd = int(self.winId())
+        if self.cfg.get("overlay", {}).get("exclude_from_capture", True):
+            winapi.exclude_from_capture(hwnd)
+        winapi.set_click_through(hwnd, self.click_through)
+
+    def mousePressEvent(self, ev):
+        if ev.button() == Qt.MouseButton.LeftButton:
+            self._drag = ev.globalPosition().toPoint() - self.frameGeometry().topLeft()
+
+    def mouseMoveEvent(self, ev):
+        if self._drag is not None:
+            self.move(ev.globalPosition().toPoint() - self._drag)
+
+    def mouseReleaseEvent(self, ev):
+        self._drag = None
+
+    def toggle_click_through(self):
+        self.click_through = not self.click_through
+        winapi.set_click_through(int(self.winId()), self.click_through)
+        self._render()
+
+    def close_app(self):
+        self.ctrl.stop()
+        QApplication.quit()
+
+    # ---------------------------------------------------------------- data in (any thread)
+    def push_snapshot(self, snap):
+        self.bridge.snapshot.emit(snap)
+
+    def push_recommendation(self, rec, key):
+        self.bridge.recommendation.emit(rec, key)
+
+    def push_hotkey(self, name):
+        self.bridge.hotkey.emit(name)
+
+    def _on_snapshot(self, snap: Snapshot):
+        self._snap = snap
+        self._render()
+
+    def _on_rec(self, rec, key):
+        self._rec = rec
+        self._render()
+
+    def _on_hotkey(self, name: str):
+        if name == "pause_resume":
+            self.ctrl.toggle_recommendations()
+        elif name == "reset_round":
+            self.ctrl.reset_round()
+        elif name == "toggle_click_through":
+            self.toggle_click_through()
+
+    def _tick(self):
+        if self._snap is not None:
+            self.src_lbl.setText(f"{self._snap.source}   ·   {self._snap.fps:.1f} fps   ·   {self._snap.ocr_status}"
+                                 f"{'   ·   click-through ON (F7)' if self.click_through else ''}")
+
+    # ---------------------------------------------------------------- render
+    def _render(self):
+        s = self._snap
+        if s is None:
+            return
+        col = STATUS_COLORS.get(s.status, "#e6edf3")
+        self.status_lbl.setText(f'<span style="color:{col}">●</span>  {s.status}')
+        self.phase_lbl.setText(PHASE_TEXT.get(s.phase, s.phase))
+
+        rec = self._rec
+        esc = html.escape
+        if s.hidden:
+            self._show_rec('<span style="color:#6e7681">tips hidden (F8)</span>')
+        elif rec is not None and s.status == "OK" and s.phase in DECISION_PHASES:
+            self._show_rec(esc(rec.headline), rec.detail,
+                           "<br>".join(f'<span style="color:#f0b72f">▲ {esc(e)}</span>' for e in rec.extra),
+                           "<br>".join(f"· {esc(a)}" for a in rec.alternatives))
+        elif s.status == "OK" and s.phase in DECISION_PHASES:
+            self._show_rec('<span style="color:#8b949e">calculating…</span>')
+        elif s.status == "OK":
+            self._show_rec('<span style="color:#8b949e">waiting for your turn</span>')
+        else:
+            self._show_rec('<span style="color:#8b949e">no recommendation</span>')
+
+        if s.status in ("PAUSED", "UNCERTAIN") and s.reasons:
+            prefix = "Recommendations paused — " if s.status == "PAUSED" else "Checking — "
+            tail = "  Press F10 to reset and re-read the table." if s.status == "PAUSED" else ""
+            self.warn_lbl.setText(prefix + "; ".join(s.reasons) + tail)
+            self.warn_lbl.setStyleSheet("background:#3d1d1d; color:#ffb4b4; border-radius:6px; padding:6px;")
+            self.warn_lbl.show()
+        elif s.status == "WAITING" and s.reasons:
+            self.warn_lbl.setText("; ".join(s.reasons))
+            self.warn_lbl.setStyleSheet("background:#1c2128; color:#adbac7; border-radius:6px; padding:6px;")
+            self.warn_lbl.show()
+        else:
+            self.warn_lbl.hide()
+
+        sc = s.scores or {}
+        q = lambda v: "?" if v is None else v  # noqa: E731
+        lines = [f"<b>Match: me {q(sc.get('me'))} – {q(sc.get('opp'))} opp</b> · to {q(sc.get('target'))}"
+                 f" · bet {q(sc.get('bet'))}"]
+        if s.round_no:
+            lines.append(f"round {s.round_no} · this round me +{s.round_points[0]}, opp +{s.round_points[1]}")
+            lines.append(f"line: {esc(s.board)}")
+            lines.append(f"opp holds {s.opp_count} · boneyard {s.boneyard}")
+            if s.opp_has_no:
+                lines.append('<span style="color:#d9a441">opponent has no '
+                             + ", ".join(str(v) for v in s.opp_has_no) + "</span>")
+        self.info_lbl.setText("<br>".join(lines))
+
+        for a, row in enumerate(self.cells):
+            for k, cell in enumerate(row):
+                if s.tile_grid and a < len(s.tile_grid) and k < len(s.tile_grid[a]):
+                    label, st = s.tile_grid[a][k]
+                    bg, fg = CELL_STYLE.get(st, CELL_STYLE["unseen"])
+                    cell.setText(label)
+                    cell.setStyleSheet(f"background:{bg}; color:{fg}; border-radius:3px; font-size:10px;")
+                else:
+                    cell.setText("")
+                    cell.setStyleSheet("background:#161b22; border-radius:3px;")
+
+        self.hist_lbl.setText("\n".join(s.history[-6:]))
+        self.adjustSize()
+
+    def _show_rec(self, headline: str, detail: str = "", extra: str = "", alts: str = ""):
+        self.rec_lbl.setText(headline)
+        for lbl, text in ((self.detail_lbl, detail), (self.extra_lbl, extra), (self.alt_lbl, alts)):
+            lbl.setText(text)
+            lbl.setVisible(bool(text))
